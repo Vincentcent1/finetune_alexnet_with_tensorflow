@@ -30,6 +30,8 @@ Configuration Part.
 train_file = '/path/to/train.txt'
 val_file = '/path/to/val.txt'
 
+
+
 # Learning params
 learning_rate = 0.01
 num_epochs = 10
