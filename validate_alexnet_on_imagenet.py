@@ -1,29 +1,40 @@
-
-# coding: utf-8
-
-# # Introduction
-# In this notebook we will test the implementation of the AlexNet class provided in the `alexnet.py` file. This is part of [this](https://kratzert.github.io/2017/02/24/finetuning-alexnet-with-tensorflow.html) blog article on how to finetune AlexNet with TensorFlow 1.0.
-# 
-# To run this notebook you have to download the `bvlc_alexnet.npy` file from [here](http://www.cs.toronto.edu/~guerzhoy/tf_alexnet/), which stores the pretrained weigts of AlexNet.
-# 
-# The idea to validate the implementation is to create an AlexNet graph with the provided script and load all pretrained weights into the variables (so no finetuneing!), to see if everything is wired up correctly.
-
-# In[1]:
-
-
 #some basic imports and setups
 import os
 import cv2
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import occlude_black_rectangle as obc
+
+'''
+ILSVRC directory structure, root = ILSVRC/
+
+Training data:
+Bounding boxes: Annotations/CLS-LOC/train/<wnetid>/<wnetid>_<imageid>.xml
+Image:          Data/CLS-LOC/train/<wnetid>/<wnetid>_<imageid>.JPEG         
+
+Validation data:
+Bounding boxes: Annotations/CLS-LOC/val/ILSVRC2012_val_000<5-digit-imagenumber>.xml (e.g )
+Image:          Data/CLS-LOC/val/ILSVRC2012_val_000<5-digit-imagenumber>.JPEG
+
+Test data:
+Bounding boxes: None
+Image:          Data/CLS-LOC/test/ILSVRC2012_test_00<6-digit-imagenumber>.JPEG
+'''
+trainingPath = {"bbox":"Annotations/CLS-LOC/train/", "image":"Data/CLS-LOC/train/"}
+validationPath = {"bbox":"Annotations/CLS-LOC/val/", "image":"Data/CLS-LOC/val/"}
+testPath = {"image":"Data/CLS-LOC/test/"}
+validationGroundTruth = 
+
 
 
 #mean of imagenet dataset in BGR
 imagenet_mean = np.array([104., 117., 124.], dtype=np.float32)
 
-current_dir = os.getcwd()
-image_dir = os.path.join(current_dir, 'images')
+
+current_dir = os.getcwd() #This has to be the root folder of ILSVRC
+bbox_dir = os.path.join(current_dir, validationPath["bbox"])
+img_dir = os.path.join(current_dir, validationPath["image"])
 
 get_ipython().magic(u'matplotlib inline')
 
@@ -32,19 +43,31 @@ get_ipython().magic(u'matplotlib inline')
 
 
 #get list of all images
-img_files = [os.path.join(image_dir, f) for f in os.listdir(image_dir) if f.endswith('.jpeg')]
+xml_files = [os.path.join(bbox_dir, f) for f in os.listdir(bbox_dir) if f[-4:].lower() == '.xml']
+xml_files = np.sort(xml_files)
+img_files = [os.path.join(img_dir, f) for f in os.listdir(img_dir) if f[-5:].upper() == '.JPEG']
+img_files = np.sort(img_files)
+# img_files = [os.path.join(image_dir, f) for f in os.listdir(img_dir) if f.endswith('.jpeg')]
 
 #load all images
 imgs = []
-for f in img_files:
-    imgs.append(cv2.imread(f))
+occlusionPercentageList = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+occlusionRatio = occlusionPercentageList[5]
+occlusionPercentage = occlusionRatio * 100
+print("Classifying validation data with {:.0f}% occlusion".format(occlusionPercentage))
+
+for imgPath,bboxPath in zip(img_files,xml_files):
+    imgs.append(obc.occlude(imgPath,bboxPath, ))
+
+# for f in img_files:
+#     imgs.append(cv2.imread(f))
     
 #plot images
-fig = plt.figure(figsize=(15,6))
-for i, img in enumerate(imgs):
-    fig.add_subplot(1,3,i+1)
-    plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-    plt.axis('off')
+# fig = plt.figure(figsize=(15,6))
+# for i, img in enumerate(imgs):
+#     fig.add_subplot(1,3,i+1) # 1-indexed
+#     plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+#     plt.axis('off')
 
 
 # First we will create placeholder for the dropout rate and the inputs and create an AlexNet object. Then we will link the activations from the last layer to the variable `score` and define an op to calculate the softmax values.
