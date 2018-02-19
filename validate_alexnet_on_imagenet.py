@@ -113,6 +113,7 @@ with tf.Session() as sess:
     correctPrediction = 0
     count = 0
     for occlusionRatio in occlusionPercentageList:
+        print("Validation with {}% occlusion".format(occlusionRatio*100))
         for i,[imgPath,bboxPath] in enumerate(zip(img_files,xml_files)):
             imgs.append(obc.occlude(imgPath,bboxPath,occlusionRatio))
             i+=1
