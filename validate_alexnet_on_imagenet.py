@@ -11,7 +11,7 @@ ILSVRC directory structure, root = ILSVRC/
 
 Training data:
 Bounding boxes: Annotations/CLS-LOC/train/<wnetid>/<wnetid>_<imageid>.xml
-Image:          Data/CLS-LOC/train/<wnetid>/<wnetid>_<imageid>.JPEG         
+Image:          Data/CLS-LOC/train/<wnetid>/<wnetid>_<imageid>.JPEG
 
 Validation data:
 Bounding boxes: Annotations/CLS-LOC/val/ILSVRC2012_val_000<5-digit-imagenumber>.xml (e.g )
@@ -24,7 +24,7 @@ Image:          Data/CLS-LOC/test/ILSVRC2012_test_00<6-digit-imagenumber>.JPEG
 trainingPath = {"bbox":"Annotations/CLS-LOC/train/", "image":"Data/CLS-LOC/train/"}
 validationPath = {"bbox":"Annotations/CLS-LOC/val/", "image":"Data/CLS-LOC/val/"}
 testPath = {"image":"Data/CLS-LOC/test/"}
-validationGroundTruth = 
+validationGroundTruth = "ILSVRC2012_devkit_t12/data/ILSVRC2012_validation_ground_truth.txt"
 
 
 
@@ -35,10 +35,11 @@ imagenet_mean = np.array([104., 117., 124.], dtype=np.float32)
 current_dir = os.getcwd() #This has to be the root folder of ILSVRC
 bbox_dir = os.path.join(current_dir, validationPath["bbox"])
 img_dir = os.path.join(current_dir, validationPath["image"])
-
-get_ipython().magic(u'matplotlib inline')
-
-
+validation_path = os.path.join(current_dir, validationGroundTruth)
+# get_ipython().magic(u'matplotlib inline')
+validations = []
+with open(validation_path, 'r') as f:
+    validations.append(f.readline())
 # In[2]:
 
 
@@ -57,11 +58,11 @@ occlusionPercentage = occlusionRatio * 100
 print("Classifying validation data with {:.0f}% occlusion".format(occlusionPercentage))
 
 for imgPath,bboxPath in zip(img_files,xml_files):
-    imgs.append(obc.occlude(imgPath,bboxPath, ))
+    imgs.append(obc.occlude(imgPath,bboxPath,occlusionRatio))
 
 # for f in img_files:
 #     imgs.append(cv2.imread(f))
-    
+
 #plot images
 # fig = plt.figure(figsize=(15,6))
 # for i, img in enumerate(imgs):
@@ -88,7 +89,7 @@ model = AlexNet(x, keep_prob, 1000, [])
 #define activation of last layer as score
 score = model.fc8
 
-#create op to calculate softmax 
+#create op to calculate softmax
 softmax = tf.nn.softmax(score)
 
 
@@ -96,39 +97,49 @@ softmax = tf.nn.softmax(score)
 
 # In[4]:
 
+correctPrediction = 0
+count = 0
 
 with tf.Session() as sess:
-    
+
     # Initialize all variables
     sess.run(tf.global_variables_initializer())
-    
+
     # Load the pretrained weights into the model
     model.load_initial_weights(sess)
-    
+
     # Create figure handle
-    fig2 = plt.figure(figsize=(15,6))
-    
+    # fig2 = plt.figure(figsize=(15,6))
+
     # Loop over all images
     for i, image in enumerate(imgs):
-        
+        count+= 1
+
         # Convert image to float32 and resize to (227x227)
         img = cv2.resize(image.astype(np.float32), (227,227))
-        
+
         # Subtract the ImageNet mean
         img -= imagenet_mean
-        
+
         # Reshape as needed to feed into model
         img = img.reshape((1,227,227,3))
-        
+
         # Run the session and calculate the class probability
         probs = sess.run(softmax, feed_dict={x: img, keep_prob: 1})
-        
+
         # Get the class name of the class with the highest probability
         class_name = class_names[np.argmax(probs)]
-        
+        prediction = np.argmax(probs) + 1
+        if (prediction == validations[i]):
+            correctPrediction+= 1
+
         # Plot image with class name and prob in the title
-        fig2.add_subplot(1,3,i+1)
-        plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-        plt.title("Class: " + class_name + ", probability: %.4f" %probs[0,np.argmax(probs)])
-        plt.axis('off')
+        # fig2.add_subplot(1,3,i+1)
+        # plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+        # plt.title("Class: " + class_name + ", probability: %.4f" %probs[0,np.argmax(probs)])
+        # plt.axis('off')
+        if (count % 5000 == 0):
+            accuracy = float(correctPrediction)/count
+            print("Validation accuracy: {}".format(accuracy))
+            print("{} correct prediction out of {}".format(correctPrediction, count))
 
