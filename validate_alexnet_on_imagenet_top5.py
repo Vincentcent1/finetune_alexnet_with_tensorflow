@@ -1,5 +1,4 @@
 #some basic imports and setups
-import sys
 import os
 import cv2
 import numpy as np
@@ -54,8 +53,10 @@ img_files = np.sort(img_files)
 
 #load all images
 imgs = []
-occlusionPercentageList = [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
-# print("Classifying validation data with {:.0f}% occlusion".format(occlusionPercentage))
+occlusionPercentageList = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0]
+occlusionRatio = occlusionPercentageList[0]
+occlusionPercentage = occlusionRatio * 100
+print("Classifying validation data with {:.0f}% occlusion".format(occlusionPercentage))
 
 
 
@@ -96,7 +97,8 @@ softmax = tf.nn.softmax(score)
 
 # In[4]:
 
-
+correctPrediction = 0
+count = 0
 
 with tf.Session() as sess:
 
@@ -110,52 +112,45 @@ with tf.Session() as sess:
     # fig2 = plt.figure(figsize=(15,6))
 
     # Loop over all images
-    correctPrediction = 0
-    count = 0
-    for occlusionRatio in occlusionPercentageList:
-        for i,[imgPath,bboxPath] in enumerate(zip(img_files,xml_files)):
-            imgs.append(obc.occlude(imgPath,bboxPath,occlusionRatio))
-            i+=1
-            if i %1000 == 0:
-                # print("{} images occluded".format(i))
-                for image in imgs:
-                    # print(img_files[count])
+    for i,[imgPath,bboxPath] in enumerate(zip(img_files,xml_files)):
+        imgs.append(obc.occlude(imgPath,bboxPath,occlusionRatio))
+        i+=1
+        if i %1000 == 0:
+            print("{} images occluded".format(i))
+            for image in imgs:
+                # print(img_files[count])
 
-                    # Convert image to float32 and resize to (227x227)
-                    img = cv2.resize(image.astype(np.float32), (227,227))
-                    # plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
-                    # plt.show()
+                # Convert image to float32 and resize to (227x227)
+                img = cv2.resize(image.astype(np.float32), (227,227))
+                # plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+                # plt.show()
 
-                    # Subtract the ImageNet mean
-                    img -= imagenet_mean
+                # Subtract the ImageNet mean
+                img -= imagenet_mean
 
-                    # Reshape as needed to feed into model
-                    img = img.reshape((1,227,227,3))
+                # Reshape as needed to feed into model
+                img = img.reshape((1,227,227,3))
 
-                    # Run the session and calculate the class probability
-                    probs = sess.run(softmax, feed_dict={x: img, keep_prob: 1})
+                # Run the session and calculate the class probability
+                probs = sess.run(softmax, feed_dict={x: img, keep_prob: 1})
 
-                    # Get the class name of the class with the highest probability
-                    class_name = class_names[np.argmax(probs)]
-                    prediction = np.argmax(probs)
-                    # print(prediction)
-                    # print(probs[0,np.argmax(probs)])
-                    # print(validations[count])
-                    if (prediction == int(validations[count])):
-                        correctPrediction+= 1
+                # Get the class name of the class with the highest probability
+                class_name = class_names[np.argmax(probs)]
+                prediction = np.argmax(probs)
+                # print(prediction)
+                # print(probs[0,np.argmax(probs)])
+                # print(validations[count])
+                if (prediction == int(validations[count])):
+                    correctPrediction+= 1
 
-                    # Plot image with class name and prob in the title
-                    # fig2.add_subplot(1,3,i+1)
-                    # plt.title("Class: " + class_name + ", probability: %.4f" %probs[0,np.argmax(probs)])
-                    # plt.axis('off')
-                    count+= 1
-                    # if (count % 100 == 0):
-                    #     accuracy = float(correctPrediction)/count
-                    #     print("Validation accuracy: {}".format(accuracy))
-                    #     print("{} correct prediction out of {}".format(correctPrediction, count))
-                imgs = []
-        accuracy = float(correctPrediction)/count        
-        print("{} {} {} {}".format(occlusionRatio, correctPrediction, count, accuracy))
-        correctPrediction = 0
-        count = 0
+                # Plot image with class name and prob in the title
+                # fig2.add_subplot(1,3,i+1)
+                # plt.title("Class: " + class_name + ", probability: %.4f" %probs[0,np.argmax(probs)])
+                # plt.axis('off')
+                count+= 1
+                if (count % 100 == 0):
+                    accuracy = float(correctPrediction)/count
+                    print("Validation accuracy: {}".format(accuracy))
+                    print("{} correct prediction out of {}".format(correctPrediction, count))
+            imgs = []
 
