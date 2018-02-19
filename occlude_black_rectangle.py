@@ -7,17 +7,38 @@ import numpy as np
 # third argument is the occlusion percentage
 
 
+if __name__ == "__main__":
+	boundBoxPath = sys.argv[1]
+	imageFolder = sys.argv[2]
+	occlusionPercentage = sys.argv[3]
+	write = sys.argv[4]
+	isBoundBox = sys.argv[5]
+	filename = boundBoxPath.split('/')[-1].split('.')[0] #Get the filename 
+	# imgPath = '/media/Vincent/Deep Learning/Images/testPanda/' + filename
+	imgPath = imageFolder + filename + ".JPEG"
+	print(sys.argv)
+	print(imgPath, boundBoxPath, occlusionPercentage)
+	if isBoundBox == "true":
+		occludedImg = occlude(imgPath,boundBoxPath, occlusionPercentage)
+	elif isBoundBox == "random":
+		occludedImg = occludeOriginalRandom(imgPath, occlusionPercentage)
+	elif isBoundBox == "false":
+		occludedImg = occludeOriginalCenter(imgPath, occlusionPercentage)
+	elif isBoundBox == "gaussiancenter":
+		occludedImg = gaussianCenter(imgPath, occlusionPercentage)	
+	elif isBoundBox == "gaussianrandom":
+		occludedImg = gaussianRandom(imgPath, occlusionPercentage)
+	else:
+		print(isBoundBox + " is not a valid parameter for isBoundBox")
 
-boundBoxPath = sys.argv[1]
-imageFolder = sys.argv[2]
-occlusionPercentage = sys.argv[3]
-write = sys.argv[4]
-isBoundBox = sys.argv[5]
-filename = boundBoxPath.split('/')[-1].split('.')[0] #Get the filename 
-# imgPath = '/media/Vincent/Deep Learning/Images/testPanda/' + filename
-imgPath = imageFolder + filename + ".JPEG"
-print(sys.argv)
-print(imgPath, boundBoxPath, occlusionPercentage)
+	if write == "w":
+		# write the new image to a file
+		cv2.imwrite(filename + '_Occluded.JPEG',occludedImg)
+	elif write == "r":
+		# display the result
+		cv2.imshow('occluded',occludedImg)
+		cv2.waitKey(0)
+		cv2.destroyAllWindows()
 
 def parseXML(boundBoxPath):
 	'''
@@ -170,26 +191,5 @@ def gaussianRandom(imgPath, occlusionPercentage):
 	img[ymin:ymax, xmin:xmax] = cv2.add(rectangle,noise)
 	return img	
 
-if isBoundBox == "true":
-	occludedImg = occlude(imgPath,boundBoxPath, occlusionPercentage)
-elif isBoundBox == "random":
-	occludedImg = occludeOriginalRandom(imgPath, occlusionPercentage)
-elif isBoundBox == "false":
-	occludedImg = occludeOriginalCenter(imgPath, occlusionPercentage)
-elif isBoundBox == "gaussiancenter":
-	occludedImg = gaussianCenter(imgPath, occlusionPercentage)	
-elif isBoundBox == "gaussianrandom":
-	occludedImg = gaussianRandom(imgPath, occlusionPercentage)
-else:
-	print(isBoundBox + " is not a valid parameter for isBoundBox")
-
-if write == "w":
-	# write the new image to a file
-	cv2.imwrite(filename + '_Occluded.JPEG',occludedImg)
-elif write == "r":
-	# display the result
-	cv2.imshow('occluded',occludedImg)
-	cv2.waitKey(0)
-	cv2.destroyAllWindows()
 
 
