@@ -164,8 +164,8 @@ with tf.Session() as sess:
                 imgs = []
         top1accuracy = float(top1)/count        
         top5accuracy = float(top5)/count        
-        print("top1 {} {} {} {}".format(occlusionRatio, top1, count, accuracy))
-        print("top5 {} {} {} {}".format(occlusionRatio, top5, count, accuracy))
+        print("top1 {} {} {} {}".format(occlusionRatio, top1, count, top1accuracy))
+        print("top5 {} {} {} {}".format(occlusionRatio, top5, count, top5accuracy))
         top1 = 0
         count = 0
         top5 = 0
