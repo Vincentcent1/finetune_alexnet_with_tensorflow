@@ -41,7 +41,7 @@ validation_path = os.path.join(current_dir, validationGroundTruth)
 validations = []
 with open(validation_path, 'r') as f:
     for line in f:
-        validations.append(line.split()[1])
+        validations.append(int(line.split()[1]))
 # In[2]:
 
 
@@ -110,8 +110,9 @@ with tf.Session() as sess:
     # fig2 = plt.figure(figsize=(15,6))
 
     # Loop over all images
-    correctPrediction = 0
+    top1 = 0
     count = 0
+    top5 = 0
     for occlusionRatio in occlusionPercentageList:
         print("Validation with {}% occlusion".format(occlusionRatio*100))
         for i,[imgPath,bboxPath] in enumerate(zip(img_files,xml_files)):
@@ -137,13 +138,19 @@ with tf.Session() as sess:
                     probs = sess.run(softmax, feed_dict={x: img, keep_prob: 1})
 
                     # Get the class name of the class with the highest probability
-                    class_name = class_names[np.argmax(probs)]
-                    prediction = np.argmax(probs)
-                    # print(prediction)
+                    # class_name = class_names[np.argmax(probs)]
+                    predictions = np.array(range(1000))[np.argpartition(probs[0],(-1,-2,-3,-4,-5))][-5:] # Sort the top 5 highest and get the top 5 highest predictions
+                    # print(predictions)
                     # print(probs[0,np.argmax(probs)])
                     # print(validations[count])
-                    if (prediction == int(validations[count])):
-                        correctPrediction+= 1
+                    # print predictions
+                    if (predictions[-1] == validations[count]):
+                        top1+= 1
+                        top5+= 1
+                    else:
+                        for prediction in predictions:
+                            if (prediction == validations[count]):
+                                top5+= 1
 
                     # Plot image with class name and prob in the title
                     # fig2.add_subplot(1,3,i+1)
@@ -151,12 +158,15 @@ with tf.Session() as sess:
                     # plt.axis('off')
                     count+= 1
                     # if (count % 100 == 0):
-                    #     accuracy = float(correctPrediction)/count
+                    #     accuracy = float(top1)/count
                     #     print("Validation accuracy: {}".format(accuracy))
-                    #     print("{} correct prediction out of {}".format(correctPrediction, count))
+                    #     print("{} correct prediction out of {}".format(top1, count))
                 imgs = []
-        accuracy = float(correctPrediction)/count        
-        print("{} {} {} {}".format(occlusionRatio, correctPrediction, count, accuracy))
-        correctPrediction = 0
+        top1accuracy = float(top1)/count        
+        top5accuracy = float(top5)/count        
+        print("top1 {} {} {} {}".format(occlusionRatio, top1, count, accuracy))
+        print("top5 {} {} {} {}".format(occlusionRatio, top5, count, accuracy))
+        top1 = 0
         count = 0
+        top5 = 0
 
