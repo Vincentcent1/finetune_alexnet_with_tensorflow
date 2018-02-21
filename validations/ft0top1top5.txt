@@ -1,0 +1,33 @@
+Validation with 0.0% occlusion
+top1 0.0 27207 50000 0.54414
+top5 0.0 39010 50000 0.7802
+Validation with 10.0% occlusion
+top1 0.1 19884 50000 0.39768
+top5 0.1 32388 50000 0.64776
+Validation with 20.0% occlusion
+top1 0.2 14439 50000 0.28878
+top5 0.2 26136 50000 0.52272
+Validation with 30.0% occlusion
+top1 0.3 10178 50000 0.20356
+top5 0.3 19969 50000 0.39938
+Validation with 40.0% occlusion
+top1 0.4 6951 50000 0.13902
+top5 0.4 14591 50000 0.29182
+Validation with 50.0% occlusion
+top1 0.5 4771 50000 0.09542
+top5 0.5 10654 50000 0.21308
+Validation with 60.0% occlusion
+top1 0.6 3544 50000 0.07088
+top5 0.6 8044 50000 0.16088
+Validation with 70.0% occlusion
+top1 0.7 2707 50000 0.05414
+top5 0.7 6370 50000 0.1274
+Validation with 80.0% occlusion
+top1 0.8 2239 50000 0.04478
+top5 0.8 5248 50000 0.10496
+Validation with 90.0% occlusion
+top1 0.9 1963 50000 0.03926
+top5 0.9 4529 50000 0.09058
+Validation with 100.0% occlusion
+top1 1.0 1859 50000 0.03718
+top5 1.0 4382 50000 0.08764
