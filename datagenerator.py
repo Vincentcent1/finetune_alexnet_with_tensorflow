@@ -116,7 +116,7 @@ class ImageDataGenerator(object):
 
         # load and preprocess the image
         img_string = tf.read_file(filename)
-        img_decoded = tf.image.decode_png(img_string, channels=3)
+        img_decoded = tf.image.decode_jpeg(img_string, channels=3)
         img_resized = tf.image.resize_images(img_decoded, [227, 227])
         """
         Dataaugmentation comes here.

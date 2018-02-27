@@ -48,7 +48,7 @@ class AlexNet(object):
         self.SKIP_LAYER = skip_layer
 
         if weights_path == 'DEFAULT':
-            self.WEIGHTS_PATH = 'bvlc_alexnet.npy'
+            self.WEIGHTS_PATH = '../../../bvlc_alexnet.npy'
         else:
             self.WEIGHTS_PATH = weights_path
 
@@ -102,25 +102,26 @@ class AlexNet(object):
 
         # Loop over all layer names stored in the weights dict
         for op_name in weights_dict:
-
             # Check if layer should be trained from scratch
-            if op_name not in self.SKIP_LAYER:
+            # If they are in the skip layer, by right skip the loading of weights, but in this case we
+            # want to load the weights, but with a boolean flag that tells the network that this node is trainable
+            if op_name in self.SKIP_LAYER:
+                train_bool = True
+            else:
+                train_bool = False
+            with tf.variable_scope(op_name, reuse=True):
+                # Assign weights/biases to their corresponding tf variable
+                for data in weights_dict[op_name]:
 
-                with tf.variable_scope(op_name, reuse=True):
+                    # Biases
+                    if len(data.shape) == 1:
+                        var = tf.get_variable('biases', trainable=train_bool)
+                        session.run(var.assign(data))
 
-                    # Assign weights/biases to their corresponding tf variable
-                    for data in weights_dict[op_name]:
-
-                        # Biases
-                        if len(data.shape) == 1:
-                            var = tf.get_variable('biases', trainable=False)
-                            session.run(var.assign(data))
-
-                        # Weights
-                        else:
-                            var = tf.get_variable('weights', trainable=False)
-                            session.run(var.assign(data))
-
+                    # Weights
+                    else:
+                        var = tf.get_variable('weights', trainable=train_bool)
+                        session.run(var.assign(data))
 
 def conv(x, filter_height, filter_width, num_filters, stride_y, stride_x, name,
          padding='SAME', groups=1):

@@ -27,25 +27,25 @@ Configuration Part.
 """
 
 # Path to the textfiles for the trainings and validation set
-train_file = '/path/to/train.txt'
-val_file = '/path/to/val.txt'
+train_file = '../../../devkit/shuffled_training_ground_truth.txt'
+val_file = '../../../devkit/validation_ground_truth.txt'
 
 # Learning params
-learning_rate = 0.01
+learning_rate = 0.001
 num_epochs = 10
 batch_size = 128
 
 # Network params
 dropout_rate = 0.5
-num_classes = 2
-train_layers = ['fc8', 'fc7', 'fc6']
+num_classes = 1000
+train_layers = ['fc8', 'fc7', 'fc6', 'conv5', 'conv4', 'conv3', 'conv2', 'conv1']
 
 # How often we want to write the tf.summary data to disk
 display_step = 20
 
 # Path for tf.summary.FileWriter and to store model checkpoints
-filewriter_path = "/tmp/finetune_alexnet/tensorboard"
-checkpoint_path = "/tmp/finetune_alexnet/checkpoints"
+filewriter_path = "../../../tmp/finetune_alexnet/tensorboard"
+checkpoint_path = "../../../tmp/finetune_alexnet/checkpoints"
 
 """
 Main Part of the finetuning Script.

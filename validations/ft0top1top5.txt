@@ -1,3 +1,4 @@
+ft0
 Validation with 0.0% occlusion
 top1 0.0 27207 50000 0.54414
 top5 0.0 39010 50000 0.7802
