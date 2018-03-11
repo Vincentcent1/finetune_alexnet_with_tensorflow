@@ -6,13 +6,26 @@
 
 import tensorflow as tf
 import numpy as np
+import os
+import time
 
 from tensorflow.contrib.data import Dataset
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework.ops import convert_to_tensor
+import occlude_black_rectangle as obc
 
-IMAGENET_MEAN = tf.constant([123.68, 116.779, 103.939], dtype=tf.float32)
 
+IMAGENET_MEAN = tf.constant([103.939, 116.779, 123.68], dtype=tf.float32) # BGR
+
+trainingPath = {"bbox":"Annotations/CLS-LOC/train/", "image":"Data/CLS-LOC/train/"}
+validationPath = {"bbox":"Annotations/CLS-LOC/val/", "image":"Data/CLS-LOC/val/"}
+trainingGroundTruth = "devkit/train/shuffled_training_ground_truth_bboxOnly.txt"
+
+current_dir = os.getcwd() #This has to be the root folder of ILSVRC
+
+# Path to the directory of the images and bounding boxes
+bbox_dir = os.path.join(current_dir, trainingPath["bbox"])
+img_dir = os.path.join(current_dir, trainingPath["image"])
 
 class ImageDataGenerator(object):
     """Wrapper class around the new Tensorflows dataset pipeline.
@@ -21,7 +34,7 @@ class ImageDataGenerator(object):
     """
 
     def __init__(self, txt_file, mode, batch_size, num_classes, shuffle=True,
-                 buffer_size=1000):
+                 buffer_size=1000, occlusionRatio=0):
         """Create a new ImageDataGenerator.
 
         Recieves a path string to a text file, which consists of many lines,
@@ -47,6 +60,7 @@ class ImageDataGenerator(object):
         """
         self.txt_file = txt_file
         self.num_classes = num_classes
+        self.occlusionRatio = occlusionRatio
 
         # retrieve the data from the text file
         self._read_txt_file()
@@ -60,18 +74,26 @@ class ImageDataGenerator(object):
 
         # convert lists to TF tensor
         self.img_paths = convert_to_tensor(self.img_paths, dtype=dtypes.string)
+        self.bbox_paths = convert_to_tensor(self.bbox_paths, dtype=dtypes.string)
         self.labels = convert_to_tensor(self.labels, dtype=dtypes.int32)
 
         # create dataset
-        data = Dataset.from_tensor_slices((self.img_paths, self.labels))
+        data = Dataset.from_tensor_slices((self.img_paths, self.bbox_paths, self.labels))
+        print("Dataset creation...")
 
         # distinguish between train/infer. when calling the parsing functions
         if mode == 'training':
+            data = data.map(
+                lambda img_path, bbox_path, label: tuple(tf.py_func(
+                    self._occlude, [img_path, bbox_path, label], [tf.uint8, bbox_path.dtype, label.dtype])), num_parallel_calls=8)            
             data = data.map(self._parse_function_train, num_parallel_calls=8)
             data.prefetch(100*batch_size)
 
 
         elif mode == 'inference':
+            data = data.map(
+                lambda img_path, bbox_path, label: tuple(tf.py_func(
+                    self._occlude, [img_path, bbox_path, label], [tf.uint8, bbox_path.dtype, label.dtype])), num_parallel_calls=8)
             data = data.map(self._parse_function_inference, num_parallel_calls=8)
             data.prefetch(100*batch_size)
 
@@ -90,12 +112,14 @@ class ImageDataGenerator(object):
     def _read_txt_file(self):
         """Read the content of the text file and store it into lists."""
         self.img_paths = []
+        self.bbox_paths = []
         self.labels = []
         with open(self.txt_file, 'r') as f:
             lines = f.readlines()
             for line in lines:
                 items = line.split(' ')
-                self.img_paths.append(items[0])
+                self.img_paths.append(img_dir + items[0])
+                self.bbox_paths.append(bbox_dir + items[0][:-4] + "xml")
                 self.labels.append(int(items[1]))
 
     def _shuffle_lists(self):
@@ -109,37 +133,44 @@ class ImageDataGenerator(object):
             self.img_paths.append(path[i])
             self.labels.append(labels[i])
 
-    def _parse_function_train(self, filename, label):
+    def _occlude(self, filename, bbox, label):
+        # Occlude the image
+        img = obc.occlude(filename,bbox,self.occlusionRatio)
+        return img, bbox, label
+
+    def _parse_function_train(self, img, bbox, label):
         """Input parser for samples of the training set."""
         # convert label number into one-hot-encoding
         one_hot = tf.one_hot(label, self.num_classes)
-
         # load and preprocess the image
-        img_string = tf.read_file(filename)
-        img_decoded = tf.image.decode_jpeg(img_string, channels=3)
-        img_resized = tf.image.resize_images(img_decoded, [227, 227])
+        img = tf.cast(img, tf.float32)
+        # img_decoded = tf.convert_to_tensor(img)
+        # img_resized = tf.image.resize_images(img, [227, 227])
+        # img_string = tf.read_file(filename)
+        # img_decoded = tf.image.decode_jpeg(img_string, channels=3)
         """
         Dataaugmentation comes here.
         """
-        img_centered = tf.subtract(img_resized, IMAGENET_MEAN)
+        img_centered = tf.subtract(img, IMAGENET_MEAN)
 
         # RGB -> BGR
-        img_bgr = img_centered[:, :, ::-1]
+        # img_bgr = img_centered[:, :, ::-1]
 
-        return img_bgr, one_hot
+        return img_centered, one_hot
 
-    def _parse_function_inference(self, filename, label):
+    def _parse_function_inference(self, img, bbox, label):
         """Input parser for samples of the validation/test set."""
         # convert label number into one-hot-encoding
         one_hot = tf.one_hot(label, self.num_classes)
-
         # load and preprocess the image
-        img_string = tf.read_file(filename)
-        img_decoded = tf.image.decode_png(img_string, channels=3)
-        img_resized = tf.image.resize_images(img_decoded, [227, 227])
-        img_centered = tf.subtract(img_resized, IMAGENET_MEAN)
+        img = tf.cast(img, tf.float32)
+        # img_decoded = tf.convert_to_tensor(img)
+        # img_string = tf.read_file(filename)
+        # img_decoded = tf.image.decode_png(img_string, channels=3)
+        # img_resized = tf.image.resize_images(img_decoded, [227, 227])
+        img_centered = tf.subtract(img, IMAGENET_MEAN)
 
         # RGB -> BGR
-        img_bgr = img_centered[:, :, ::-1]
+        # img_bgr = img_centered[:, :, ::-1]
 
-        return img_bgr, one_hot
+        return img_centered, one_hot
