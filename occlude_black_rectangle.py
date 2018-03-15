@@ -2,6 +2,7 @@ import sys
 import xml.etree.ElementTree as ET
 import cv2
 import numpy as np
+import time
 # first argument is the image path
 # second argument is the bounding box xml file path
 # third argument is the occlusion percentage
@@ -38,7 +39,7 @@ if __name__ == "__main__":
 		# display the result
 		cv2.imshow('occluded',occludedImg)
 		cv2.waitKey(0)
-		cv2.destroyAllWindows()
+		cv2.destroyAllWindows()	
 
 def parseXML(boundBoxPath):
 	'''
@@ -56,7 +57,6 @@ def parseXML(boundBoxPath):
 		xmax = bndbox[2].text
 		ymax = bndbox[3].text
 		boundaries.append((xmin,ymin,xmax,ymax))
-
 	
 	# print('xmin:{}, ymin:{}, xmax:{}, ymax:{}'.format(xmin,ymin,xmax,ymax))
 	return boundaries
@@ -68,11 +68,10 @@ def occlude(imgPath, boundBoxPath, occlusionPercentage):
 		imgPath: path to the image to be occluded
 		boundBoxPath: path to the bounding box xml file
 		occlusionPercentage: percentage of occlusion wanted, in float (e.g. 0.5)
-	@return: Image object to be written
+	@return: Image object to be written of size [227,227,3]
 	'''
-	img = cv2.imread(imgPath)
+	img = cv2.imread(imgPath) # Bottleneck
 	boundaries = parseXML(boundBoxPath)
-
 	for boundary in boundaries:
 		xmin,ymin,xmax,ymax = tuple(map(int, boundary)) #Get the boundary
 		# img = cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(255,0,0),1)
@@ -89,6 +88,7 @@ def occlude(imgPath, boundBoxPath, occlusionPercentage):
 		ymin = int(ymin + yoffset)
 		ymax = int(ymax - yoffset)
 		img = cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,0,0),-1)
+	img = cv2.resize(img, (227,227))
 	return img
 
 def occludeOriginalCenter(imgPath, occlusionPercentage):
@@ -190,6 +190,7 @@ def gaussianRandom(imgPath, occlusionPercentage):
 	cv2.randn(noise,0,(100,100,100)) # Standard deviation of 100
 	img[ymin:ymax, xmin:xmax] = cv2.add(rectangle,noise)
 	return img	
+
 
 
 

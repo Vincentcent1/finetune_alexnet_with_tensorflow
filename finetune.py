@@ -16,19 +16,21 @@ import os
 
 import numpy as np
 import tensorflow as tf
+from tensorflow.python import debug as tf_debug
 
 from alexnet import AlexNet
 from datagenerator import ImageDataGenerator
 from datetime import datetime
 from tensorflow.contrib.data import Iterator
+import time
 
 """
 Configuration Part.
 """
 
 # Path to the textfiles for the trainings and validation set
-train_file = '../../../devkit/shuffled_training_ground_truth.txt'
-val_file = '../../../devkit/validation_ground_truth.txt'
+train_file = 'devkit/train/shuffled_training_ground_truth_bboxOnly.txt'
+val_file = 'devkit/validation/validation_ground_truth.txt'
 
 # Learning params
 learning_rate = 0.001
@@ -44,8 +46,8 @@ train_layers = ['fc8', 'fc7', 'fc6', 'conv5', 'conv4', 'conv3', 'conv2', 'conv1'
 display_step = 20
 
 # Path for tf.summary.FileWriter and to store model checkpoints
-filewriter_path = "../../../tmp/finetune_alexnet/tensorboard"
-checkpoint_path = "../../../tmp/finetune_alexnet/checkpoints"
+filewriter_path = "tmp/finetune_alexnet/tensorboard"
+checkpoint_path = "tmp/finetune_alexnet/checkpoints"
 
 """
 Main Part of the finetuning Script.
@@ -61,12 +63,14 @@ with tf.device('/cpu:0'):
                                  mode='training',
                                  batch_size=batch_size,
                                  num_classes=num_classes,
-                                 shuffle=True)
+                                 shuffle=True,
+                                 occlusionRatio=0.1)
     val_data = ImageDataGenerator(val_file,
                                   mode='inference',
                                   batch_size=batch_size,
                                   num_classes=num_classes,
-                                  shuffle=False)
+                                  shuffle=False,
+                                  occlusionRatio=0.1)
 
     # create an reinitializable iterator given the dataset structure
     iterator = Iterator.from_structure(tr_data.data.output_types,
@@ -166,12 +170,16 @@ with tf.Session() as sess:
         for step in range(train_batches_per_epoch):
 
             # get next batch of data
+            start_time = time.time()
             img_batch, label_batch = sess.run(next_batch)
-
+            end_time1 = time.time()
             # And run the training op
             sess.run(train_op, feed_dict={x: img_batch,
                                           y: label_batch,
                                           keep_prob: dropout_rate})
+            end_time2 = time.time()
+            print("Batching: {}".format(end_time1-start_time))
+            print("Training Op: {}".format(end_time2-end_time1))
 
             # Generate summary with the current batch of data and write to file
             if step % display_step == 0:
