@@ -24,8 +24,11 @@ trainingGroundTruth = "devkit/train/shuffled_training_ground_truth_bboxOnly.txt"
 current_dir = os.getcwd() #This has to be the root folder of ILSVRC
 
 # Path to the directory of the images and bounding boxes
-bbox_dir = os.path.join(current_dir, trainingPath["bbox"])
-img_dir = os.path.join(current_dir, trainingPath["image"])
+bbox_dir_train = os.path.join(current_dir, trainingPath["bbox"])
+img_dir_train = os.path.join(current_dir, trainingPath["image"])
+
+bbox_dir_val = os.path.join(current_dir, validationPath["bbox"])
+img_dir_val = os.path.join(current_dir, validationPath["image"])
 
 class ImageDataGenerator(object):
     """Wrapper class around the new Tensorflows dataset pipeline.
@@ -83,9 +86,10 @@ class ImageDataGenerator(object):
 
         # distinguish between train/infer. when calling the parsing functions
         if mode == 'training':
+
             data = data.map(
                 lambda img_path, bbox_path, label: tuple(tf.py_func(
-                    self._occlude, [img_path, bbox_path, label], [tf.uint8, bbox_path.dtype, label.dtype])), num_parallel_calls=8)            
+                    self._occlude, [img_path, bbox_path, label], [tf.uint8, bbox_path.dtype, label.dtype])), num_parallel_calls=8)
             data = data.map(self._parse_function_train, num_parallel_calls=8)
             data.prefetch(100*batch_size)
 
@@ -114,6 +118,14 @@ class ImageDataGenerator(object):
         self.img_paths = []
         self.bbox_paths = []
         self.labels = []
+        if mode == 'training':
+            img_dir = img_dir_train
+            bbox_dir = bbox_dir_train
+        elif mode == 'inference':
+            img_dir = img_dir_val
+            bbox_dir = bbox_dir_val
+        else:
+            raise ValueError("Invalid mode '%s'." % (mode))
         with open(self.txt_file, 'r') as f:
             lines = f.readlines()
             for line in lines:
