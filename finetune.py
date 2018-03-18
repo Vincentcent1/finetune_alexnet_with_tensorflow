@@ -178,8 +178,8 @@ with tf.Session() as sess:
                                           y: label_batch,
                                           keep_prob: dropout_rate})
             end_time2 = time.time()
-            print("Batching: {}".format(end_time1-start_time))
-            print("Training Op: {}".format(end_time2-end_time1))
+            # print("Batching: {}".format(end_time1-start_time))
+            # print("Training Op: {}".format(end_time2-end_time1))
 
             # Generate summary with the current batch of data and write to file
             if step % display_step == 0:

@@ -64,7 +64,7 @@ class ImageDataGenerator(object):
         self.txt_file = txt_file
         self.num_classes = num_classes
         self.occlusionRatio = occlusionRatio
-
+	self.mode = mode
         # retrieve the data from the text file
         self._read_txt_file()
 
@@ -118,10 +118,10 @@ class ImageDataGenerator(object):
         self.img_paths = []
         self.bbox_paths = []
         self.labels = []
-        if mode == 'training':
+        if self.mode == 'training':
             img_dir = img_dir_train
             bbox_dir = bbox_dir_train
-        elif mode == 'inference':
+        elif self.mode == 'inference':
             img_dir = img_dir_val
             bbox_dir = bbox_dir_val
         else:
