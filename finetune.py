@@ -33,8 +33,8 @@ train_file = 'devkit/train/shuffled_training_ground_truth_bboxOnly.txt'
 val_file = 'devkit/validation/validation_ground_truth.txt'
 
 # Learning params
-learning_rate = 0.001
-num_epochs = 10
+learning_rate = 0.005
+num_epochs = 20
 batch_size = 128
 
 # Network params
@@ -170,14 +170,14 @@ with tf.Session() as sess:
         for step in range(train_batches_per_epoch):
 
             # get next batch of data
-            start_time = time.time()
+            # start_time = time.time()
             img_batch, label_batch = sess.run(next_batch)
-            end_time1 = time.time()
+            # end_time1 = time.time()
             # And run the training op
             sess.run(train_op, feed_dict={x: img_batch,
                                           y: label_batch,
                                           keep_prob: dropout_rate})
-            end_time2 = time.time()
+            # end_time2 = time.time()
             # print("Batching: {}".format(end_time1-start_time))
             # print("Training Op: {}".format(end_time2-end_time1))
 
