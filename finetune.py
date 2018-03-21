@@ -33,8 +33,8 @@ train_file = 'devkit/train/shuffled_training_ground_truth_bboxOnly.txt'
 val_file = 'devkit/validation/validation_ground_truth.txt'
 
 # Learning params
-learning_rate = 0.005
-num_epochs = 20
+learning_rate = 0.001
+num_epochs = 30
 batch_size = 128
 
 # Network params
@@ -144,7 +144,9 @@ train_batches_per_epoch = int(np.floor(tr_data.data_size/batch_size))
 val_batches_per_epoch = int(np.floor(val_data.data_size / batch_size))
 
 # Start Tensorflow session
-with tf.Session() as sess:
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+with tf.Session(config=config) as sess:
 
     # Initialize all variables
     sess.run(tf.global_variables_initializer())
