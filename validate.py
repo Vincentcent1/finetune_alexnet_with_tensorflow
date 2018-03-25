@@ -14,13 +14,17 @@ import time
 occlusion_ratio = sys.argv[1]
 epoch = sys.argv[2]
 
+
+batch_size = 128
+num_classes = 1000
+
 with tf.device('/cpu:0'):
     val_data = ImageDataGenerator(val_file,
                                   mode='inference',
                                   batch_size=batch_size,
                                   num_classes=num_classes,
                                   shuffle=False,
-                                  occlusionRatio=0.1)
+                                  occlusionRatio=occlusion_ratio)
 
     # create an reinitializable iterator given the dataset structure
     iterator = Iterator.from_structure(val_data.data.output_types,
@@ -29,15 +33,16 @@ with tf.device('/cpu:0'):
 validation_init_op = iterator.make_initializer(val_data.data)
 
 checkpoint_path = "tmp/finetune_alexnet/checkpoints"
+
 checkpoint_name = os.path.join(checkpoint_path, str(occlusion_ratio) + 'model_epoch'+str(epoch)+'.ckpt')
-
-saver = tf.train.Saver()
-
+meta_name = os.path.join(checkpoint_path, str(occlusion_ratio) + 'model_epoch' + str(epoch) + '.ckpt.meta')
 
 
 
+val_batches_per_epoch = int(np.floor(val_data.data_size / batch_size))
 
 with tf.Session() as sess:
+  saver = tf.train.import_meta_graph(meta_name)
   saver.restore(sess, checkpoint_name)
   print("{} Start validation".format(datetime.now()))
   sess.run(validation_init_op)
@@ -45,7 +50,7 @@ with tf.Session() as sess:
   test_count = 0
   for _ in range(val_batches_per_epoch):
     img_batch, label_batch = sess.run(next_batch)
-    acc = sess.run(accuracy, feed_dict={x: img_batch,
+    acc = sess.run('accuracy:0', feed_dict={x: img_batch,
                                         y: label_batch,
                                         keep_prob: 1.})
     test_acc += acc
