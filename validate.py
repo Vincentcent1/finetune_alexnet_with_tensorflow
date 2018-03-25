@@ -13,7 +13,7 @@ import time
 
 occlusion_ratio = sys.argv[1]
 epoch = sys.argv[2]
-
+val_file = 'devkit/validation/validation_ground_truth.txt'
 
 batch_size = 128
 num_classes = 1000
@@ -31,6 +31,9 @@ with tf.device('/cpu:0'):
                                        val_data.data.output_shapes)
     next_batch = iterator.get_next()
 validation_init_op = iterator.make_initializer(val_data.data)
+x = tf.placeholder(tf.float32, [batch_size, 227, 227, 3])
+y = tf.placeholder(tf.float32, [batch_size, num_classes])
+keep_prob = tf.placeholder(tf.float32)
 
 checkpoint_path = "tmp/finetune_alexnet/checkpoints"
 
@@ -44,13 +47,14 @@ val_batches_per_epoch = int(np.floor(val_data.data_size / batch_size))
 with tf.Session() as sess:
   saver = tf.train.import_meta_graph(meta_name)
   saver.restore(sess, checkpoint_name)
+  graph = tf.get_default_graph()
   print("{} Start validation".format(datetime.now()))
   sess.run(validation_init_op)
   test_acc = 0.
   test_count = 0
   for _ in range(val_batches_per_epoch):
     img_batch, label_batch = sess.run(next_batch)
-    acc = sess.run('accuracy:0', feed_dict={x: img_batch,
+    acc = sess.run(graph.get_operation_by_name('accuracy:0'), feed_dict={x: img_batch,
                                         y: label_batch,
                                         keep_prob: 1.})
     test_acc += acc

@@ -13,6 +13,7 @@ contact: f.kratzert(at)gmail.com
 """
 
 import os
+import sys
 
 import numpy as np
 import tensorflow as tf
@@ -36,6 +37,7 @@ val_file = 'devkit/validation/validation_ground_truth.txt'
 learning_rate = 0.001
 num_epochs = 30
 batch_size = 128
+occlusion_ratio = float(sys.argv[1])
 
 # Network params
 dropout_rate = 0.5
@@ -64,13 +66,13 @@ with tf.device('/cpu:0'):
                                  batch_size=batch_size,
                                  num_classes=num_classes,
                                  shuffle=True,
-                                 occlusionRatio=0.1)
+                                 occlusionRatio=occlusion_ratio)
     val_data = ImageDataGenerator(val_file,
                                   mode='inference',
                                   batch_size=batch_size,
                                   num_classes=num_classes,
                                   shuffle=False,
-                                  occlusionRatio=0.1)
+                                  occlusionRatio=occlusion_ratio)
 
     # create an reinitializable iterator given the dataset structure
     iterator = Iterator.from_structure(tr_data.data.output_types,
@@ -211,8 +213,9 @@ with tf.Session(config=config) as sess:
 
         # save checkpoint of the model
         checkpoint_name = os.path.join(checkpoint_path,
-                                       'model_epoch'+str(epoch+1)+'.ckpt')
+                                       str(occlusion_ratio) + 'model_epoch'+str(epoch+1)+'.ckpt')
         save_path = saver.save(sess, checkpoint_name)
 
         print("{} Model checkpoint saved at {}".format(datetime.now(),
                                                        checkpoint_name))
+	sys.stdout.flush()
