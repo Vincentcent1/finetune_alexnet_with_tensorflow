@@ -34,7 +34,7 @@ val_file = 'devkit/validation/validation_ground_truth.txt'
 
 # Learning params
 learning_rate = 0.001
-num_epochs = 10
+num_epochs = 30
 batch_size = 128
 
 # Network params
@@ -144,7 +144,9 @@ train_batches_per_epoch = int(np.floor(tr_data.data_size/batch_size))
 val_batches_per_epoch = int(np.floor(val_data.data_size / batch_size))
 
 # Start Tensorflow session
-with tf.Session() as sess:
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+with tf.Session(config=config) as sess:
 
     # Initialize all variables
     sess.run(tf.global_variables_initializer())
@@ -170,14 +172,14 @@ with tf.Session() as sess:
         for step in range(train_batches_per_epoch):
 
             # get next batch of data
-            start_time = time.time()
+            # start_time = time.time()
             img_batch, label_batch = sess.run(next_batch)
-            end_time1 = time.time()
+            # end_time1 = time.time()
             # And run the training op
             sess.run(train_op, feed_dict={x: img_batch,
                                           y: label_batch,
                                           keep_prob: dropout_rate})
-            end_time2 = time.time()
+            # end_time2 = time.time()
             # print("Batching: {}".format(end_time1-start_time))
             # print("Training Op: {}".format(end_time2-end_time1))
 
