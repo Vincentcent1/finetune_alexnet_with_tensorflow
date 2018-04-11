@@ -91,7 +91,43 @@ def occlude(imgPath, boundBoxPath, occlusionPercentage):
 	img = cv2.resize(img, (227,227))
 	return img
 
+def cropAndOccludeCenter(imgPath, boundBoxPath, occlusionPercentage):
+	'''
+	occlude the image in the path and write an updated image to the 
+	@params: 
+		imgPath: path to the image to be occluded
+		boundBoxPath: path to the bounding box xml file
+		occlusionPercentage: percentage of occlusion wanted, in float (e.g. 0.5)
+	@return: Image object to be written of size [227,227,3]
+	'''
+	img = cv2.imread(imgPath) # Bottleneck
+	boundaries = parseXML(boundBoxPath)
+	xmin,ymin,xmax,ymax = tuple(map(int, boundaries[0])) #Get the boundary
+	img = img[ymin:ymax, xmin:xmax]
+	xmin,ymin,xmax,ymax = 0,0,img.shape[1],img.shape[0] #Get the image boundary
+	# Get the percentage offset for the width and height (e.g 0.36 occlusion means 0.6 * width and 0.6 * height is occluded)
+	# We do 1 - to get the remaining % for the width
+	# Calculate percentage of how much gap should be left on each side of the boundary (left-right,bottom-top)
+	offset = (1 - np.sqrt(float(occlusionPercentage)))/2
+	width = xmax - xmin
+	xoffset = (offset)*width # real value of the xoffset on left and right of the black box (% remaining * width)
+	xmin = int(xmin + xoffset)
+	xmax = int(xmax - xoffset)
+	height = ymax - ymin
+	yoffset = (offset)*height #real value of the yoffset on bottom and top of the black box (% remaining * height)
+	ymin = int(ymin + yoffset)
+	ymax = int(ymax - yoffset)
+	img = cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,0,0),-1) # Generate black box on the image
+	return img
+
 def occludeOriginalCenter(imgPath, occlusionPercentage):
+	'''
+	occlude the image in the path with a black box at the center and return the image.
+	@params:
+		imgPath:path to the image to be occluded
+		occlusionPercentage: percentage of occlusion wanted, in float  
+	@return: Image object to be written of size [227,227,3]
+	'''
 	img = cv2.imread(imgPath)
 	shape = img.shape
 	xmin,ymin,xmax,ymax = 0,0,shape[1],shape[0] #Get the image boundary
@@ -111,6 +147,13 @@ def occludeOriginalCenter(imgPath, occlusionPercentage):
 	return img
 
 def occludeOriginalRandom(imgPath, occlusionPercentage):
+	'''
+	occlude the image in the path with a black box at random position and return the image.
+	@params:
+		imgPath:path to the image to be occluded
+		occlusionPercentage: percentage of occlusion wanted, in float
+	@return: Image object to be written of size [227,227,3]
+	'''	
 	img = cv2.imread(imgPath)
 	shape = img.shape
 	xmin,ymin,xmax,ymax = 0,0,shape[1],shape[0]
@@ -138,6 +181,13 @@ def occludeOriginalRandom(imgPath, occlusionPercentage):
 	return img
 
 def gaussianCenter(imgPath, occlusionPercentage):
+	'''
+	occlude the image in the path with gaussian noise at the center and return the image.
+	@params:
+		imgPath:path to the image to be occluded
+		occlusionPercentage: percentage of occlusion wanted, in float
+	@return: Image object to be written of size [227,227,3]
+	'''		
 	img = cv2.imread(imgPath)
 	shape = img.shape
 	xmin,ymin,xmax,ymax = 0,0,shape[1],shape[0] #Get the image boundary
@@ -161,6 +211,13 @@ def gaussianCenter(imgPath, occlusionPercentage):
 	return img	
 
 def gaussianRandom(imgPath, occlusionPercentage):
+	'''
+	occlude the image in the path with gaussian noise at random position and return the image.
+	@params:
+		imgPath:path to the image to be occluded
+		occlusionPercentage: percentage of occlusion wanted, in float
+	@return: Image object to be written of size [227,227,3]
+	'''		
 	img = cv2.imread(imgPath)
 	shape = img.shape
 	xmin,ymin,xmax,ymax = 0,0,shape[1],shape[0]
