@@ -198,6 +198,7 @@ with tf.Session(config=config) as sess:
         sess.run(validation_init_op)
         test_acc = 0.
         test_count = 0
+        bestCheckpoints = []
         for _ in range(val_batches_per_epoch):
 
             img_batch, label_batch = sess.run(next_batch)
@@ -209,13 +210,21 @@ with tf.Session(config=config) as sess:
         test_acc /= test_count
         print("{} Validation Accuracy = {:.4f}".format(datetime.now(),
                                                        test_acc))
+        if (len(bestCheckpoints) < 5):
+          bestCheckpoints.append(test_acc)
+          bestCheckpoints.sort()
+        elif bestCheckpoints[0] < test_acc:
+          bestCheckpoints[0] = test_acc
+          bestCheckpoints.sort()
+        else:
+          continue
         print("{} Saving checkpoint of model...".format(datetime.now()))
 
         # save checkpoint of the model
         checkpoint_name = os.path.join(checkpoint_path,
-                                       str(occlusion_ratio) + 'model_epoch'+str(epoch+1)+'.ckpt')
+                                         str(occlusion_ratio) + '_cropCenter_model_epoch'+str(epoch+1)+'.ckpt')
         save_path = saver.save(sess, checkpoint_name)
 
         print("{} Model checkpoint saved at {}".format(datetime.now(),
-                                                       checkpoint_name))
-	sys.stdout.flush()
+                                                         checkpoint_name))
+      	sys.stdout.flush()

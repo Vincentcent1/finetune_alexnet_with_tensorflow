@@ -147,7 +147,7 @@ class ImageDataGenerator(object):
 
     def _occlude(self, filename, bbox, label):
         # Occlude the image
-        img = obc.occlude(filename,bbox,self.occlusionRatio)
+        img = obc.cropAndOccludeCenter(filename,bbox,self.occlusionRatio)
         return img, bbox, label
 
     def _parse_function_train(self, img, bbox, label):
