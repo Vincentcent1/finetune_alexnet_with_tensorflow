@@ -118,7 +118,7 @@ def cropAndOccludeCenter(imgPath, boundBoxPath, occlusionPercentage):
 	ymin = int(ymin + yoffset)
 	ymax = int(ymax - yoffset)
 	img = cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,0,0),-1) # Generate black box on the image
-	img = cv2.resize(img, (227,227))
+	img = cv2.resize(img, (227,227), cv2.INTER_AREA)
 	return img
 
 def occludeOriginalCenter(imgPath, occlusionPercentage):
