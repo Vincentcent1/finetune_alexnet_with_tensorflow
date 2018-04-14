@@ -22,7 +22,7 @@ from tensorflow.python import debug as tf_debug
 from alexnet import AlexNet
 from datagenerator import ImageDataGenerator
 from datetime import datetime
-from tensorflow.contrib.data import Iterator
+Iterator = tf.data.Iterator
 import time
 
 """
@@ -146,8 +146,10 @@ train_batches_per_epoch = int(np.floor(tr_data.data_size/batch_size))
 val_batches_per_epoch = int(np.floor(val_data.data_size / batch_size))
 
 # Start Tensorflow session
-config = tf.ConfigProto()
+config = tf.ConfigProto(allow_soft_placement=True)
 config.gpu_options.allow_growth = True
+config.intra_op_parallelism_threads = 4
+config.inter_op_parallelism_threads = 4
 with tf.Session(config=config) as sess:
 
     # Initialize all variables
@@ -174,16 +176,16 @@ with tf.Session(config=config) as sess:
         for step in range(train_batches_per_epoch):
 
             # get next batch of data
-            # start_time = time.time()
+            #start_time = time.time()
             img_batch, label_batch = sess.run(next_batch)
-            # end_time1 = time.time()
+            #end_time1 = time.time()
             # And run the training op
             sess.run(train_op, feed_dict={x: img_batch,
                                           y: label_batch,
                                           keep_prob: dropout_rate})
-            # end_time2 = time.time()
-            # print("Batching: {}".format(end_time1-start_time))
-            # print("Training Op: {}".format(end_time2-end_time1))
+            #end_time2 = time.time()
+            #print("Batching: {}".format(end_time1-start_time))
+            #print("Training Op: {}".format(end_time2-end_time1))
 
             # Generate summary with the current batch of data and write to file
             if step % display_step == 0:
