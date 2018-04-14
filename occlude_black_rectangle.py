@@ -93,8 +93,8 @@ def occlude(imgPath, boundBoxPath, occlusionPercentage):
 
 def cropAndOccludeCenter(imgPath, boundBoxPath, occlusionPercentage):
 	'''
-	occlude the image in the path and write an updated image to the 
-	@params: 
+	occlude the image in the path and write an updated image to the
+	@params:
 		imgPath: path to the image to be occluded
 		boundBoxPath: path to the bounding box xml file
 		occlusionPercentage: percentage of occlusion wanted, in float (e.g. 0.5)
@@ -102,8 +102,8 @@ def cropAndOccludeCenter(imgPath, boundBoxPath, occlusionPercentage):
 	'''
 	img = cv2.imread(imgPath) # Bottleneck
 	boundaries = parseXML(boundBoxPath)
-	xmin,ymin,xmax,ymax = tuple(map(int, boundaries[0])) #Get the boundary
-	img = img[ymin:ymax, xmin:xmax]
+	xminc,yminc,xmaxc,ymaxc = tuple(map(int, boundaries[0])) #Get the boundary
+	imgCropped = img[xminc:xmaxc, yminc:ymaxc]
 	xmin,ymin,xmax,ymax = 0,0,img.shape[1],img.shape[0] #Get the image boundary
 	# Get the percentage offset for the width and height (e.g 0.36 occlusion means 0.6 * width and 0.6 * height is occluded)
 	# We do 1 - to get the remaining % for the width
@@ -117,8 +117,13 @@ def cropAndOccludeCenter(imgPath, boundBoxPath, occlusionPercentage):
 	yoffset = (offset)*height #real value of the yoffset on bottom and top of the black box (% remaining * height)
 	ymin = int(ymin + yoffset)
 	ymax = int(ymax - yoffset)
-	img = cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,0,0),-1) # Generate black box on the image
-	img = cv2.resize(img, (227,227), cv2.INTER_AREA)
+	imgOccluded = cv2.rectangle(imgCropped,(xmin,ymin),(xmax,ymax),(0,0,0),-1) # Generate black box on the image
+	try:
+		imgReturned = cv2.resize(imgOccluded, (227,227), cv2.INTER_AREA)
+	except:
+		print(img.shape)
+		print(imgCropped.shape)
+		print(xminc,yminc,xmaxc,ymaxc)
 	return img
 
 def occludeOriginalCenter(imgPath, occlusionPercentage):
@@ -126,7 +131,7 @@ def occludeOriginalCenter(imgPath, occlusionPercentage):
 	occlude the image in the path with a black box at the center and return the image.
 	@params:
 		imgPath:path to the image to be occluded
-		occlusionPercentage: percentage of occlusion wanted, in float  
+		occlusionPercentage: percentage of occlusion wanted, in float
 	@return: Image object to be written of size [227,227,3]
 	'''
 	img = cv2.imread(imgPath)
@@ -154,7 +159,7 @@ def occludeOriginalRandom(imgPath, occlusionPercentage):
 		imgPath:path to the image to be occluded
 		occlusionPercentage: percentage of occlusion wanted, in float
 	@return: Image object to be written of size [227,227,3]
-	'''	
+	'''
 	img = cv2.imread(imgPath)
 	shape = img.shape
 	xmin,ymin,xmax,ymax = 0,0,shape[1],shape[0]
@@ -173,7 +178,7 @@ def occludeOriginalRandom(imgPath, occlusionPercentage):
 	# to get the end of the box, we just add the length of width occluded (percentage occluded * width of the full image)
 	xmax = int(xmin + occludedSides * width)
 	height = ymax - ymin
-	# to get the starting y offset, we multiply randomY to the % gap remaining	
+	# to get the starting y offset, we multiply randomY to the % gap remaining
 	yoffset = randomY*offset*height
 	ymin = int(ymin + yoffset) # Start of black box
 	# to get the end of the box, we just add the length of height occluded (percentage occluded * width of the full image)

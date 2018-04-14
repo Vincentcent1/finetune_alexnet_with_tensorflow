@@ -227,4 +227,4 @@ with tf.Session(config=config) as sess:
 
         print("{} Model checkpoint saved at {}".format(datetime.now(),
                                                          checkpoint_name))
-      	sys.stdout.flush()
+        sys.stdout.flush()
