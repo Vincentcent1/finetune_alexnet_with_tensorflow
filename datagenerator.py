@@ -9,7 +9,7 @@ import numpy as np
 import os
 import time
 
-from tensorflow.contrib.data import Dataset
+Dataset = tf.data.Dataset
 from tensorflow.python.framework import dtypes
 from tensorflow.python.framework.ops import convert_to_tensor
 import occlude_black_rectangle as obc
@@ -89,17 +89,17 @@ class ImageDataGenerator(object):
 
             data = data.map(
                 lambda img_path, bbox_path, label: tuple(tf.py_func(
-                    self._occlude, [img_path, bbox_path, label], [tf.uint8, bbox_path.dtype, label.dtype])), num_parallel_calls=8)
-            data = data.map(self._parse_function_train, num_parallel_calls=8)
-            data.prefetch(100*batch_size)
+                    self._occlude, [img_path, bbox_path, label], [tf.uint8, bbox_path.dtype, label.dtype])), num_parallel_calls=60)
+            data = data.map(self._parse_function_train, num_parallel_calls=60)
+            data.prefetch(10*batch_size)
 
 
         elif mode == 'inference':
             data = data.map(
                 lambda img_path, bbox_path, label: tuple(tf.py_func(
-                    self._occlude, [img_path, bbox_path, label], [tf.uint8, bbox_path.dtype, label.dtype])), num_parallel_calls=8)
-            data = data.map(self._parse_function_inference, num_parallel_calls=8)
-            data.prefetch(100*batch_size)
+                    self._occlude, [img_path, bbox_path, label], [tf.uint8, bbox_path.dtype, label.dtype])), num_parallel_calls=60)
+            data = data.map(self._parse_function_inference, num_parallel_calls=60)
+            data.prefetch(10*batch_size)
 
         else:
             raise ValueError("Invalid mode '%s'." % (mode))
@@ -137,18 +137,26 @@ class ImageDataGenerator(object):
     def _shuffle_lists(self):
         """Conjoined shuffling of the list of paths and labels."""
         path = self.img_paths
+        bbox = self.bbox_paths
         labels = self.labels
         permutation = np.random.permutation(self.data_size)
         self.img_paths = []
         self.labels = []
+        self.bbox_paths = []
         for i in permutation:
+            # print(path[i],bbox[i])
+            # time.sleep(3);  
             self.img_paths.append(path[i])
+            self.bbox_paths.append(bbox[i])
             self.labels.append(labels[i])
 
     def _occlude(self, filename, bbox, label):
         # Occlude the image
+	#start = time.time()
         img = obc.cropAndOccludeCenter(filename,bbox,self.occlusionRatio)
-        return img, bbox, label
+        #end = time.time()
+	#print("Time taken: ",(end-start))
+	return img, bbox, label
 
     def _parse_function_train(self, img, bbox, label):
         """Input parser for samples of the training set."""

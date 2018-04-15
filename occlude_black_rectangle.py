@@ -87,7 +87,7 @@ def occlude(imgPath, boundBoxPath, occlusionPercentage):
 		yoffset = (offset)*height
 		ymin = int(ymin + yoffset)
 		ymax = int(ymax - yoffset)
-		img = cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,0,0),-1)
+		cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,0,0),-1)
 	img = cv2.resize(img, (227,227))
 	return img
 
@@ -101,10 +101,13 @@ def cropAndOccludeCenter(imgPath, boundBoxPath, occlusionPercentage):
 	@return: Image object to be written of size [227,227,3]
 	'''
 	img = cv2.imread(imgPath) # Bottleneck
+#	start = time.time()
 	boundaries = parseXML(boundBoxPath)
-	xminc,yminc,xmaxc,ymaxc = tuple(map(int, boundaries[0])) #Get the boundary
-	imgCropped = img[xminc:xmaxc, yminc:ymaxc]
-	xmin,ymin,xmax,ymax = 0,0,img.shape[1],img.shape[0] #Get the image boundary
+#	end = time.time()
+#	print("Reading image time: %d",(end - start))
+	xmin,ymin,xmax,ymax = tuple(map(int, boundaries[0])) #Get the boundary
+	imgCropped = img[ymin:ymax, xmin:xmax]
+	xmin,ymin,xmax,ymax = 0,0,imgCropped.shape[1],imgCropped.shape[0] #Get the image boundary
 	# Get the percentage offset for the width and height (e.g 0.36 occlusion means 0.6 * width and 0.6 * height is occluded)
 	# We do 1 - to get the remaining % for the width
 	# Calculate percentage of how much gap should be left on each side of the boundary (left-right,bottom-top)
@@ -117,14 +120,18 @@ def cropAndOccludeCenter(imgPath, boundBoxPath, occlusionPercentage):
 	yoffset = (offset)*height #real value of the yoffset on bottom and top of the black box (% remaining * height)
 	ymin = int(ymin + yoffset)
 	ymax = int(ymax - yoffset)
-	imgOccluded = cv2.rectangle(imgCropped,(xmin,ymin),(xmax,ymax),(0,0,0),-1) # Generate black box on the image
+	cv2.rectangle(img,(xmin,ymin),(xmax,ymax),(0,0,0),-1) # Generate black box on the image
+#	cv2.imshow(str(imgPath),img)
+#	cv2.waitKey(0)
+#	cv2.destroyWindow(str(imgPath))
 	try:
-		imgReturned = cv2.resize(imgOccluded, (227,227), cv2.INTER_AREA)
+		imgResized = cv2.resize(img, (227,227))
 	except:
+		print(imgPath)
+		print(boundBoxPath)
+		print(xmin,ymin,xmax,ymax)
 		print(img.shape)
-		print(imgCropped.shape)
-		print(xminc,yminc,xmaxc,ymaxc)
-	return img
+	return imgResized
 
 def occludeOriginalCenter(imgPath, occlusionPercentage):
 	'''
