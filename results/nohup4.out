@@ -1,0 +1,183 @@
+nohup: ignoring input
+/home/ubuntu/anaconda3/envs/tensorflow_p27/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
+  from ._conv import register_converters as _register_converters
+/home/ubuntu/anaconda3/envs/tensorflow_p27/lib/python2.7/site-packages/matplotlib/__init__.py:962: UserWarning: Duplicate key in file "/home/ubuntu/.config/matplotlib/matplotlibrc", line #2
+  (fname, cnt))
+/home/ubuntu/anaconda3/envs/tensorflow_p27/lib/python2.7/site-packages/matplotlib/__init__.py:962: UserWarning: Duplicate key in file "/home/ubuntu/.config/matplotlib/matplotlibrc", line #3
+  (fname, cnt))
+WARNING:tensorflow:From /home/ubuntu/code/finetune_alexnet_with_tensorflow/datagenerator.py:84: from_tensor_slices (from tensorflow.contrib.data.python.ops.dataset_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.data.Dataset.from_tensor_slices()`.
+WARNING:tensorflow:From ../../code/finetune_alexnet_with_tensorflow/finetune.py:103: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+
+Future major versions of TensorFlow will allow gradients to flow
+into the labels input on backprop by default.
+
+See tf.nn.softmax_cross_entropy_with_logits_v2.
+
+2018-03-25 17:25:53.900763: I tensorflow/core/platform/cpu_feature_guard.cc:140] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2018-03-25 17:25:54.005652: I tensorflow/stream_executor/cuda/cuda_gpu_executor.cc:898] successful NUMA node read from SysFS had negative value (-1), but there must be at least one NUMA node, so returning NUMA node zero
+2018-03-25 17:25:54.006036: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1212] Found device 0 with properties: 
+name: Tesla V100-SXM2-16GB major: 7 minor: 0 memoryClockRate(GHz): 1.53
+pciBusID: 0000:00:1e.0
+totalMemory: 15.77GiB freeMemory: 15.36GiB
+2018-03-25 17:25:54.006056: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1312] Adding visible gpu devices: 0
+2018-03-25 17:25:54.295964: I tensorflow/core/common_runtime/gpu/gpu_device.cc:993] Creating TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 14869 MB memory) -> physical GPU (device: 0, name: Tesla V100-SXM2-16GB, pci bus id: 0000:00:1e.0, compute capability: 7.0)
+2018-03-25 17:26:21.783685: I tensorflow/core/kernels/data/shuffle_dataset_op.cc:94] Filling up shuffle buffer (this may take a while): 377 of 1000
+2018-03-25 17:26:31.773951: I tensorflow/core/kernels/data/shuffle_dataset_op.cc:94] Filling up shuffle buffer (this may take a while): 946 of 1000
+2018-03-25 17:26:32.416261: I tensorflow/core/kernels/data/shuffle_dataset_op.cc:130] Shuffle buffer filled.
+Dataset creation...
+Dataset creation...
+2018-03-25 17:26:08.274731 Start training...
+2018-03-25 17:26:08.274770 Open Tensorboard at --logdir tmp/finetune_alexnet/tensorboard
+2018-03-25 17:26:08.274786 Epoch number: 1
+2018-03-25 18:41:58.800556 Start validation
+2018-03-25 18:48:04.638932 Validation Accuracy = 0.3138
+2018-03-25 18:48:04.638979 Saving checkpoint of model...
+2018-03-25 18:48:07.734136 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch1.ckpt
+2018-03-25 18:48:07.739631 Epoch number: 2
+2018-03-25 20:05:23.235597 Start validation
+2018-03-25 20:11:26.793299 Validation Accuracy = 0.3325
+2018-03-25 20:11:26.793354 Saving checkpoint of model...
+2018-03-25 20:11:29.896879 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch2.ckpt
+2018-03-25 20:11:29.897615 Epoch number: 3
+2018-03-25 21:29:08.677471 Start validation
+2018-03-25 21:35:06.382600 Validation Accuracy = 0.3419
+2018-03-25 21:35:06.382658 Saving checkpoint of model...
+2018-03-25 21:35:09.158672 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch3.ckpt
+2018-03-25 21:35:09.159406 Epoch number: 4
+2018-03-25 22:52:19.072522 Start validation
+2018-03-25 22:58:18.510855 Validation Accuracy = 0.3459
+2018-03-25 22:58:18.510911 Saving checkpoint of model...
+2018-03-25 22:58:21.620903 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch4.ckpt
+2018-03-25 22:58:21.621608 Epoch number: 5
+2018-03-26 00:15:51.731838 Start validation
+2018-03-26 00:21:59.591450 Validation Accuracy = 0.3511
+2018-03-26 00:21:59.591482 Saving checkpoint of model...
+2018-03-26 00:22:03.820326 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch5.ckpt
+2018-03-26 00:22:03.820967 Epoch number: 6
+2018-03-26 01:39:23.079451 Start validation
+2018-03-26 01:45:21.940665 Validation Accuracy = 0.3554
+2018-03-26 01:45:21.940721 Saving checkpoint of model...
+2018-03-26 01:45:25.042374 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch6.ckpt
+2018-03-26 01:45:25.042445 Epoch number: 7
+2018-03-26 03:03:22.658773 Start validation
+2018-03-26 03:09:24.905939 Validation Accuracy = 0.3584
+2018-03-26 03:09:24.905981 Saving checkpoint of model...
+2018-03-26 03:09:27.367987 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch7.ckpt
+2018-03-26 03:09:27.368056 Epoch number: 8
+2018-03-26 04:26:44.560003 Start validation
+2018-03-26 04:32:46.210813 Validation Accuracy = 0.3627
+2018-03-26 04:32:46.210882 Saving checkpoint of model...
+2018-03-26 04:32:48.863723 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch8.ckpt
+2018-03-26 04:32:48.864460 Epoch number: 9
+2018-03-26 05:50:11.592727 Start validation
+2018-03-26 05:56:17.256156 Validation Accuracy = 0.3623
+2018-03-26 05:56:17.256208 Saving checkpoint of model...
+2018-03-26 05:56:21.657210 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch9.ckpt
+2018-03-26 05:56:21.663094 Epoch number: 10
+2018-03-26 07:13:05.973902 Start validation
+2018-03-26 07:19:14.184452 Validation Accuracy = 0.3642
+2018-03-26 07:19:14.184494 Saving checkpoint of model...
+2018-03-26 07:19:18.669193 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch10.ckpt
+2018-03-26 07:19:18.681104 Epoch number: 11
+2018-03-26 08:36:50.194517 Start validation
+2018-03-26 08:42:54.417554 Validation Accuracy = 0.3644
+2018-03-26 08:42:54.417596 Saving checkpoint of model...
+2018-03-26 08:42:58.081601 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch11.ckpt
+2018-03-26 08:42:58.082328 Epoch number: 12
+2018-03-26 10:00:27.888672 Start validation
+2018-03-26 10:06:25.609411 Validation Accuracy = 0.3665
+2018-03-26 10:06:25.609478 Saving checkpoint of model...
+2018-03-26 10:06:29.492541 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch12.ckpt
+2018-03-26 10:06:29.497527 Epoch number: 13
+2018-03-26 11:24:01.987600 Start validation
+2018-03-26 11:30:03.892510 Validation Accuracy = 0.3662
+2018-03-26 11:30:03.892549 Saving checkpoint of model...
+2018-03-26 11:30:07.834006 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch13.ckpt
+2018-03-26 11:30:07.836197 Epoch number: 14
+2018-03-26 12:47:36.031412 Start validation
+2018-03-26 12:53:35.710253 Validation Accuracy = 0.3665
+2018-03-26 12:53:35.710307 Saving checkpoint of model...
+2018-03-26 12:53:39.811091 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch14.ckpt
+2018-03-26 12:53:39.817601 Epoch number: 15
+2018-03-26 14:11:43.028637 Start validation
+2018-03-26 14:17:49.280955 Validation Accuracy = 0.3688
+2018-03-26 14:17:49.281012 Saving checkpoint of model...
+2018-03-26 14:17:53.210210 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch15.ckpt
+2018-03-26 14:17:53.215326 Epoch number: 16
+2018-03-26 15:35:46.257643 Start validation
+2018-03-26 15:41:51.428351 Validation Accuracy = 0.3696
+2018-03-26 15:41:51.428401 Saving checkpoint of model...
+2018-03-26 15:41:54.159964 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch16.ckpt
+2018-03-26 15:41:54.160580 Epoch number: 17
+2018-03-26 16:59:37.848266 Start validation
+2018-03-26 17:05:37.433802 Validation Accuracy = 0.3684
+2018-03-26 17:05:37.433874 Saving checkpoint of model...
+2018-03-26 17:05:40.519590 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch17.ckpt
+2018-03-26 17:05:40.519670 Epoch number: 18
+2018-03-26 18:23:41.284710 Start validation
+2018-03-26 18:29:45.726531 Validation Accuracy = 0.3699
+2018-03-26 18:29:45.726594 Saving checkpoint of model...
+2018-03-26 18:29:49.619045 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch18.ckpt
+2018-03-26 18:29:49.624258 Epoch number: 19
+2018-03-26 19:47:51.121206 Start validation
+2018-03-26 19:53:50.649731 Validation Accuracy = 0.3706
+2018-03-26 19:53:50.649772 Saving checkpoint of model...
+2018-03-26 19:53:55.329776 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch19.ckpt
+2018-03-26 19:53:55.334630 Epoch number: 20
+2018-03-26 21:11:14.334708 Start validation
+2018-03-26 21:17:12.895681 Validation Accuracy = 0.3672
+2018-03-26 21:17:12.895739 Saving checkpoint of model...
+2018-03-26 21:17:17.017130 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch20.ckpt
+2018-03-26 21:17:17.017770 Epoch number: 21
+2018-03-26 22:35:28.775922 Start validation
+2018-03-26 22:41:30.153447 Validation Accuracy = 0.3701
+2018-03-26 22:41:30.153525 Saving checkpoint of model...
+2018-03-26 22:41:33.243969 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch21.ckpt
+2018-03-26 22:41:33.244627 Epoch number: 22
+2018-03-26 23:59:30.729849 Start validation
+2018-03-27 00:05:34.664716 Validation Accuracy = 0.3706
+2018-03-27 00:05:34.664760 Saving checkpoint of model...
+2018-03-27 00:05:37.723644 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch22.ckpt
+2018-03-27 00:05:37.724209 Epoch number: 23
+2018-03-27 01:23:53.976116 Start validation
+2018-03-27 01:29:50.754812 Validation Accuracy = 0.3690
+2018-03-27 01:29:50.754860 Saving checkpoint of model...
+2018-03-27 01:29:54.832755 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch23.ckpt
+2018-03-27 01:29:54.833393 Epoch number: 24
+2018-03-27 02:47:49.557868 Start validation
+2018-03-27 02:53:51.526918 Validation Accuracy = 0.3665
+2018-03-27 02:53:51.526973 Saving checkpoint of model...
+2018-03-27 02:53:54.117501 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch24.ckpt
+2018-03-27 02:53:54.118080 Epoch number: 25
+2018-03-27 04:11:41.042421 Start validation
+2018-03-27 04:17:37.850216 Validation Accuracy = 0.3685
+2018-03-27 04:17:37.850271 Saving checkpoint of model...
+2018-03-27 04:17:41.690919 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch25.ckpt
+2018-03-27 04:17:41.690988 Epoch number: 26
+2018-03-27 05:35:41.395827 Start validation
+2018-03-27 05:41:40.670343 Validation Accuracy = 0.3670
+2018-03-27 05:41:40.670398 Saving checkpoint of model...
+2018-03-27 05:41:43.760083 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch26.ckpt
+2018-03-27 05:41:43.760148 Epoch number: 27
+2018-03-27 06:59:10.252973 Start validation
+2018-03-27 07:05:09.205255 Validation Accuracy = 0.3658
+2018-03-27 07:05:09.205310 Saving checkpoint of model...
+2018-03-27 07:05:12.269771 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch27.ckpt
+2018-03-27 07:05:12.269853 Epoch number: 28
+2018-03-27 08:22:50.747057 Start validation
+2018-03-27 08:28:54.515580 Validation Accuracy = 0.3666
+2018-03-27 08:28:54.515638 Saving checkpoint of model...
+2018-03-27 08:28:58.399120 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch28.ckpt
+2018-03-27 08:28:58.399174 Epoch number: 29
+2018-03-27 09:46:06.200098 Start validation
+2018-03-27 09:52:06.719747 Validation Accuracy = 0.3656
+2018-03-27 09:52:06.719801 Saving checkpoint of model...
+2018-03-27 09:52:11.288827 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch29.ckpt
+2018-03-27 09:52:11.288892 Epoch number: 30
+2018-03-27 11:09:55.913226 Start validation
+2018-03-27 11:15:56.020206 Validation Accuracy = 0.3668
+2018-03-27 11:15:56.020262 Saving checkpoint of model...
+2018-03-27 11:15:59.456638 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.4model_epoch30.ckpt

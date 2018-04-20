@@ -1,0 +1,175 @@
+Dataset creation...
+Dataset creation...
+2018-04-18 16:40:51.067564 Start training...
+2018-04-18 16:40:51.067609 Open Tensorboard at --logdir tmp/finetune_alexnet/tensorboard
+2018-04-18 16:40:51.067633 Epoch number: 1
+2018-04-18 18:20:41.373852 Start validation
+2018-04-18 18:28:26.161254 Validation Accuracy = 0.3901
+2018-04-18 18:28:26.161328 Saving checkpoint of model...
+[0.39006410256410257]
+2018-04-18 18:29:02.560860 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch1.ckpt
+2018-04-18 18:29:02.560950 Epoch number: 2
+2018-04-18 20:06:25.654364 Start validation
+2018-04-18 20:15:18.132162 Validation Accuracy = 0.4055
+2018-04-18 20:15:18.132226 Saving checkpoint of model...
+[0.39006410256410257, 0.405488782051282]
+2018-04-18 20:16:03.618524 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch2.ckpt
+2018-04-18 20:16:03.619016 Epoch number: 3
+2018-04-18 21:50:40.119747 Start validation
+2018-04-18 21:59:42.645213 Validation Accuracy = 0.4136
+2018-04-18 21:59:42.645263 Saving checkpoint of model...
+[0.39006410256410257, 0.405488782051282, 0.41358173076923077]
+2018-04-18 22:00:08.776840 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch3.ckpt
+2018-04-18 22:00:08.777267 Epoch number: 4
+2018-04-18 23:36:32.483109 Start validation
+2018-04-18 23:44:34.993126 Validation Accuracy = 0.4194
+2018-04-18 23:44:34.993201 Saving checkpoint of model...
+[0.39006410256410257, 0.405488782051282, 0.41358173076923077, 0.41939102564102565]
+2018-04-18 23:45:40.391801 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch4.ckpt
+2018-04-18 23:45:40.395477 Epoch number: 5
+2018-04-19 01:18:29.958769 Start validation
+2018-04-19 01:26:46.294938 Validation Accuracy = 0.4225
+2018-04-19 01:26:46.294996 Saving checkpoint of model...
+[0.39006410256410257, 0.405488782051282, 0.41358173076923077, 0.41939102564102565, 0.42251602564102564]
+2018-04-19 01:27:40.320265 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch5.ckpt
+2018-04-19 01:27:40.320859 Epoch number: 6
+2018-04-19 03:03:31.591716 Start validation
+2018-04-19 03:11:36.582581 Validation Accuracy = 0.4258
+2018-04-19 03:11:36.583449 Saving checkpoint of model...
+[0.405488782051282, 0.41358173076923077, 0.41939102564102565, 0.42251602564102564, 0.42584134615384617]
+2018-04-19 03:12:33.727698 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch6.ckpt
+2018-04-19 03:12:33.728265 Epoch number: 7
+2018-04-19 04:46:49.874677 Start validation
+2018-04-19 04:55:42.701441 Validation Accuracy = 0.4301
+2018-04-19 04:55:42.701509 Saving checkpoint of model...
+[0.41358173076923077, 0.41939102564102565, 0.42251602564102564, 0.42584134615384617, 0.4301482371794872]
+2018-04-19 04:56:27.818723 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch7.ckpt
+2018-04-19 04:56:27.819385 Epoch number: 8
+2018-04-19 06:30:31.609614 Start validation
+2018-04-19 06:37:51.248773 Validation Accuracy = 0.4311
+2018-04-19 06:37:51.248839 Saving checkpoint of model...
+[0.41939102564102565, 0.42251602564102564, 0.42584134615384617, 0.4301482371794872, 0.4311298076923077]
+2018-04-19 06:38:27.892713 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch8.ckpt
+2018-04-19 06:38:27.893179 Epoch number: 9
+2018-04-19 08:14:37.655437 Start validation
+2018-04-19 08:22:52.032819 Validation Accuracy = 0.4340
+2018-04-19 08:22:52.032872 Saving checkpoint of model...
+[0.42251602564102564, 0.42584134615384617, 0.4301482371794872, 0.4311298076923077, 0.433994391025641]
+2018-04-19 08:23:29.272877 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch9.ckpt
+2018-04-19 08:23:29.273969 Epoch number: 10
+2018-04-19 09:56:39.167801 Start validation
+2018-04-19 10:04:28.853346 Validation Accuracy = 0.4358
+2018-04-19 10:04:28.853396 Saving checkpoint of model...
+[0.42584134615384617, 0.4301482371794872, 0.4311298076923077, 0.433994391025641, 0.43583733974358974]
+2018-04-19 10:05:56.479853 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch10.ckpt
+2018-04-19 10:05:56.479942 Epoch number: 11
+2018-04-19 11:41:07.122359 Start validation
+2018-04-19 11:48:32.965251 Validation Accuracy = 0.4379
+2018-04-19 11:48:32.965333 Saving checkpoint of model...
+[0.4301482371794872, 0.4311298076923077, 0.433994391025641, 0.43583733974358974, 0.43794070512820515]
+2018-04-19 11:49:11.778129 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch11.ckpt
+2018-04-19 11:49:11.778577 Epoch number: 12
+2018-04-19 13:26:47.082340 Start validation
+2018-04-19 13:34:37.440013 Validation Accuracy = 0.4384
+2018-04-19 13:34:37.440064 Saving checkpoint of model...
+[0.4311298076923077, 0.433994391025641, 0.43583733974358974, 0.43794070512820515, 0.4384214743589744]
+2018-04-19 13:35:20.106919 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch12.ckpt
+2018-04-19 13:35:20.107338 Epoch number: 13
+2018-04-19 14:25:51.001456 Start validation
+2018-04-19 14:28:52.409660 Validation Accuracy = 0.4378
+2018-04-19 14:28:52.409716 Saving checkpoint of model...
+[0.433994391025641, 0.43583733974358974, 0.43778044871794874, 0.43794070512820515, 0.4384214743589744]
+2018-04-19 14:30:06.528113 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch13.ckpt
+2018-04-19 14:30:06.528607 Epoch number: 14
+2018-04-19 15:15:03.752142 Start validation
+2018-04-19 15:18:50.212726 Validation Accuracy = 0.4407
+2018-04-19 15:18:50.212786 Saving checkpoint of model...
+[0.43583733974358974, 0.43778044871794874, 0.43794070512820515, 0.4384214743589744, 0.44068509615384616]
+2018-04-19 15:19:42.320777 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch14.ckpt
+2018-04-19 15:19:42.320847 Epoch number: 15
+2018-04-19 16:05:02.138309 Start validation
+2018-04-19 16:08:14.740573 Validation Accuracy = 0.4404
+2018-04-19 16:08:14.740638 Saving checkpoint of model...
+[0.43778044871794874, 0.43794070512820515, 0.4384214743589744, 0.44036458333333334, 0.44068509615384616]
+2018-04-19 16:09:15.399909 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch15.ckpt
+2018-04-19 16:09:15.400897 Epoch number: 16
+2018-04-19 16:54:03.312652 Start validation
+2018-04-19 16:57:21.830851 Validation Accuracy = 0.4418
+2018-04-19 16:57:21.830914 Saving checkpoint of model...
+[0.43794070512820515, 0.4384214743589744, 0.44036458333333334, 0.44068509615384616, 0.441806891025641]
+2018-04-19 16:58:01.116841 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch16.ckpt
+2018-04-19 16:58:01.117347 Epoch number: 17
+2018-04-19 17:43:14.928337 Start validation
+2018-04-19 17:46:33.856709 Validation Accuracy = 0.4408
+2018-04-19 17:46:33.856772 Saving checkpoint of model...
+[0.4384214743589744, 0.44036458333333334, 0.44068509615384616, 0.44076522435897436, 0.441806891025641]
+2018-04-19 17:47:23.588773 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch17.ckpt
+2018-04-19 17:47:23.589864 Epoch number: 18
+2018-04-19 18:32:48.966300 Start validation
+2018-04-19 18:36:11.276366 Validation Accuracy = 0.4424
+2018-04-19 18:36:11.276426 Saving checkpoint of model...
+[0.44036458333333334, 0.44068509615384616, 0.44076522435897436, 0.441806891025641, 0.4424078525641026]
+2018-04-19 18:36:39.936635 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch18.ckpt
+2018-04-19 18:36:39.938036 Epoch number: 19
+2018-04-19 19:22:30.860431 Start validation
+2018-04-19 19:25:54.363794 Validation Accuracy = 0.4435
+2018-04-19 19:25:54.363877 Saving checkpoint of model...
+[0.44068509615384616, 0.44076522435897436, 0.441806891025641, 0.4424078525641026, 0.44350961538461536]
+2018-04-19 19:26:27.602143 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch19.ckpt
+2018-04-19 19:26:27.603523 Epoch number: 20
+2018-04-19 20:12:19.262338 Start validation
+2018-04-19 20:15:40.606112 Validation Accuracy = 0.4434
+2018-04-19 20:15:40.607161 Saving checkpoint of model...
+[0.44076522435897436, 0.441806891025641, 0.4424078525641026, 0.44342948717948716, 0.44350961538461536]
+2018-04-19 20:16:08.670822 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch20.ckpt
+2018-04-19 20:16:08.672323 Epoch number: 21
+2018-04-19 21:01:54.245096 Start validation
+2018-04-19 21:05:14.871927 Validation Accuracy = 0.4430
+2018-04-19 21:05:14.874772 Saving checkpoint of model...
+[0.441806891025641, 0.4424078525641026, 0.4430488782051282, 0.44342948717948716, 0.44350961538461536]
+2018-04-19 21:05:57.607514 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch21.ckpt
+2018-04-19 21:05:57.610204 Epoch number: 22
+2018-04-19 21:51:26.417780 Start validation
+2018-04-19 21:54:47.698013 Validation Accuracy = 0.4423
+2018-04-19 21:54:47.698632 Saving checkpoint of model...
+[0.4423277243589744, 0.4424078525641026, 0.4430488782051282, 0.44342948717948716, 0.44350961538461536]
+2018-04-19 21:55:21.294027 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch22.ckpt
+2018-04-19 21:55:21.296296 Epoch number: 23
+2018-04-19 22:41:24.851483 Start validation
+2018-04-19 22:44:44.988144 Validation Accuracy = 0.4439
+2018-04-19 22:44:44.991003 Saving checkpoint of model...
+[0.4424078525641026, 0.4430488782051282, 0.44342948717948716, 0.44350961538461536, 0.4439302884615385]
+2018-04-19 22:45:22.979651 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch23.ckpt
+2018-04-19 22:45:22.981065 Epoch number: 24
+2018-04-19 23:31:03.530806 Start validation
+2018-04-19 23:34:26.868477 Validation Accuracy = 0.4441
+2018-04-19 23:34:26.869123 Saving checkpoint of model...
+[0.4430488782051282, 0.44342948717948716, 0.44350961538461536, 0.4439302884615385, 0.44405048076923076]
+2018-04-19 23:34:52.416742 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch24.ckpt
+2018-04-19 23:34:52.418261 Epoch number: 25
+2018-04-20 00:20:26.542312 Start validation
+2018-04-20 00:23:49.807603 Validation Accuracy = 0.4433
+2018-04-20 00:23:49.811056 Saving checkpoint of model...
+[0.4433293269230769, 0.44342948717948716, 0.44350961538461536, 0.4439302884615385, 0.44405048076923076]
+2018-04-20 00:24:14.754104 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch25.ckpt
+2018-04-20 00:24:14.755483 Epoch number: 26
+2018-04-20 01:09:29.068832 Start validation
+2018-04-20 01:12:55.908940 Validation Accuracy = 0.4443
+2018-04-20 01:12:55.909475 Saving checkpoint of model...
+[0.44342948717948716, 0.44350961538461536, 0.4439302884615385, 0.44405048076923076, 0.4443108974358974]
+2018-04-20 01:13:33.786481 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch26.ckpt
+2018-04-20 01:13:33.789135 Epoch number: 27
+2018-04-20 01:59:57.963542 Start validation
+2018-04-20 02:03:22.167248 Validation Accuracy = 0.4453
+2018-04-20 02:03:22.170363 Saving checkpoint of model...
+[0.44350961538461536, 0.4439302884615385, 0.44405048076923076, 0.4443108974358974, 0.44525240384615383]
+2018-04-20 02:04:03.392448 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/0.7_cropCenter_model_epoch27.ckpt
+2018-04-20 02:04:03.393803 Epoch number: 28
+2018-04-20 02:50:06.952761 Start validation
+2018-04-20 02:53:29.743866 Validation Accuracy = 0.4430
+2018-04-20 02:53:29.744366 Epoch number: 29
+2018-04-20 03:39:27.827666 Start validation
+2018-04-20 03:42:52.865632 Validation Accuracy = 0.4435
+2018-04-20 03:42:52.867969 Epoch number: 30
+2018-04-20 04:28:15.805659 Start validation
+2018-04-20 04:31:38.844835 Validation Accuracy = 0.4434
