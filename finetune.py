@@ -166,6 +166,7 @@ with tf.Session(config=config) as sess:
                                                       filewriter_path))
 
     # Loop over number of epochs
+    bestCheckpoints = []
     for epoch in range(num_epochs):
 
         print("{} Epoch number: {}".format(datetime.now(), epoch+1))
@@ -200,7 +201,6 @@ with tf.Session(config=config) as sess:
         sess.run(validation_init_op)
         test_acc = 0.
         test_count = 0
-        bestCheckpoints = []
         for _ in range(val_batches_per_epoch):
 
             img_batch, label_batch = sess.run(next_batch)
