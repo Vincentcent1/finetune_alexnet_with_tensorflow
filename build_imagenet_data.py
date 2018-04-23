@@ -84,11 +84,11 @@ import numpy as np
 import six
 import tensorflow as tf
 
-tf.app.flags.DEFINE_string('train_directory', '/tmp/',
+tf.app.flags.DEFINE_string('train_directory', 'Data/CLS-LOC/train',
                            'Training data directory')
-tf.app.flags.DEFINE_string('validation_directory', '/tmp/',
+tf.app.flags.DEFINE_string('validation_directory', 'Data/CLS-LOC/val',
                            'Validation data directory')
-tf.app.flags.DEFINE_string('output_directory', '/tmp/',
+tf.app.flags.DEFINE_string('output_directory', 'tfrecords/',
                            'Output data directory')
 
 tf.app.flags.DEFINE_integer('train_shards', 1024,
@@ -96,7 +96,7 @@ tf.app.flags.DEFINE_integer('train_shards', 1024,
 tf.app.flags.DEFINE_integer('validation_shards', 128,
                             'Number of shards in validation TFRecord files.')
 
-tf.app.flags.DEFINE_integer('num_threads', 8,
+tf.app.flags.DEFINE_integer('num_threads', 16,
                             'Number of threads to preprocess the images.')
 
 # The labels file contains a list of valid labels are held in this file.
@@ -108,7 +108,7 @@ tf.app.flags.DEFINE_integer('num_threads', 8,
 # each synset contained in the file to an integer (based on the alphabetical
 # ordering). See below for details.
 tf.app.flags.DEFINE_string('labels_file',
-                           'imagenet_lsvrc_2015_synsets.txt',
+                           'devkit/wnetClass/wnetId_orderedBy_classId.txt',
                            'Labels file')
 
 # This file containing mapping from synset to human-readable label.
@@ -121,7 +121,7 @@ tf.app.flags.DEFINE_string('labels_file',
 # where each line corresponds to a unique mapping. Note that each line is
 # formatted as <synset>\t<human readable label>.
 tf.app.flags.DEFINE_string('imagenet_metadata_file',
-                           'imagenet_metadata.txt',
+                           'devkit/wnetClass/wnetId_to_className_mapping.txt',
                            'ImageNet metadata file')
 
 # This file is the output of process_bounding_box.py
@@ -137,7 +137,7 @@ tf.app.flags.DEFINE_string('imagenet_metadata_file',
 # Note that there might exist mulitple bounding box annotations associated
 # with an image file.
 tf.app.flags.DEFINE_string('bounding_box_file',
-                           './imagenet_2012_bounding_boxes.csv',
+                           'devkit/train/relativeBoundingBox.csv',
                            'Bounding box file')
 
 FLAGS = tf.app.flags.FLAGS
@@ -158,9 +158,9 @@ def _float_feature(value):
 
 def _bytes_feature(value):
   """Wrapper for inserting bytes features into Example proto."""
-  if isinstance(value, six.string_types):           
-    value = six.binary_type(value, encoding='utf-8') 
-	return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
+  if isinstance(value, six.string_types):
+    value = six.binary_type(value, encoding='utf-8')
+  return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
 def _convert_to_example(filename, image_buffer, label, synset, human, bbox, height, width):
   """Build an Example proto for an example.
@@ -208,7 +208,7 @@ def _convert_to_example(filename, image_buffer, label, synset, human, bbox, heig
       'image/format': _bytes_feature(image_format),
       'image/filename': _bytes_feature(os.path.basename(filename)),
       'image/encoded': _bytes_feature(image_buffer)}))
-	return example
+  return example
 
 class ImageCoder(object):
   """Helper class that provides TensorFlow image coding utilities."""
@@ -316,7 +316,7 @@ def _process_image(filename, coder):
   width = image.shape[1]
   assert image.shape[2] == 3
 
-	return image_data, height, width
+  return image_data, height, width
 
 def _process_image_files_batch(coder, thread_index, ranges, name, filenames, synsets, labels, humans, bboxes, num_shards):
   """Processes and saves list of images as TFRecord in 1 thread.
@@ -434,7 +434,7 @@ def _process_image_files(name, filenames, synsets, labels, humans, bboxes, num_s
   coord.join(threads)
   print('%s: Finished writing all %d images in data set.' %
         (datetime.now(), len(filenames)))
-	sys.stdout.flush()
+  sys.stdout.flush()
 
 def _find_image_files(data_dir, labels_file):
   """Build a list of all images files and labels in the data set.
@@ -500,7 +500,7 @@ def _find_image_files(data_dir, labels_file):
 
   print('Found %d JPEG files across %d labels inside %s.' %
         (len(filenames), len(challenge_synsets), data_dir))
-	return filenames, synsets, labels
+  return filenames, synsets, labels
 
 def _find_human_readable_labels(synsets, synset_to_human):
   """Build a list of human-readable labels.
@@ -539,7 +539,7 @@ def _find_image_bounding_boxes(filenames, image_to_bboxes):
       bboxes.append([])
   print('Found %d images with bboxes out of %d images' % (
       num_image_bbox, len(filenames)))
-	return bboxes
+  return bboxes
 
 def _process_dataset(name, directory, num_shards, synset_to_human,image_to_bboxes):
   """Process a complete data set and save it as a TFRecord.
@@ -581,7 +581,7 @@ def _build_synset_lookup(imagenet_metadata_file):
       synset = parts[0]
       human = parts[1]
       synset_to_human[synset] = human
-	return synset_to_human
+  return synset_to_human
 
 def _build_bounding_box_lookup(bounding_box_file):
   """Build a lookup from image file to bounding boxes.
@@ -621,7 +621,7 @@ def _build_bounding_box_lookup(bounding_box_file):
 
   print('Successfully read %d bounding boxes '
         'across %d images.' % (num_bbox, num_image))
-	return images_to_bboxes
+  return images_to_bboxes
 
 def main(unused_argv):
   assert not FLAGS.train_shards % FLAGS.num_threads, (
