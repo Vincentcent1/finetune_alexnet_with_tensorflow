@@ -133,7 +133,7 @@ with tf.Session() as sess:
 
                     # Reshape as needed to feed into model
                     img = img.reshape((1,227,227,3))
--
+
                     # Run the session and calculate the class probability
                     probs = sess.run(softmax, feed_dict={x: img, keep_prob: 1})
 
