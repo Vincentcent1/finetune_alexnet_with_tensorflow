@@ -45,8 +45,9 @@ print(meta_name)
 
 
 val_batches_per_epoch = int(np.floor(val_data.data_size / batch_size))
-
-with tf.Session() as sess:
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+with tf.Session(config = config) as sess:
   saver = tf.train.import_meta_graph(meta_name)
   saver.restore(sess, checkpoint_name)
   graph = tf.get_default_graph()

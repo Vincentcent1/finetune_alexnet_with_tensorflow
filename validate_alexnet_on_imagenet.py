@@ -133,7 +133,7 @@ with tf.Session() as sess:
 
                     # Reshape as needed to feed into model
                     img = img.reshape((1,227,227,3))
-
+-
                     # Run the session and calculate the class probability
                     probs = sess.run(softmax, feed_dict={x: img, keep_prob: 1})
 
@@ -162,8 +162,8 @@ with tf.Session() as sess:
                     #     print("Validation accuracy: {}".format(accuracy))
                     #     print("{} correct prediction out of {}".format(top1, count))
                 imgs = []
-        top1accuracy = float(top1)/count        
-        top5accuracy = float(top5)/count        
+        top1accuracy = float(top1)/count
+        top5accuracy = float(top5)/count
         print("top1 {} {} {} {}".format(occlusionRatio, top1, count, top1accuracy))
         print("top5 {} {} {} {}".format(occlusionRatio, top5, count, top5accuracy))
         top1 = 0
