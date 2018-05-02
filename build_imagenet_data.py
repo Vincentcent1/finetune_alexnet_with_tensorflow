@@ -96,7 +96,7 @@ tf.app.flags.DEFINE_integer('train_shards', 1024,
 tf.app.flags.DEFINE_integer('validation_shards', 128,
                                                         'Number of shards in validation TFRecord files.')
 
-tf.app.flags.DEFINE_integer('num_threads', 16,
+tf.app.flags.DEFINE_integer('num_threads', 32,
                                                         'Number of threads to preprocess the images.')
 
 # The labels file contains a list of valid labels are held in this file.
@@ -158,8 +158,8 @@ def _float_feature(value):
 
 def _bytes_feature(value):
     """Wrapper for inserting bytes features into Example proto."""
-    if isinstance(value, six.string_types):
-        value = six.binary_type(value, encoding='utf-8')
+    #if isinstance(value, six.string_types):
+    #    value = six.binary_type(value, encoding='utf-8')
     return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
 
 def _convert_to_example(filename, image_buffer, label, synset, human, bbox, height, width):
@@ -215,7 +215,9 @@ class ImageCoder(object):
 
     def __init__(self):
         # Create a single Session to run all image coding calls.
-        self._sess = tf.Session()
+        config = tf.ConfigProto()
+	config.gpu_options.allow_growth = True
+	self._sess = tf.Session(config=config)
 
         # Initializes function that converts PNG to JPEG data.
         self._png_data = tf.placeholder(dtype=tf.string)
@@ -636,8 +638,8 @@ def main(unused_argv):
     image_to_bboxes = _build_bounding_box_lookup(FLAGS.bounding_box_file)
 
     # Run it!
-    _process_dataset('validation', FLAGS.validation_directory,
-                                     FLAGS.validation_shards, synset_to_human, image_to_bboxes)
+#    _process_dataset('validation', FLAGS.validation_directory,
+#                                     FLAGS.validation_shards, synset_to_human, image_to_bboxes)
     _process_dataset('train', FLAGS.train_directory, FLAGS.train_shards,
                                      synset_to_human, image_to_bboxes)
 
