@@ -467,8 +467,7 @@ def _find_image_files(data_dir, labels_file):
         labels: list of integer; each integer identifies the ground truth.
     """
     print('Determining list of input files and labels from %s.' % data_dir)
-    challenge_synsets = [l.strip() for l in
-                                             tf.gfile.FastGFile(labels_file, 'r').readlines()]
+    challenge_synsets = [l.strip() for l in tf.gfile.FastGFile(labels_file, 'r').readlines()]
 
     labels = []
     filenames = []
