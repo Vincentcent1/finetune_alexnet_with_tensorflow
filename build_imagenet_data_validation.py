@@ -242,7 +242,7 @@ def FindNumberBoundingBoxes(root):
     index += 1
   return index
 
-if __name__ == '__main__':
+def main(unused_argv):
     labels = []
     filenames = []
 
@@ -263,6 +263,7 @@ if __name__ == '__main__':
 
     for i in range(len(filenames)):
         if not i % num_of_images_per_batch:
+            print("Writing tfrecord to validation%d" % (i/num_of_images_per_batch))
             writer = tf.python_io.TFRecordWriter("validation%d" % (i/num_of_images_per_batch))
         filename = filenames[i]
         label = labels[i]
@@ -275,3 +276,5 @@ if __name__ == '__main__':
         example = _convert_to_example(filename, image_buffer,label, synset,human,bbox,height,width)
         writer.write(example.SerializeToString())
 
+if __name__ == '__main__':
+    tf.app.run()
