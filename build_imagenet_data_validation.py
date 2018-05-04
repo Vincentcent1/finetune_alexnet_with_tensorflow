@@ -10,6 +10,7 @@ import sys
 import numpy as np
 import six
 import tensorflow as tf
+import xml.etree.ElementTree as ET
 
 tf.app.flags.DEFINE_string('labels_file',
                                                      'devkit/wnetClass/wnetId_orderedBy_classId.txt',
@@ -22,6 +23,9 @@ tf.app.flags.DEFINE_string('validation_directory', 'Data/CLS-LOC/val',
                                                      'Validation data directory')
 tf.app.flags.DEFINE_string('bbox_file', 'devkit/validation/validation_bbox.txt','Validation bounding box file list')
 tf.app.flags.DEFINE_string('bbox_dir', 'Annotations/CLS-LOC/val','Validation bounding box directory')
+tf.app.flags.DEFINE_string('ground_truth', 'devkit/validation/validation_ground_truth.txt','Validation ground truth file')
+
+FLAGS = tf.app.flags.FLAGS
 
 class ImageCoder(object):
     """Helper class that provides TensorFlow image coding utilities."""
@@ -29,8 +33,8 @@ class ImageCoder(object):
     def __init__(self):
         # Create a single Session to run all image coding calls.
         config = tf.ConfigProto()
-    config.gpu_options.allow_growth = True
-    self._sess = tf.Session(config=config)
+        config.gpu_options.allow_growth = True
+        self._sess = tf.Session(config=config)
 
         # Initializes function that converts PNG to JPEG data.
         self._png_data = tf.placeholder(dtype=tf.string)
@@ -60,6 +64,61 @@ class ImageCoder(object):
         assert len(image.shape) == 3
         assert image.shape[2] == 3
         return image
+
+def _int64_feature(value):
+    """Wrapper for inserting int64 features into Example proto."""
+    if not isinstance(value, list):
+        value = [value]
+    return tf.train.Feature(int64_list=tf.train.Int64List(value=value))
+
+
+def _float_feature(value):
+    """Wrapper for inserting float features into Example proto."""
+    if not isinstance(value, list):
+        value = [value]
+    return tf.train.Feature(float_list=tf.train.FloatList(value=value))
+
+
+def _bytes_feature(value):
+    """Wrapper for inserting bytes features into Example proto."""
+    #if isinstance(value, six.string_types):
+    #    value = six.binary_type(value, encoding='utf-8')
+    return tf.train.Feature(bytes_list=tf.train.BytesList(value=[value]))
+
+def _is_png(filename):
+    """Determine if a file contains a PNG format image.
+    Args:
+        filename: string, path of the image file.
+    Returns:
+        boolean indicating if the image is a PNG.
+    """
+    # File list from:
+    # https://groups.google.com/forum/embed/?place=forum/torch7#!topic/torch7/fOSTXHIESSU
+    # The file n02105855_2933.JPEG has been known to be PNG format
+    return 'n02105855_2933.JPEG' in filename
+
+
+def _is_cmyk(filename):
+    """Determine if file contains a CMYK JPEG format image.
+    Args:
+        filename: string, path of the image file.
+    Returns:
+        boolean indicating if the image is a JPEG encoded with CMYK color space.
+    """
+    # File list from:
+    # https://github.com/cytsai/ilsvrc-cmyk-image-list
+    blacklist = ['n01739381_1309.JPEG', 'n02077923_14822.JPEG',
+                             'n02447366_23489.JPEG', 'n02492035_15739.JPEG',
+                             'n02747177_10752.JPEG', 'n03018349_4028.JPEG',
+                             'n03062245_4620.JPEG', 'n03347037_9675.JPEG',
+                             'n03467068_12171.JPEG', 'n03529860_11437.JPEG',
+                             'n03544143_17228.JPEG', 'n03633091_5218.JPEG',
+                             'n03710637_5125.JPEG', 'n03961711_5286.JPEG',
+                             'n04033995_2932.JPEG', 'n04258138_17003.JPEG',
+                             'n04264628_27969.JPEG', 'n04336792_7448.JPEG',
+                             'n04371774_5854.JPEG', 'n04596742_4225.JPEG',
+                             'n07583066_647.JPEG', 'n13037406_4650.JPEG']
+    return filename.split('/')[-1] in blacklist
 
 def _process_image(filename, coder):
     """Process a single image file.
@@ -157,6 +216,7 @@ def _find_human_readable_labels(synsets, synset_to_human):
     for s in synsets:
         assert s in synset_to_human, ('Failed to find: %s' % s)
         humans.append(synset_to_human[s])
+    assert len(humans) == 1000, ("Only %d synsets found" % len(humans))
     return humans
 
 def _build_synset_lookup(imagenet_metadata_file):
@@ -185,6 +245,24 @@ def _build_synset_lookup(imagenet_metadata_file):
             synset_to_human[synset] = human
     return synset_to_human
 
+class BoundingBox(object):
+  pass
+
+
+def GetItem(name, root, index=0):
+  count = 0
+  for item in root.iter(name):
+    if count == index:
+      return item.text
+    count += 1
+  # Failed to find "index" occurrence of item.
+  return -1
+
+def GetInt(name, root, index=0):
+  # In some XML annotation files, the point values are not integers, but floats.
+  # So we add a float function to avoid ValueError.
+  return int(float(GetItem(name, root, index)))
+
 def ProcessXMLAnnotation(xml_file):
   """Process a single XML file containing a bounding box."""
   # pylint: disable=broad-except
@@ -195,7 +273,6 @@ def ProcessXMLAnnotation(xml_file):
     return None
   # pylint: enable=broad-except
   root = tree.getroot()
-
   num_boxes = FindNumberBoundingBoxes(root)
   boxes = []
 
@@ -232,8 +309,8 @@ def ProcessXMLAnnotation(xml_file):
     box.ymin_scaled = min(max(min_y, 0.0), 1.0)
     box.ymax_scaled = min(max(max_y, 0.0), 1.0)
 
-    boxes.append(box)
-
+    boxes.append((box.xmin_scaled,box.ymin_scaled,box.xmax_scaled,box.ymax_scaled))
+  return boxes
 def FindNumberBoundingBoxes(root):
   index = 0
   while True:
@@ -246,8 +323,7 @@ def main(unused_argv):
     labels = []
     filenames = []
 
-    challenge_synsets = ['0'] # wnetId Ordered by label
-    challenge_synsets.extend([l.strip() for l in tf.gfile.FastGFile(FLAGS.labels_file, 'r').readlines()])
+    challenge_synsets = [l.strip() for l in tf.gfile.FastGFile(FLAGS.labels_file, 'r').readlines()]
 
     synset_to_human = _build_synset_lookup(FLAGS.imagenet_metadata_file)
     humans = _find_human_readable_labels(challenge_synsets, synset_to_human)
@@ -257,21 +333,25 @@ def main(unused_argv):
         filenames.append(os.path.join(FLAGS.validation_directory,a))
         labels.append(int(b)+1)
 
-    bbox_path = [os.path.join(FLAGS.bbox_dir,(l.strip().split(' ')[1])) for l in tf.gfile.FastGFile(FLAGS.bbox_file, 'r').readlines()]:
+    bbox_path = [os.path.join(FLAGS.bbox_dir,l.strip()) for l in tf.gfile.FastGFile(FLAGS.bbox_file, 'r').readlines()]
 
-    num_of_images_per_batch = (len(filenames)/128)
+    num_of_images_per_batch = int(len(filenames)/128)
+    coder = ImageCoder()
 
     for i in range(len(filenames)):
         if not i % num_of_images_per_batch:
             print("Writing tfrecord to validation%d" % (i/num_of_images_per_batch))
-            writer = tf.python_io.TFRecordWriter("validation%d" % (i/num_of_images_per_batch))
+            writer = tf.python_io.TFRecordWriter("tfrecords/validation%d" % (i/num_of_images_per_batch))
         filename = filenames[i]
+        #label is 1-indexed, index 0 for background class
         label = labels[i]
-        synset = challenge_synsets[label]
+        synset = challenge_synsets[label-1]
         bbox = ProcessXMLAnnotation(bbox_path[i])
         assert len(bbox) > 0 , ("Error... Empty bbox found for %s" % (filename))
-        human = humans[label]
-        coder = ImageCoder()
+        try:
+            human = humans[label-1]
+        except Exception:
+            print(label)
         image_buffer, height, width = _process_image(filename,coder)
         example = _convert_to_example(filename, image_buffer,label, synset,human,bbox,height,width)
         writer.write(example.SerializeToString())
