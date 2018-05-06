@@ -65,12 +65,12 @@ with tf.device('/cpu:0'):
                                  batch_size=batch_size,
                                  num_classes=num_classes,
                                  shuffle=True,
-                                 occlusionRatio=occlusionRatio)
+                                 occlusionRatio=occlusion_ratio)
     val_data = ImageDataGenerator(mode='inference',
                                  batch_size=batch_size,
                                  num_classes=num_classes,
                                  shuffle=True,
-                                 occlusionRatio=occlusionRatio)
+                                 occlusionRatio=occlusion_ratio)
     tr_iterator = tr_data.iterator
     val_iterator = val_data.iterator
     tr_next_batch = tr_iterator.get_next()
@@ -135,8 +135,8 @@ writer = tf.summary.FileWriter(filewriter_path)
 saver = tf.train.Saver()
 
 # Get the number of training/validation steps per epoch
-train_batches_per_epoch = int(np.floor(tr_data.data_size/batch_size))
-val_batches_per_epoch = int(np.floor(val_data.data_size / batch_size))
+train_batches_per_epoch = int(np.floor(544546/batch_size))
+val_batches_per_epoch = int(np.floor(50000/ batch_size))
 
 # Start Tensorflow session
 config = tf.ConfigProto(allow_soft_placement=True)

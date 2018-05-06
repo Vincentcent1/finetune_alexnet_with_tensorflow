@@ -140,7 +140,7 @@ class ImageDataGenerator(object):
         # data['text'] = parsed_features['image/class/text']
         # data['filename'] = parsed_features['image/filename']
         one_hot = tf.one_hot(label,self.num_classes)
-        return image,label
+        return image,one_hot
 
     def occlude(self, image, offset_height, offset_width, target_height, target_width):
     # tf.assert_equal (image.shape,[227,227,3])
