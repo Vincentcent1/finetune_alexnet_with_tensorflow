@@ -1,0 +1,42 @@
+Dataset creation...
+Dataset creation...
+2018-05-01 02:10:59.341738 Start training...
+2018-05-01 02:10:59.341816 Open Tensorboard at --logdir tmp/finetune_alexnet/tensorboard
+2018-05-01 02:10:59.341832 Epoch number: 1
+2018-05-01 06:06:37.235054 Start validation
+2018-05-01 06:16:18.067095 Validation Accuracy = 0.0010
+2018-05-01 06:16:18.067156 Saving checkpoint of model...
+2018-05-01 06:16:25.849830 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/1.0_cropCenter_model_epoch1.ckpt
+2018-05-01 06:16:25.851236 Epoch number: 2
+2018-05-01 10:13:02.950765 Start validation
+2018-05-01 10:22:49.451889 Validation Accuracy = 0.0010
+2018-05-01 10:22:49.452012 Saving checkpoint of model...
+2018-05-01 10:22:56.674690 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/1.0_cropCenter_model_epoch2.ckpt
+2018-05-01 10:22:56.687759 Epoch number: 3
+2018-05-01 14:19:21.286590 Start validation
+2018-05-01 14:29:56.034593 Validation Accuracy = 0.0010
+2018-05-01 14:29:56.034658 Saving checkpoint of model...
+2018-05-01 14:30:03.381573 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/1.0_cropCenter_model_epoch3.ckpt
+2018-05-01 14:30:03.394212 Epoch number: 4
+2018-05-01 18:48:27.141243 Start validation
+2018-05-01 18:59:17.564376 Validation Accuracy = 0.0010
+2018-05-01 18:59:17.564466 Saving checkpoint of model...
+2018-05-01 18:59:24.757673 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/1.0_cropCenter_model_epoch4.ckpt
+2018-05-01 18:59:24.759167 Epoch number: 5
+2018-05-01 23:08:53.951543 Start validation
+2018-05-01 23:18:35.500769 Validation Accuracy = 0.0010
+2018-05-01 23:18:35.500889 Saving checkpoint of model...
+2018-05-01 23:18:43.200544 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/1.0_cropCenter_model_epoch5.ckpt
+2018-05-01 23:18:43.213168 Epoch number: 6
+2018-05-02 03:22:33.387840 Start validation
+2018-05-02 03:32:37.085350 Validation Accuracy = 0.0010
+2018-05-02 03:32:37.085455 Epoch number: 7
+2018-05-02 07:37:15.139358 Start validation
+2018-05-02 07:47:47.066178 Validation Accuracy = 0.0010
+2018-05-02 07:47:47.066261 Epoch number: 8
+2018-05-02 11:51:33.559823 Start validation
+2018-05-02 12:01:57.035512 Validation Accuracy = 0.0010
+2018-05-02 12:01:57.035622 Epoch number: 9
+2018-05-02 16:01:45.667602 Start validation
+2018-05-02 16:11:44.445457 Validation Accuracy = 0.0010
+2018-05-02 16:11:44.445574 Epoch number: 10
