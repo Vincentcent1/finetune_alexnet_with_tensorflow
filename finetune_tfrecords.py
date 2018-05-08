@@ -77,8 +77,8 @@ with tf.device('/cpu:0'):
     val_next_batch = val_iterator.get_next()
 
 # TF placeholder for graph input and output
-x = tf.placeholder(tf.float32, [batch_size, 227, 227, 3])
-y = tf.placeholder(tf.float32, [batch_size, num_classes])
+x = tf.placeholder(tf.float32, [batch_size, 227, 227, 3],name="image_input")
+y = tf.placeholder(tf.float32, [batch_size, num_classes],name="label_input")
 keep_prob = tf.placeholder(tf.float32)
 
 # Initialize model
@@ -119,8 +119,13 @@ tf.summary.scalar('cross_entropy', loss)
 
 # Evaluation op: Accuracy of the model
 with tf.name_scope("accuracy"):
-    correct_pred = tf.equal(tf.argmax(score, 1), tf.argmax(y, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+    label = tf.argmax(y,-1)
+    label2 = tf.cast(tf.expand_dims(label,1),tf.int32)
+    _top5prob,top5index = tf.nn.top_k(score,5,name = "top5index")
+    top5acc = tf.reduce_sum(tf.cast(tf.equal(label2,top5index),tf.int32))
+    top5accMean = tf.reduce_mean(tf.cast(top5acc,tf.float32))
+    top1acc = tf.equal(tf.argmax(score, -1), label)
+    top1accMean = tf.reduce_mean(tf.cast(top1acc, tf.float32))
 
 # Add the accuracy to the summary
 tf.summary.scalar('accuracy', accuracy)
@@ -132,7 +137,8 @@ merged_summary = tf.summary.merge_all()
 writer = tf.summary.FileWriter(filewriter_path)
 
 # Initialize an saver for store model checkpoints
-saver = tf.train.Saver()
+saver_top1 = tf.train.Saver(max_to_keep=3)
+saver_top5 = tf.train.Saver(max_to_keep=3)
 
 # Get the number of training/validation steps per epoch
 train_batches_per_epoch = int(np.floor(544546/batch_size))
@@ -159,7 +165,7 @@ with tf.Session(config=config) as sess:
                                                       filewriter_path))
 
     # Loop over number of epochs
-    bestCheckpoints = []
+    bestCheckpoints = [[],[]]
     for epoch in range(num_epochs):
 
         print("{} Epoch number: {}".format(datetime.now(), epoch+1))
@@ -190,34 +196,47 @@ with tf.Session(config=config) as sess:
 
         # Validate the model on the entire validation set
         print("{} Start validation".format(datetime.now()))
-        test_acc = 0.
-        test_count = 0
+        top1val_acc = 0.
+        top5val_acc = 0.
         for _ in range(val_batches_per_epoch):
 
             img_batch, label_batch = sess.run(val_next_batch)
-            acc = sess.run(accuracy, feed_dict={x: img_batch,
+            top1,top5 = sess.run([top1accMean,top5accMean], feed_dict={x: img_batch,
                                                 y: label_batch,
                                                 keep_prob: 1.})
-            test_acc += acc
-            test_count += 1
-        test_acc /= test_count
+            top1val_acc += top1
+            top5val_acc += top5
+        top1val_acc /= val_batches_per_epoch
+        top5val_acc /= val_batches_per_epoch
         print("{} Validation Accuracy = {:.4f}".format(datetime.now(),
                                                        test_acc))
-        if (len(bestCheckpoints) < 5):
-          bestCheckpoints.append(test_acc)
-          bestCheckpoints.sort()
-        elif bestCheckpoints[0] < test_acc:
-          bestCheckpoints[0] = test_acc
-          bestCheckpoints.sort()
-        else:
-          continue
-        print("{} Saving checkpoint of model...".format(datetime.now()))
+        if (len(bestCheckpoints[0]) < 3):
+          bestCheckpoints[0].append(top1val_acc)
+          bestCheckpoints[1].append(top5val_acc)
+          bestCheckpoints[0].sort()
+          bestCheckpoints[1].sort()
+        if (bestCheckpoints[0] < top1val_acc):
+          bestCheckpoints[0] = top1val_acc
+          bestCheckpoints[0].sort()
+          print("{} Saving checkpoint of model...".format(datetime.now()))
+          # save checkpoint of the model
+          checkpoint_name = os.path.join(checkpoint_path,
+                                         str(occlusion_ratio) + '_cropCenter_model_epoch'+str(epoch+1)+'top1.ckpt')
+          save_path = saver_top1.save(sess, checkpoint_name)
 
-        # save checkpoint of the model
-        checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_cropCenter_model_epoch'+str(epoch+1)+'.ckpt')
-        save_path = saver.save(sess, checkpoint_name)
-
-        print("{} Model checkpoint saved at {}".format(datetime.now(),
+          print("{} Model checkpoint saved at {}".format(datetime.now(),
                                                          checkpoint_name))
-        sys.stdout.flush()
+          sys.stdout.flush()
+        if bestCheckpoints[1] < top5val_acc:
+          bestCheckpoints[1] = top1val_acc
+          bestCheckpoints[1].sort()
+          print("{} Saving checkpoint of model...".format(datetime.now()))
+          # save checkpoint of the model
+          checkpoint_name = os.path.join(checkpoint_path,
+                                         str(occlusion_ratio) + '_cropCenter_model_epoch'+str(epoch+1)+'top5.ckpt')
+          save_path = saver_top5.save(sess, checkpoint_name)
+
+          print("{} Model checkpoint saved at {}".format(datetime.now(),
+                                                         checkpoint_name))
+          sys.stdout.flush()
+
