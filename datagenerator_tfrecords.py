@@ -56,6 +56,7 @@ class ImageDataGenerator(object):
             self.filenames = tf.gfile.Glob('tfrecords/val/*')
         dataset = tf.data.TFRecordDataset(self.filenames)
         dataset = dataset.map(self._parse_tfrecords,num_parallel_calls=40)  # Parse the record into tensors.
+	dataset = dataset.filter(self.filterData)
         dataset = dataset.map(self.cropAndOccludeCenter,num_parallel_calls=40)  # Parse the record into tensors.
         dataset = dataset.repeat()  # Repeat the input indefinitely.
         dataset = dataset.batch(batch_size)
@@ -85,6 +86,32 @@ class ImageDataGenerator(object):
             }
         parsed_features = tf.parse_single_example(example_proto, keys_to_features)
         return parsed_features
+
+    def filterData(self, parsed_features):
+	image_data = parsed_features['image/encoded']
+        shape = (parsed_features['image/height'],
+                 parsed_features['image/width'],
+                 parsed_features['image/channels'])
+	bbox = (tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/xmin']),
+                 tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/xmax']),
+                 tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/ymin']),
+                 tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/ymax']))
+
+        height = shape[0]
+        width = shape[1]
+        tf.assert_equal(shape[2],tf.constant([3],shape[2].dtype),message="Channels not equal 3")
+        # tf.assert_equal(tf.size(bbox),tf.constant([4],tf.int32),message="Bbox size is not 4")
+        xmin_scaled = bbox[0][0]
+        xmax_scaled = bbox[1][0]
+        ymin_scaled = bbox[2][0]
+        ymax_scaled = bbox[3][0]
+
+        offset_height = tf.cast(ymin_scaled*tf.to_float(height),tf.int32)
+        offset_width = tf.cast(xmin_scaled*tf.to_float(width),tf.int32)
+        target_height = tf.cast((ymax_scaled - ymin_scaled)*tf.to_float(height),tf.int32)
+        target_width = tf.cast((xmax_scaled - xmin_scaled)*tf.to_float(width),tf.int32)
+        valid = tf.cond(tf.logical_or(tf.equal(target_height,tf.constant(0)),tf.equal(target_width,tf.constant(0))), lambda: self.recordError(parsed_features['image/filename']),lambda: tf.constant(True))
+	return valid
 
     def cropAndOccludeCenter(self, parsed_features):
         '''
@@ -121,7 +148,10 @@ class ImageDataGenerator(object):
         offset_width = tf.cast(xmin_scaled*tf.to_float(width),tf.int32)
         target_height = tf.cast((ymax_scaled - ymin_scaled)*tf.to_float(height),tf.int32)
         target_width = tf.cast((xmax_scaled - xmin_scaled)*tf.to_float(width),tf.int32)
-
+	#tf.cond(target_height = 0, recordError(parsed_features['image/filename']))
+	#tf.cond(target_width = 0, recordError(parsed_features['image/filename']))
+	#tf.assert_none_equal(target_height,tf.constant([0],tf.int32), data = (ymin_scaled,ymax_scaled,height,parsed_features['image/filename']),message="image crop height equals zero")
+	#tf.assert_none_equal(target_width,tf.constant([0],tf.int32), data = (xmin_scaled,xmax_scaled,width,parsed_features['image/filename']), message="image crop width equals zero")
         imageCropped = tf.image.decode_and_crop_jpeg(image_data,[offset_height,offset_width,target_height,target_width])
         imageResized = tf.image.resize_images(imageCropped, [227,227],tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
@@ -155,3 +185,9 @@ class ImageDataGenerator(object):
         occludedRegion  = tf.concat([occludedRegion,rightPad],1)
         occludedImage = tf.multiply(image, tf.cast(occludedRegion,tf.uint8))
         return occludedImage
+
+    def recordError(self,filename):
+	b = tf.constant(False)
+	b = tf.Print(b,[filename],message="invalidBbox")
+	return b
+
