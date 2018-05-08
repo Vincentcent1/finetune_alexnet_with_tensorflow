@@ -323,7 +323,7 @@ def main(unused_argv):
     labels = []
     filenames = []
 
-    challenge_synsets = [l.strip() for l in tf.gfile.FastGFile(FLAGS.labels_file, 'r').readlines()]
+    challenge_synsets = [l.strip() for l in tf.gfile.FastGFile(FLAGS.labels_file, 'r').readlines()] #Challenge synsets 0-indexed
 
     synset_to_human = _build_synset_lookup(FLAGS.imagenet_metadata_file)
     humans = _find_human_readable_labels(challenge_synsets, synset_to_human)
@@ -331,7 +331,7 @@ def main(unused_argv):
     for l in tf.gfile.FastGFile(FLAGS.ground_truth, 'r').readlines():
         a,b = l.split(' ')
         filenames.append(os.path.join(FLAGS.validation_directory,a))
-        labels.append(int(b)+1)
+        labels.append(int(b)+1) #Grond truth file is 0-indexed. +1 to make it 1-indexed
 
     bbox_path = [os.path.join(FLAGS.bbox_dir,l.strip()) for l in tf.gfile.FastGFile(FLAGS.bbox_file, 'r').readlines()]
 
@@ -345,7 +345,7 @@ def main(unused_argv):
         filename = filenames[i]
         #label is 1-indexed, index 0 for background class
         label = labels[i]
-        synset = challenge_synsets[label-1]
+        synset = challenge_synsets[label-1] #challenge synsets 0-indexed, but label 1-indexed
         bbox = ProcessXMLAnnotation(bbox_path[i])
         assert len(bbox) > 0 , ("Error... Empty bbox found for %s" % (filename))
         try:
