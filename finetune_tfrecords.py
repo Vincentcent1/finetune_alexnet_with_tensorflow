@@ -218,7 +218,23 @@ with tf.Session(config=config) as sess:
           bestCheckpoints[1].append(top5val_acc)
           bestCheckpoints[0].sort()
           bestCheckpoints[1].sort()
-        if (bestCheckpoints[0][0] < top1val_acc):
+	  print("{} Saving checkpoint of model...".format(datetime.now()))
+          # save checkpoint of the model
+          checkpoint_name = os.path.join(checkpoint_path,
+                                         str(occlusion_ratio) + '_cropCenter_model_epoch'+str(epoch+1)+'top1.ckpt')
+          save_path = saver_top1.save(sess, checkpoint_name)
+
+          print("{} Model checkpoint saved at {}".format(datetime.now(),
+                                                         checkpoint_name))
+	  print("{} Saving checkpoint of model...".format(datetime.now()))
+          # save checkpoint of the model
+          checkpoint_name = os.path.join(checkpoint_path,
+                                         str(occlusion_ratio) + '_cropCenter_model_epoch'+str(epoch+1)+'top5.ckpt')
+          save_path = saver_top5.save(sess, checkpoint_name)
+
+          print("{} Model checkpoint saved at {}".format(datetime.now(),
+                                                         checkpoint_name))
+	if (bestCheckpoints[0][0] < top1val_acc):
           bestCheckpoints[0] = top1val_acc
           bestCheckpoints[0].sort()
           print("{} Saving checkpoint of model...".format(datetime.now()))
