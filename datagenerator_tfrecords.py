@@ -26,8 +26,7 @@ class ImageDataGenerator(object):
     Requires Tensorflow >= version 1.12rc0
     """
 
-    def __init__(self, mode, batch_size, num_classes, shuffle=True,
-                 buffer_size=1000, occlusionRatio=0):
+    def __init__(self, mode, batch_size, num_classes, shuffle=True,buffer_size=1000, occlusionRatio=0):
         """Create a new ImageDataGenerator.
 
         Recieves a path string to a text file, which consists of many lines,
@@ -56,10 +55,10 @@ class ImageDataGenerator(object):
             self.filenames = tf.gfile.Glob('tfrecords/val/*')
         dataset = tf.data.TFRecordDataset(self.filenames)
         dataset = dataset.map(self._parse_tfrecords,num_parallel_calls=40)  # Parse the record into tensors.
-	#dataset = dataset.filter(self.filterData)
+        #dataset = dataset.filter(self.filterData)
         dataset = dataset.map(self.cropAndOccludeCenter,num_parallel_calls=40)  # Parse the record into tensors.
         dataset = dataset.repeat()  # Repeat the input indefinitely.
-	dataset = dataset.shuffle(buffer_size=buffer_size)
+        dataset = dataset.shuffle(buffer_size=buffer_size)
         dataset = dataset.batch(batch_size)
 
         self.iterator = dataset.make_one_shot_iterator()
@@ -89,11 +88,11 @@ class ImageDataGenerator(object):
         return parsed_features
 
     def filterData(self, parsed_features):
-	image_data = parsed_features['image/encoded']
+        image_data = parsed_features['image/encoded']
         shape = (parsed_features['image/height'],
                  parsed_features['image/width'],
                  parsed_features['image/channels'])
-	bbox = (tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/xmin']),
+        bbox = (tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/xmin']),
                  tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/xmax']),
                  tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/ymin']),
                  tf.sparse_tensor_to_dense(parsed_features['image/object/bbox/ymax']))
@@ -112,7 +111,7 @@ class ImageDataGenerator(object):
         target_height = tf.cast((ymax_scaled - ymin_scaled)*tf.to_float(height),tf.int32)
         target_width = tf.cast((xmax_scaled - xmin_scaled)*tf.to_float(width),tf.int32)
         valid = tf.cond(tf.logical_or(tf.equal(target_height,tf.constant(0)),tf.equal(target_width,tf.constant(0))), lambda: self.recordError(parsed_features['image/filename']),lambda: tf.constant(True))
-	return valid
+        return valid
 
     def cropAndOccludeCenter(self, parsed_features):
         '''
@@ -123,9 +122,7 @@ class ImageDataGenerator(object):
             image_data: JPEG image data in String
             shape: shape of the image
             bbox: List of bounding boxes tuple (xmin,ymin,xmax,ymax)
-            occlusion: occlusionRatio
         @return:
-
         '''
         image_data = parsed_features['image/encoded']
         shape = (parsed_features['image/height'],
@@ -149,10 +146,10 @@ class ImageDataGenerator(object):
         offset_width = tf.cast(xmin_scaled*tf.to_float(width),tf.int32)
         target_height = tf.cast((ymax_scaled - ymin_scaled)*tf.to_float(height),tf.int32)
         target_width = tf.cast((xmax_scaled - xmin_scaled)*tf.to_float(width),tf.int32)
-	#tf.cond(target_height = 0, recordError(parsed_features['image/filename']))
-	#tf.cond(target_width = 0, recordError(parsed_features['image/filename']))
-	#tf.assert_none_equal(target_height,tf.constant([0],tf.int32), data = (ymin_scaled,ymax_scaled,height,parsed_features['image/filename']),message="image crop height equals zero")
-	#tf.assert_none_equal(target_width,tf.constant([0],tf.int32), data = (xmin_scaled,xmax_scaled,width,parsed_features['image/filename']), message="image crop width equals zero")
+        #tf.cond(target_height = 0, recordError(parsed_features['image/filename']))
+        #tf.cond(target_width = 0, recordError(parsed_features['image/filename']))
+        #tf.assert_none_equal(target_height,tf.constant([0],tf.int32), data = (ymin_scaled,ymax_scaled,height,parsed_features['image/filename']),message="image crop height equals zero")
+        #tf.assert_none_equal(target_width,tf.constant([0],tf.int32), data = (xmin_scaled,xmax_scaled,width,parsed_features['image/filename']), message="image crop width equals zero")
         imageCropped = tf.image.decode_and_crop_jpeg(image_data,[offset_height,offset_width,target_height,target_width])
         imageResized = tf.image.resize_images(imageCropped, [227,227],tf.image.ResizeMethod.NEAREST_NEIGHBOR)
 
@@ -173,8 +170,50 @@ class ImageDataGenerator(object):
         one_hot = tf.one_hot(label-1,self.num_classes)
         return image,one_hot
 
+    def occludeCenter(self, parsed_features):
+        '''
+        Crop an image to the bounding box and occlude on the center of the image by @occlusion.
+        @params:
+            parsed_feature: dict of features:
+        @vars:
+            image_data: JPEG image data in String
+            shape: shape of the image
+        @return:
+        '''
+        image_data = parsed_features['image/encoded']
+        shape = (parsed_features['image/height'],
+                 parsed_features['image/width'],
+                 parsed_features['image/channels'])
+
+        height = shape[0]
+        width = shape[1]
+        tf.assert_equal(shape[2],tf.constant([3],shape[2].dtype),message="Channels not equal 3")
+        tf.assert_none_equal(height,tf.constant([0],height.dtype),message="Height is 0")
+        tf.assert_none_equal(width,tf.constant([0],width.dtype),message="Width is 0")
+
+        image = tf.image.decode_jpeg(image_data)
+        imageResized = tf.image.resize_images(image, [227,227],tf.image.ResizeMethod.NEAREST_NEIGHBOR)
+
+        side = tf.sqrt(self.occlusionRatio)
+        offset_height2 = tf.cast(((1.0-side)/2)*227,tf.int32)
+        target_height2 = tf.cast((side)*227,tf.int32)
+
+        imageOccluded = self.occlude(imageResized,offset_height2,offset_height2,target_height2,target_height2)
+        # RGB -> BGR, the model was trained on BGR image from Caffe
+        bgrImageOccluded = imageOccluded[:,:,::-1]
+        image = tf.subtract(tf.cast(bgrImageOccluded,tf.float32),IMAGENET_MEAN)
+
+        label = tf.cast(parsed_features['image/class/label'],tf.int32)
+        one_hot = tf.one_hot(label-1,self.num_classes)
+        return image,one_hot
+
     def occlude(self, image, offset_height, offset_width, target_height, target_width):
-    # tf.assert_equal (image.shape,[227,227,3])
+        '''
+        Occlude image with the given parameters
+        @params:
+            image: 3-D Tensor of 3 channels image
+        '''
+        # tf.assert_equal (image.shape,[227,227,3])
         occludedRegion = tf.zeros([target_height,target_width,3],tf.int32)
         topPad = tf.ones([offset_height,target_width,3],tf.int32)
         occludedRegion = tf.concat([topPad,occludedRegion],0)
@@ -188,7 +227,7 @@ class ImageDataGenerator(object):
         return occludedImage
 
     def recordError(self,filename):
-	b = tf.constant(False)
-	b = tf.Print(b,[filename],message="invalidBbox")
-	return b
+        b = tf.constant(False)
+        b = tf.Print(b,[filename],message="invalidBbox")
+        return b
 
