@@ -234,6 +234,8 @@ with tf.Session(config=config) as sess:
 
           print("{} Model checkpoint saved at {}".format(datetime.now(),
                                                          checkpoint_name))
+          sys.stdout.flush()
+          continue
 	if (bestCheckpoints[0][0] < top1val_acc):
           bestCheckpoints[0][0] = top1val_acc
           bestCheckpoints[0].sort()
@@ -247,7 +249,7 @@ with tf.Session(config=config) as sess:
                                                          checkpoint_name))
           sys.stdout.flush()
         if bestCheckpoints[1][0] < top5val_acc:
-          bestCheckpoints[1][0] = top1val_acc
+          bestCheckpoints[1][0] = top5val_acc
           bestCheckpoints[1].sort()
           print("{} Saving checkpoint of model...".format(datetime.now()))
           # save checkpoint of the model
