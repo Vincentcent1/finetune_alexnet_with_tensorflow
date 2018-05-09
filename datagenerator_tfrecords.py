@@ -169,7 +169,7 @@ class ImageDataGenerator(object):
         # data['synset'] = parsed_features['image/class/synset']
         # data['text'] = parsed_features['image/class/text']
         # data['filename'] = parsed_features['image/filename']
-        one_hot = tf.one_hot(label,self.num_classes)
+        one_hot = tf.one_hot(label-1,self.num_classes)
         return image,one_hot
 
     def occlude(self, image, offset_height, offset_width, target_height, target_width):
