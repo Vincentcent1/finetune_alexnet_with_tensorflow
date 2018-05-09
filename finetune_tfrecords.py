@@ -122,7 +122,7 @@ with tf.name_scope("accuracy"):
     label = tf.argmax(y,-1)
     label2 = tf.cast(tf.expand_dims(label,1),tf.int32)
     _top5prob,top5index = tf.nn.top_k(score,5,name = "top5index")
-    top5acc = tf.reduce_sum(tf.cast(tf.equal(label2,top5index),tf.int32))
+    top5acc = tf.reduce_sum(tf.cast(tf.equal(label2,top5index),tf.int32),-1)
     top5accMean = tf.reduce_mean(tf.cast(top5acc,tf.float32))
     top1acc = tf.equal(tf.argmax(score, -1), label)
     top1accMean = tf.reduce_mean(tf.cast(top1acc, tf.float32))
@@ -142,7 +142,7 @@ saver_top1 = tf.train.Saver(max_to_keep=3)
 saver_top5 = tf.train.Saver(max_to_keep=3)
 
 # Get the number of training/validation steps per epoch
-train_batches_per_epoch = int(np.floor(544546/batch_size))
+train_batches_per_epoch = int(np.floor(544545/batch_size))
 val_batches_per_epoch = int(np.floor(50000/ batch_size))
 
 # Start Tensorflow session
@@ -218,7 +218,7 @@ with tf.Session(config=config) as sess:
           bestCheckpoints[1].append(top5val_acc)
           bestCheckpoints[0].sort()
           bestCheckpoints[1].sort()
-        if (bestCheckpoints[0] < top1val_acc):
+        if (bestCheckpoints[0][0] < top1val_acc):
           bestCheckpoints[0] = top1val_acc
           bestCheckpoints[0].sort()
           print("{} Saving checkpoint of model...".format(datetime.now()))
@@ -230,7 +230,7 @@ with tf.Session(config=config) as sess:
           print("{} Model checkpoint saved at {}".format(datetime.now(),
                                                          checkpoint_name))
           sys.stdout.flush()
-        if bestCheckpoints[1] < top5val_acc:
+        if bestCheckpoints[1][0] < top5val_acc:
           bestCheckpoints[1] = top1val_acc
           bestCheckpoints[1].sort()
           print("{} Saving checkpoint of model...".format(datetime.now()))
