@@ -128,8 +128,9 @@ with tf.name_scope("accuracy"):
     top1accMean = tf.reduce_mean(tf.cast(top1acc, tf.float32))
 
 # Add the accuracy to the summary
-tf.summary.scalar('accuracy', accuracy)
-
+tf.summary.scalar('Top1 Accuracy', top1accMean)
+tf.summary.scalar('Top5 Accuracy', top5accMean)
+tf.summary.image('Pre-processed image', x,max_outputs=2)
 # Merge all summaries together
 merged_summary = tf.summary.merge_all()
 
@@ -208,8 +209,10 @@ with tf.Session(config=config) as sess:
             top5val_acc += top5
         top1val_acc /= val_batches_per_epoch
         top5val_acc /= val_batches_per_epoch
-        print("{} Validation Accuracy = {:.4f}".format(datetime.now(),
-                                                       test_acc))
+        print("{} Top 1 Validation Accuracy = {:.4f}".format(datetime.now(),
+                                                       top1val_acc))
+        print("{} Top 5 Validation Accuracy = {:.4f}".format(datetime.now(),top5val_acc))
+
         if (len(bestCheckpoints[0]) < 3):
           bestCheckpoints[0].append(top1val_acc)
           bestCheckpoints[1].append(top5val_acc)
