@@ -55,9 +55,9 @@ class ImageDataGenerator(object):
         elif mode == 'inference':
             self.filenames = tf.gfile.Glob('tfrecords/val/*')
         dataset = tf.data.TFRecordDataset(self.filenames)
-        dataset = dataset.map(self._parse_tfrecords,num_parallel_calls=40)  # Parse the record into tensors.
+        dataset = dataset.map(self._parse_tfrecords,num_parallel_calls=30)  # Parse the record into tensors.
 	#dataset = dataset.filter(self.filterData)
-        dataset = dataset.map(self.cropAndOccludeCenter,num_parallel_calls=40)  # Parse the record into tensors.
+        dataset = dataset.map(self.cropAndOccludeCenter,num_parallel_calls=30)  # Parse the record into tensors.
         dataset = dataset.repeat()  # Repeat the input indefinitely.
 	dataset = dataset.shuffle(buffer_size=buffer_size)
         dataset = dataset.batch(batch_size)
