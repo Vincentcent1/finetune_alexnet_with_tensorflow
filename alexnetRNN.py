@@ -59,12 +59,12 @@ class AlexNet(object):
         """Create the network graph."""
         # 1st Layer: Conv (w ReLu) -> Lrn -> Pool
         conv1 = conv(self.X, 11, 11, 96, 4, 4, padding='VALID', name='conv1')
-        norm1 = lrn(conv1, 2, 1e-05, 0.75, name='norm1')
+        norm1 = lrn(conv1, 2, 1e-04, 0.75, name='norm1')
         pool1 = max_pool(norm1, 3, 3, 2, 2, padding='VALID', name='pool1')
         
         # 2nd Layer: Conv (w ReLu)  -> Lrn -> Pool with 2 groups
         conv2 = conv(pool1, 5, 5, 256, 1, 1, groups=2, name='conv2')
-        norm2 = lrn(conv2, 2, 1e-05, 0.75, name='norm2')
+        norm2 = lrn(conv2, 2, 1e-04, 0.75, name='norm2')
         pool2 = max_pool(norm2, 3, 3, 2, 2, padding='VALID', name='pool2')
         
         # 3rd Layer: Conv (w ReLu)
@@ -132,9 +132,11 @@ def conv(x, filter_height, filter_width, num_filters, stride_y, stride_x, name,
     input_channels = int(x.get_shape()[-1])
 
     # Create lambda function for the convolution
-    convolve = lambda i, k: tf.nn.conv2d(i, k,
+    convolve = lambda i, k,name : tf.nn.conv2d(i, k,
                                          strides=[1, stride_y, stride_x, 1],
-                                         padding=padding)
+                                         padding=padding,
+                                         name=name,
+                                         reuse=True)
 
     with tf.variable_scope(name) as scope:
         # Create tf variables for the weights and biases of the conv layer
@@ -145,7 +147,7 @@ def conv(x, filter_height, filter_width, num_filters, stride_y, stride_x, name,
         biases = tf.get_variable('biases', shape=[num_filters])
 
     if groups == 1:
-        conv = convolve(x, weights)
+        conv = convolve(x, weights,"rcl")
 
     # In the cases of multiple groups, split inputs & weights and
     else:
@@ -153,7 +155,7 @@ def conv(x, filter_height, filter_width, num_filters, stride_y, stride_x, name,
         input_groups = tf.split(axis=3, num_or_size_splits=groups, value=x)
         weight_groups = tf.split(axis=3, num_or_size_splits=groups,
                                  value=weights)
-        output_groups = [convolve(i, k) for i, k in zip(input_groups, weight_groups)]
+        output_groups = [convolve(i, k,"rcl" + str(count)) for count,i, k in enumerate(zip(input_groups, weight_groups))]
 
         # Concat the convolved output together again
         conv = tf.concat(axis=3, values=output_groups)
@@ -163,7 +165,6 @@ def conv(x, filter_height, filter_width, num_filters, stride_y, stride_x, name,
 
     # Apply relu function
     relu = tf.nn.relu(bias, name=scope.name)
-
     return relu
 
 
