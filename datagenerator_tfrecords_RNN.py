@@ -26,7 +26,7 @@ class ImageDataGenerator(object):
     Requires Tensorflow >= version 1.12rc0
     """
 
-    def __init__(self, mode, batch_size, num_classes, shuffle=True,buffer_size=1000, occlusionRatio=0, cropRatio=0):
+    def __init__(self, mode, batch_size, num_classes, shuffle=True,buffer_size=1000, occlusionRatio=0, cropRatio=0.0):
         """Create a new ImageDataGenerator.
 
         Recieves a path string to a text file, which consists of many lines,
@@ -58,8 +58,7 @@ class ImageDataGenerator(object):
         dataset = dataset.map(self._parse_tfrecords,num_parallel_calls=4)  # Parse the record into tensors.
 	#dataset = dataset.filter(self.filterData)
         dataset = dataset.map(self.occludeCenter,num_parallel_calls=4)  # Parse the record into tensors.
-        if mode == 'training':
-           dataset = dataset.map(self.rnnRandomCrop,num_parallel_calls=4)  # Parse the record into tensors.
+        dataset = dataset.map(self.rnnRandomCrop,num_parallel_calls=4)  # Parse the record into tensors.
         dataset = dataset.repeat()  # Repeat the input indefinitely.
         dataset = dataset.shuffle(buffer_size=buffer_size)
         dataset = dataset.batch(batch_size)

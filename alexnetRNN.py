@@ -59,11 +59,8 @@ class AlexNet(object):
     def create(self):
         """Create the network graph."""
         # 1st Layer: Conv (w ReLu) -> Lrn -> Pool
-        print(self.X.shape)
         conv1 = conv(self.X, 11, 11, 96, 4, 4, padding='VALID', name='conv1')
-        print(conv1.shape)
         norm1 = lrn(conv1, 2, 1e-04, 0.75, name='norm1')
-        print(norm1.shape)
         pool1 = max_pool(norm1, 3, 3, 2, 2, padding='VALID', name='pool1')
 
         # 2nd Layer: Conv (w ReLu)  -> Lrn -> Pool with 2 groups
@@ -82,9 +79,18 @@ class AlexNet(object):
         pool5 = max_pool(conv5, 3, 3, 2, 2, padding='VALID', name='pool5')
         # print(conv5.shape)
         flattened = tf.reshape(pool5, [-1,5,6*6*256])
+        print(conv1.shape)
+        print(pool1.shape)
+        print(conv2.shape)
+        print(pool2.shape)
+        print(conv3.shape)
+        print(conv4.shape)
+        print(conv5.shape)
+        print(pool5.shape)
+        print(self.X.shape)
         print(flattened.shape)
 
-        lstm1 = tf.contrib.rnn.LSTMCell(flattened.shape[2],name="lstm")
+        lstm1 = tf.contrib.rnn.LSTMCell(32,name="lstm")
         # hidden_state1 = tf.zeros([self.batch_size, 5])
         # current_state1 = tf.zeros([self.batch_size, 5])
         state1 = lstm1.zero_state(self.batch_size,tf.float32)
@@ -95,7 +101,7 @@ class AlexNet(object):
         print(output1.shape)
 
         # 6th Layer: Flatten -> FC (w ReLu) -> Dropout
-        fc6 = fc(output1, 6*6*256, 4096, name='fc6')
+        fc6 = fc(output1, 32, 4096, name='fc6')
         dropout6 = dropout(fc6, self.KEEP_PROB)
 
         # 7th Layer: FC (w ReLu) -> Dropout
@@ -122,22 +128,19 @@ class AlexNet(object):
             # If they are in the skip layer, by right skip the loading of weights, but in this case we
             # want to load the weights, but with a boolean flag that tells the network that this node is trainable
             if op_name in self.train_layer:
-                train_bool = True
-            else:
-                train_bool = False
-            with tf.variable_scope(op_name, reuse=tf.AUTO_REUSE):
-                # Assign weights/biases to their corresponding tf variable
-                for data in weights_dict[op_name]:
+                with tf.variable_scope(op_name, reuse=tf.AUTO_REUSE):
+                    # Assign weights/biases to their corresponding tf variable
+                    for data in weights_dict[op_name]:
 
-                    # Biases
-                    if len(data.shape) == 1:
-                        var = tf.get_variable('biases', trainable=train_bool)
-                        session.run(var.assign(data))
+                        # Biases
+                        if len(data.shape) == 1:
+                            var = tf.get_variable('biases', trainable=True)
+                            session.run(var.assign(data))
 
-                    # Weights
-                    else:
-                        var = tf.get_variable('weights', trainable=train_bool)
-                        session.run(var.assign(data))
+                        # Weights
+                        else:
+                            var = tf.get_variable('weights', trainable=True)
+                            session.run(var.assign(data))
 
 
 def conv(xFive, filter_height, filter_width, num_filters, stride_y, stride_x, name,

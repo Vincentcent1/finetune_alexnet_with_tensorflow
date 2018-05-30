@@ -20,7 +20,7 @@ import tensorflow as tf
 from tensorflow.python import debug as tf_debug
 
 from alexnetRNN import AlexNet
-from datagenerator_tfrecords import ImageDataGenerator
+from datagenerator_tfrecords_RNN import ImageDataGenerator
 from datetime import datetime
 Iterator = tf.data.Iterator
 import time
@@ -36,13 +36,13 @@ val_file = 'devkit/validation/validation_ground_truth.txt'
 # Learning params
 learning_rate = 0.001
 num_epochs = 30
-batch_size = 128
+batch_size = 64
 occlusion_ratio = float(sys.argv[1])
 
 # Network params
 dropout_rate = 0.5
 num_classes = 1000
-train_layers = ['fc8', 'fc7', 'fc6', 'conv5', 'conv4', 'conv3', 'conv2', 'conv1']
+train_layers = ['fc8', 'fc7', 'conv5', 'conv4', 'conv3', 'conv2', 'conv1']
 
 # How often we want to write the tf.summary data to disk
 display_step = 20
@@ -71,7 +71,8 @@ with tf.device('/cpu:0'):
                                  batch_size=batch_size,
                                  num_classes=num_classes,
                                  shuffle=True,
-                                 occlusionRatio=occlusion_ratio)
+                                 occlusionRatio=occlusion_ratio,
+				 cropRatio=0.8)
     tr_iterator = tr_data.iterator
     val_iterator = val_data.iterator
     tr_next_batch = tr_iterator.get_next()
@@ -83,7 +84,7 @@ y = tf.placeholder(tf.float32, [batch_size, num_classes],name="label_input")
 keep_prob = tf.placeholder(tf.float32)
 
 # Initialize model
-model = AlexNet(x, keep_prob, num_classes, train_layers)
+model = AlexNet(x, keep_prob, num_classes, train_layers, batch_size)
 
 # Link variable to model output
 score = model.fc8
@@ -131,7 +132,7 @@ with tf.name_scope("accuracy"):
 # Add the accuracy to the summary
 tf.summary.scalar('Top1 Accuracy', top1accMean)
 tf.summary.scalar('Top5 Accuracy', top5accMean)
-tf.summary.image('Pre-processed image', x,max_outputs=2)
+tf.summary.image('Pre-processed image', x[:,0],max_outputs=2)
 # Merge all summaries together
 merged_summary = tf.summary.merge_all()
 
@@ -171,6 +172,7 @@ with tf.Session(config=config) as sess:
     for epoch in range(num_epochs):
 
         print("{} Epoch number: {}".format(datetime.now(), epoch+1))
+	sys.stdout.flush()
 
         # Initialize iterator with the training dataset
 
@@ -222,7 +224,7 @@ with tf.Session(config=config) as sess:
 	  print("{} Saving checkpoint of model...".format(datetime.now()))
           # save checkpoint of the model
           checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_occludeCenter_model_epoch'+str(epoch+1)+'top1.ckpt')
+                                         str(occlusion_ratio) + '_rnn_occludeCenter_model_epoch'+str(epoch+1)+'top1.ckpt')
           save_path = saver_top1.save(sess, checkpoint_name)
 
           print("{} Model checkpoint saved at {}".format(datetime.now(),
@@ -230,7 +232,7 @@ with tf.Session(config=config) as sess:
 	  print("{} Saving checkpoint of model...".format(datetime.now()))
           # save checkpoint of the model
           checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_occludeCenter_model_epoch'+str(epoch+1)+'top5.ckpt')
+                                         str(occlusion_ratio) + '_rnn_occludeCenter_model_epoch'+str(epoch+1)+'top5.ckpt')
           save_path = saver_top5.save(sess, checkpoint_name)
 
           print("{} Model checkpoint saved at {}".format(datetime.now(),
@@ -243,7 +245,7 @@ with tf.Session(config=config) as sess:
           print("{} Saving checkpoint of model...".format(datetime.now()))
           # save checkpoint of the model
           checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_occludeCenter_model_epoch'+str(epoch+1)+'top1.ckpt')
+                                         str(occlusion_ratio) + '_rnn_occludeCenter_model_epoch'+str(epoch+1)+'top1.ckpt')
           save_path = saver_top1.save(sess, checkpoint_name)
 
           print("{} Model checkpoint saved at {}".format(datetime.now(),
