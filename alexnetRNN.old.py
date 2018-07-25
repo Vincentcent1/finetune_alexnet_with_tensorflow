@@ -152,7 +152,6 @@ def conv(xFive, filter_height, filter_width, num_filters, stride_y, stride_x, na
     reluList = []
     for x in range(5):
         # Get number of input channels
-	# Get the index x of the second axis for all batches
         input_channels = int(xFive[:,x].get_shape()[-1])
 
         # Create lambda function for the convolution

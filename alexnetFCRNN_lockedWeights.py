@@ -79,6 +79,16 @@ class AlexNet(object):
         pool5 = max_pool(conv5, 3, 3, 2, 2, padding='VALID', name='pool5')
         # print(conv5.shape)
         flattened = tf.reshape(pool5, [-1,5,6*6*256])
+
+
+        # 6th Layer: Flatten -> FC (w ReLu) -> Dropout
+        fc6 = fc(flattened, 6*6*256, 4096, name='fc6')
+        dropout6 = dropout(fc6, self.KEEP_PROB)
+
+        # 7th Layer: FC (w ReLu) -> Dropout
+        fc7 = fc(dropout6, 4096, 4096, name='fc7')
+        dropout7 = dropout(fc7, self.KEEP_PROB)
+
         print(conv1.shape)
         print(pool1.shape)
         print(conv2.shape)
@@ -89,27 +99,19 @@ class AlexNet(object):
         print(pool5.shape)
         print(self.X.shape)
         print(flattened.shape)
-
-        lstm1 = tf.contrib.rnn.LSTMCell(32,name="lstm")
+	print(dropout7.shape)
+        lstm1 = tf.contrib.rnn.LSTMCell(128,name="lstm")
         # hidden_state1 = tf.zeros([self.batch_size, 5])
         # current_state1 = tf.zeros([self.batch_size, 5])
         state1 = lstm1.zero_state(self.batch_size,tf.float32)
 
 
         for step in range(5):
-            output1,state1 = lstm1(flattened[:,step],state1)
+            output1,state1 = lstm1(dropout7[:,step],state1)
         print(output1.shape)
 
-        # 6th Layer: Flatten -> FC (w ReLu) -> Dropout
-        fc6 = fc(output1, 32, 4096, name='fc6')
-        dropout6 = dropout(fc6, self.KEEP_PROB)
-
-        # 7th Layer: FC (w ReLu) -> Dropout
-        fc7 = fc(dropout6, 4096, 4096, name='fc7')
-        dropout7 = dropout(fc7, self.KEEP_PROB)
-
         # 8th Layer: FC and return unscaled activations
-        self.fc8 = fc(dropout7, 4096, self.NUM_CLASSES, relu=False, name='fc8')
+        self.fc8 = fc(output1, 128, self.NUM_CLASSES, lastLayer=True, name='fc8')
 
     def load_initial_weights(self, session):
         """Load weights from file into network.
@@ -134,12 +136,12 @@ class AlexNet(object):
 
                         # Biases
                         if len(data.shape) == 1:
-                            var = tf.get_variable('biases', trainable=True)
+                            var = tf.get_variable('biases', trainable=False)
                             session.run(var.assign(data))
 
                         # Weights
                         else:
-                            var = tf.get_variable('weights', trainable=True)
+                            var = tf.get_variable('weights', trainable=False)
                             session.run(var.assign(data))
 
 
@@ -152,7 +154,6 @@ def conv(xFive, filter_height, filter_width, num_filters, stride_y, stride_x, na
     reluList = []
     for x in range(5):
         # Get number of input channels
-	# Get the index x of the second axis for all batches
         input_channels = int(xFive[:,x].get_shape()[-1])
 
         # Create lambda function for the convolution
@@ -192,24 +193,39 @@ def conv(xFive, filter_height, filter_width, num_filters, stride_y, stride_x, na
     return tf.stack(reluList,axis=1)
 
 
-def fc(x, num_in, num_out, name, relu=True):
+def fc(x, num_in, num_out, name, isRelu=True, lastLayer=False):
     """Create a fully connected layer."""
-    with tf.variable_scope(name) as scope:
+    reluList = []
+    if lastLayer:
+        with tf.variable_scope(name,reuse=tf.AUTO_REUSE) as scope:
 
         # Create tf variables for the weights and biases
-        weights = tf.get_variable('weights', shape=[num_in, num_out],
+            weights = tf.get_variable('weights', shape=[num_in, num_out],
                                   trainable=True)
-        biases = tf.get_variable('biases', [num_out], trainable=True)
+            biases = tf.get_variable('biases', [num_out], trainable=True)
 
         # Matrix multiply weights and inputs and add bias
-        act = tf.nn.xw_plus_b(x, weights, biases, name=scope.name)
+            act = tf.nn.xw_plus_b(x, weights, biases, name=scope.name)
+	    return act
+    for step in range(5):
 
-    if relu:
-        # Apply ReLu non linearity
-        relu = tf.nn.relu(act)
-        return relu
-    else:
-        return act
+        with tf.variable_scope(name,reuse=tf.AUTO_REUSE) as scope:
+
+        # Create tf variables for the weights and biases
+            weights = tf.get_variable('weights', shape=[num_in, num_out],
+                                  trainable=True)
+            biases = tf.get_variable('biases', [num_out], trainable=True)
+
+        # Matrix multiply weights and inputs and add bias
+            act = tf.nn.xw_plus_b(x[:,step], weights, biases, name=scope.name)
+
+        if isRelu:
+            # Apply ReLu non linearity
+            relu = tf.nn.relu(act)
+	    reluList.append(relu)
+        else:
+	    reluList.append(act)
+    return tf.stack(reluList,axis=1)
 
 
 def max_pool(x, filter_height, filter_width, stride_y, stride_x, name,

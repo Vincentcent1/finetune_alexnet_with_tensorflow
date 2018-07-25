@@ -90,7 +90,7 @@ class AlexNet(object):
         print(self.X.shape)
         print(flattened.shape)
 
-        lstm1 = tf.contrib.rnn.LSTMCell(32,name="lstm")
+        lstm1 = tf.contrib.rnn.LSTMCell(256,name="lstm")
         # hidden_state1 = tf.zeros([self.batch_size, 5])
         # current_state1 = tf.zeros([self.batch_size, 5])
         state1 = lstm1.zero_state(self.batch_size,tf.float32)
@@ -101,7 +101,7 @@ class AlexNet(object):
         print(output1.shape)
 
         # 6th Layer: Flatten -> FC (w ReLu) -> Dropout
-        fc6 = fc(output1, 32, 4096, name='fc6')
+        fc6 = fc(output1, 256, 4096, name='fc6')
         dropout6 = dropout(fc6, self.KEEP_PROB)
 
         # 7th Layer: FC (w ReLu) -> Dropout
@@ -152,7 +152,6 @@ def conv(xFive, filter_height, filter_width, num_filters, stride_y, stride_x, na
     reluList = []
     for x in range(5):
         # Get number of input channels
-	# Get the index x of the second axis for all batches
         input_channels = int(xFive[:,x].get_shape()[-1])
 
         # Create lambda function for the convolution

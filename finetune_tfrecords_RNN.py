@@ -35,8 +35,8 @@ val_file = 'devkit/validation/validation_ground_truth.txt'
 
 # Learning params
 learning_rate = 0.001
-num_epochs = 30
-batch_size = 64
+num_epochs = 100
+batch_size = 128
 occlusion_ratio = float(sys.argv[1])
 
 # Network params
@@ -224,7 +224,7 @@ with tf.Session(config=config) as sess:
 	  print("{} Saving checkpoint of model...".format(datetime.now()))
           # save checkpoint of the model
           checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_rnn_occludeCenter_model_epoch'+str(epoch+1)+'top1.ckpt')
+                                         str(occlusion_ratio) + '_rnn_occludeCenter_model0.9_epoch'+str(epoch+1)+'top1.ckpt')
           save_path = saver_top1.save(sess, checkpoint_name)
 
           print("{} Model checkpoint saved at {}".format(datetime.now(),
@@ -232,7 +232,7 @@ with tf.Session(config=config) as sess:
 	  print("{} Saving checkpoint of model...".format(datetime.now()))
           # save checkpoint of the model
           checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_rnn_occludeCenter_model_epoch'+str(epoch+1)+'top5.ckpt')
+                                         str(occlusion_ratio) + '_rnn_occludeCenter_model0.9_epoch'+str(epoch+1)+'top5.ckpt')
           save_path = saver_top5.save(sess, checkpoint_name)
 
           print("{} Model checkpoint saved at {}".format(datetime.now(),
@@ -245,7 +245,7 @@ with tf.Session(config=config) as sess:
           print("{} Saving checkpoint of model...".format(datetime.now()))
           # save checkpoint of the model
           checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_rnn_occludeCenter_model_epoch'+str(epoch+1)+'top1.ckpt')
+                                         str(occlusion_ratio) + '_rnn_occludeCenter_model0.9_epoch'+str(epoch+1)+'top1.ckpt')
           save_path = saver_top1.save(sess, checkpoint_name)
 
           print("{} Model checkpoint saved at {}".format(datetime.now(),
@@ -257,7 +257,7 @@ with tf.Session(config=config) as sess:
           print("{} Saving checkpoint of model...".format(datetime.now()))
           # save checkpoint of the model
           checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_cropCenter_model_epoch'+str(epoch+1)+'top5.ckpt')
+                                         str(occlusion_ratio) + '_rnn_occludeCenter_model0.9_epoch'+str(epoch+1)+'top5.ckpt')
           save_path = saver_top5.save(sess, checkpoint_name)
 
           print("{} Model checkpoint saved at {}".format(datetime.now(),
