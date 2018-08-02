@@ -156,12 +156,13 @@ def conv(xFive, filter_height, filter_width, num_filters, stride_y, stride_x, na
         # Get number of input channels
         input_channels = int(xFive[:,x].get_shape()[-1])
 
-        # Create lambda function for the convolution
+        # Create lambda function for the convolution. 'name' is used to label the operation for easier retrieval or it is just useless i think.
         convolve = lambda i, k, name : tf.nn.conv2d(i, k,
                                              strides=[1, stride_y, stride_x, 1],
                                              padding=padding,
                                              name=name)
 
+        # Name scope is used to retrieve same weights and biases for the same convolutional layer. Hence reusing the weights and biases when the existing name (layer) already exists.
         with tf.variable_scope(name, reuse=tf.AUTO_REUSE) as scope:
             # Create tf variables for the weights and biases of the conv layer
             weights = tf.get_variable('weights', shape=[filter_height,
@@ -196,7 +197,7 @@ def conv(xFive, filter_height, filter_width, num_filters, stride_y, stride_x, na
 def fc(x, num_in, num_out, name, isRelu=True, lastLayer=False):
     """Create a fully connected layer."""
     reluList = []
-    if lastLayer:
+    if lastLayer: # If this is the last layer (before softmax), we don't need to do it 5 times because this is after the RNN.
         with tf.variable_scope(name,reuse=tf.AUTO_REUSE) as scope:
 
         # Create tf variables for the weights and biases

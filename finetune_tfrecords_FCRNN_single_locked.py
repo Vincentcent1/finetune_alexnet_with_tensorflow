@@ -19,7 +19,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.python import debug as tf_debug
 
-from alexnetFCRNN_lockedWeights import AlexNet
+from alexnetFCRNN_single_lockedWeights import AlexNet
 from datagenerator_tfrecords_RNN import ImageDataGenerator
 from datetime import datetime
 Iterator = tf.data.Iterator
@@ -34,7 +34,7 @@ train_file = 'devkit/train/shuffled_training_ground_truth_bboxOnly.txt'
 val_file = 'devkit/validation/validation_ground_truth.txt'
 
 # Learning params
-learning_rate = 0.001
+learning_rate = 0.01
 num_epochs = 100
 batch_size = 128
 occlusion_ratio = float(sys.argv[1])
@@ -104,6 +104,7 @@ with tf.name_scope("train"):
     gradients = list(zip(gradients, tf.trainable_variables()))
 
     # Create optimizer and apply gradient descent to the trainable variables
+    # learning_rate = tf.placeholder(tf.float32, shape=[])
     optimizer = tf.train.GradientDescentOptimizer(learning_rate)
     train_op = optimizer.apply_gradients(grads_and_vars=gradients)
 
