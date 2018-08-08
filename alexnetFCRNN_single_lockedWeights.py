@@ -1,7 +1,7 @@
-'''
-Vincent's notes:
+"""Vincent's notes:
 This is network will use one crop from the image with added recurrent network at the end of the network.
-'''
+"""
+
 """This is an TensorFLow implementation of AlexNet by Alex Krizhevsky at all.
 
 Paper:
@@ -82,7 +82,7 @@ class AlexNet(object):
         conv5 = conv(conv4, 3, 3, 256, 1, 1, groups=2, name='conv5')
         pool5 = max_pool(conv5, 3, 3, 2, 2, padding='VALID', name='pool5')
         # print(conv5.shape)
-        flattened = tf.reshape(pool5, [-1,5,6*6*256])
+        flattened = tf.reshape(pool5, [-1,6*6*256])
 
         # 6th Layer: Flatten -> FC (w ReLu) -> Dropout
         fc6 = fc(flattened, 6*6*256, 4096, name='fc6')
@@ -171,12 +171,12 @@ def conv(x, filter_height, filter_width, num_filters, stride_y, stride_x, name,
         biases = tf.get_variable('biases', shape=[num_filters])
 
     if groups == 1:
-        conv = convolve(xFive[:,x], weights,"rcl")
+        conv = convolve(x, weights,"rcl")
 
     # In the cases of multiple groups, split inputs & weights and
     else:
         # Split input and weights and convolve them separately
-        input_groups = tf.split(axis=3, num_or_size_splits=groups, value=xFive[:,x])
+        input_groups = tf.split(axis=3, num_or_size_splits=groups, value=x)
         weight_groups = tf.split(axis=3, num_or_size_splits=groups,
                                  value=weights)
         output_groups = [convolve(i, k,"rcl" + str(count)) for count,(i, k) in enumerate(zip(input_groups, weight_groups))]
@@ -218,13 +218,13 @@ def max_pool(x, filter_height, filter_width, stride_y, stride_x, name,
     """Create a max pooling layer."""
     return tf.nn.max_pool(x, ksize=[1, filter_height, filter_width, 1], 
                             strides=[1, stride_y, stride_x, 1], 
-                            padding=padding, name=name))
+                            padding=padding, name=name)
 
 def lrn(x, radius, alpha, beta, name, bias=1.0):
     """Create a local response normalization layer."""
-        return tf.nn.local_response_normalization(x, depth_radius=radius, 
+    return tf.nn.local_response_normalization(x, depth_radius=radius, 
                                                     alpha=alpha, beta=beta, 
-                                                    bias=bias, name=name))
+                                                    bias=bias, name=name)
 
 def dropout(x, keep_prob):
     """Create a dropout layer."""

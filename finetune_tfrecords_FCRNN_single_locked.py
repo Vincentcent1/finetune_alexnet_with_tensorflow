@@ -20,7 +20,7 @@ import tensorflow as tf
 from tensorflow.python import debug as tf_debug
 
 from alexnetFCRNN_single_lockedWeights import AlexNet
-from datagenerator_tfrecords_RNN import ImageDataGenerator
+from datagenerator_tfrecords import ImageDataGenerator
 from datetime import datetime
 Iterator = tf.data.Iterator
 import time
@@ -65,21 +65,19 @@ with tf.device('/cpu:0'):
                                  batch_size=batch_size,
                                  num_classes=num_classes,
                                  shuffle=True,
-                                 occlusionRatio=occlusion_ratio,
-                                 cropRatio=0.8)
+                                 occlusionRatio=occlusion_ratio)
     val_data = ImageDataGenerator(mode='inference',
                                  batch_size=batch_size,
                                  num_classes=num_classes,
                                  shuffle=True,
-                                 occlusionRatio=occlusion_ratio,
-				 cropRatio=0.8)
+                                 occlusionRatio=occlusion_ratio)
     tr_iterator = tr_data.iterator
     val_iterator = val_data.iterator
     tr_next_batch = tr_iterator.get_next()
     val_next_batch = val_iterator.get_next()
 
 # TF placeholder for graph input and output
-x = tf.placeholder(tf.float32, [batch_size, 5, 227, 227, 3],name="image_input")
+x = tf.placeholder(tf.float32, [batch_size, 227, 227, 3],name="image_input")
 y = tf.placeholder(tf.float32, [batch_size, num_classes],name="label_input")
 keep_prob = tf.placeholder(tf.float32)
 
@@ -133,7 +131,7 @@ with tf.name_scope("accuracy"):
 # Add the accuracy to the summary
 tf.summary.scalar('Top1 Accuracy', top1accMean)
 tf.summary.scalar('Top5 Accuracy', top5accMean)
-tf.summary.image('Pre-processed image', x[:,0],max_outputs=2)
+tf.summary.image('Pre-processed image', x,max_outputs=2)
 # Merge all summaries together
 merged_summary = tf.summary.merge_all()
 
