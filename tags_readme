@@ -3,6 +3,8 @@
 	filename:
 		finetune_tf_records_FCRNN_single_locked.py
 		alexnetFCRNN_single_lockedWeights.py
+3.0.1
+	Fixed last layer by adding isRelu false, removing relu activation for last fully connected layer
 3.1.0
 	Input image is a single image. LSTM is at the end of the convolutional layer. LSTM has 5 steps per image crop and 128 hidden states. Weights are locked, only LSTM at the end of the FCN can be trained, as well as the softmax layer.
 	filename:
