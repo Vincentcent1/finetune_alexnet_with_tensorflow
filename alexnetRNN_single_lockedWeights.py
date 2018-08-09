@@ -84,8 +84,18 @@ class AlexNet(object):
         # print(conv5.shape)
         flattened = tf.reshape(pool5, [-1,6*6*256])
 
+        lstm1 = tf.contrib.rnn.LSTMCell(128,name="lstm")
+        # hidden_state1 = tf.zeros([self.batch_size, 5])
+        # current_state1 = tf.zeros([self.batch_size, 5])
+        state1 = lstm1.zero_state(self.batch_size,tf.float32)
+
+
+        for _ in range(5):
+            output1,state1 = lstm1(flattened,state1)
+        print(output1.shape)
+
         # 6th Layer: Flatten -> FC (w ReLu) -> Dropout
-        fc6 = fc(flattened, 6*6*256, 4096, name='fc6')
+        fc6 = fc(output1, 6*6*256, 4096, name='fc6')
         dropout6 = dropout(fc6, self.KEEP_PROB)
 
         # 7th Layer: FC (w ReLu) -> Dropout
@@ -103,18 +113,10 @@ class AlexNet(object):
         print(self.X.shape)
         print(flattened.shape)
         print(dropout7.shape)
-        lstm1 = tf.contrib.rnn.LSTMCell(128,name="lstm")
-        # hidden_state1 = tf.zeros([self.batch_size, 5])
-        # current_state1 = tf.zeros([self.batch_size, 5])
-        state1 = lstm1.zero_state(self.batch_size,tf.float32)
-
-
-        for _ in range(5):
-            output1,state1 = lstm1(dropout7,state1)
-        print(output1.shape)
+        
 
         # 8th Layer: FC and return unscaled activations
-        self.fc8 = fc(output1, 128, self.NUM_CLASSES, name='fc8')
+        self.fc8 = fc(dropout7, 128, self.NUM_CLASSES, name='fc8', isRelu=False)
 
     def load_initial_weights(self, session):
         """Load weights from file into network.

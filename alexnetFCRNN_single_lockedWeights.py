@@ -114,7 +114,7 @@ class AlexNet(object):
         print(output1.shape)
 
         # 8th Layer: FC and return unscaled activations
-        self.fc8 = fc(output1, 128, self.NUM_CLASSES, name='fc8')
+        self.fc8 = fc(output1, 128, self.NUM_CLASSES, name='fc8', isRelu=False)
 
     def load_initial_weights(self, session):
         """Load weights from file into network.

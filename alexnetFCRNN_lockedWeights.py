@@ -99,7 +99,7 @@ class AlexNet(object):
         print(pool5.shape)
         print(self.X.shape)
         print(flattened.shape)
-	print(dropout7.shape)
+    	print(dropout7.shape)
         lstm1 = tf.contrib.rnn.LSTMCell(128,name="lstm")
         # hidden_state1 = tf.zeros([self.batch_size, 5])
         # current_state1 = tf.zeros([self.batch_size, 5])
