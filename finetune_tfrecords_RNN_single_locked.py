@@ -19,7 +19,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.python import debug as tf_debug
 
-from alexnetFCRNN_single_lockedWeights import AlexNet
+from alexnetRNN_single_lockedWeights import AlexNet
 from datagenerator_tfrecords import ImageDataGenerator
 from datetime import datetime
 Iterator = tf.data.Iterator
