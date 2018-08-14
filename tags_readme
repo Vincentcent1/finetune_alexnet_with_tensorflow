@@ -10,3 +10,5 @@
 	filename:
 		finetune_tf_records_RNN_single_locked.py
 		alexnetRNN_single_lockedWeights.py
+3.1.1
+	Fixed wrong import and input and output dimension in alexnetRNN_single_lockedWeights.py
