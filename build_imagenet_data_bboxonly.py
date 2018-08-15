@@ -88,7 +88,7 @@ tf.app.flags.DEFINE_string('train_directory', 'Data/CLS-LOC/train',
                                                      'Training data directory')
 tf.app.flags.DEFINE_string('validation_directory', 'Data/CLS-LOC/val',
                                                      'Validation data directory')
-tf.app.flags.DEFINE_string('output_directory', 'tfrecords/',
+tf.app.flags.DEFINE_string('output_directory', 'tfrecords_bbox/',
                                                      'Output data directory')
 
 tf.app.flags.DEFINE_integer('train_shards', 512,
