@@ -2,7 +2,10 @@
 #
 # @author: Frederik Kratzert
 
-"""Containes a helper class for image input pipelines in tensorflow."""
+"""Containes a helper class for image input pipelines in tensorflow.
+This code returns one output per image or tfrecords only for tfrecords with bboxes
+
+"""
 
 import tensorflow as tf
 import numpy as np

@@ -183,7 +183,7 @@ def _convert_to_example(filename, image_buffer, label, synset, human, bbox, heig
     xmax = []
     ymax = []
     if bbox == []:
-	xmin,ymin,xmax,ymax = [0.0],[0.0],[0.0],[0.0]	
+    	xmin,ymin,xmax,ymax = [0.0],[0.0],[0.0],[0.0]
     for b in bbox:
         assert len(b) == 4
         # pylint: disable=expression-not-assigned

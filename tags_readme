@@ -14,8 +14,13 @@
 	Fixed wrong import and input and output dimension in alexnetRNN_single_lockedWeights.py
 
 
-build_imagenet_data.py - for all images
+build_imagenet_data.py - for all images and no check for bbox
+build_imagenet_data_all1.py - for all images and there is a check for bbox, if there is no bbox, bbox coordinates becomes all 0.0
 build_imagenet_data_bboxonly.py 
 	- only bbox
 	- main difference is the if statement that checks if bbox is [] (no coordinates)
 build_imagenet_data_validation.py - only validation
+
+datagenerator_tfrecords.py - This datagenerator returns one output per image or tfrecords only for tfrecords with bboxes. Data taken from tfrecords with only bboxes.
+datagenerator_tfrecords_RNN.py - This datagenerator returns 5 output per image with crops from left-top, right-top, left-bottom, right-bottom and center. Data taken from tfrecords with only bboxes.
+datagenerator_tfrecords_RNN_all.py - This datagenerator returns one output per image or tfrecords for all tfrecords (tfrecords_all folder). Data taken from all tfrecords.

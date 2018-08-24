@@ -3,7 +3,7 @@
 # @author: Frederik Kratzert
 
 """Containes a helper class for image input pipelines in tensorflow.
-This code returns 5 outputs per image or tfrecords, one for each time step
+This code returns ONE output per image or tfrecords for all tfrecords both with and without bboxes
 """
 
 import tensorflow as tf
@@ -28,7 +28,7 @@ class ImageDataGenerator(object):
     Requires Tensorflow >= version 1.12rc0
     """
 
-    def __init__(self, mode, batch_size, num_classes, shuffle=True,buffer_size=1000, occlusionRatio=0, cropRatio=0.0):
+    def __init__(self, mode, batch_size, num_classes, shuffle=True,buffer_size=1000, occlusionRatio=0):
         """Create a new ImageDataGenerator.
 
         Recieves a path string to a text file, which consists of many lines,
@@ -50,17 +50,15 @@ class ImageDataGenerator(object):
         """
         self.num_classes = num_classes
         self.occlusionRatio = occlusionRatio
-        self.cropRatio = cropRatio
         self.filenames = []
         if mode == 'training':
-            self.filenames = tf.gfile.Glob('tfrecords/train/*')
+            self.filenames = tf.gfile.Glob('tfrecords_all/train/*')
         elif mode == 'inference':
             self.filenames = tf.gfile.Glob('tfrecords/val/*')
         dataset = tf.data.TFRecordDataset(self.filenames)
-        dataset = dataset.map(self._parse_tfrecords,num_parallel_calls=4)  # Parse the record into tensors.
+        dataset = dataset.map(self._parse_tfrecords,num_parallel_calls=30)  # Parse the record into tensors.
 	#dataset = dataset.filter(self.filterData)
-        dataset = dataset.map(self.occludeCenter,num_parallel_calls=4)  # Parse the record into tensors.
-        dataset = dataset.map(self.rnnRandomCrop,num_parallel_calls=4)  # Parse the record into tensors.
+        dataset = dataset.map(self.occludeCenter,num_parallel_calls=30)  # Parse the record into tensors.
         dataset = dataset.repeat()  # Repeat the input indefinitely.
         dataset = dataset.shuffle(buffer_size=buffer_size)
         dataset = dataset.batch(batch_size)
@@ -216,12 +214,6 @@ class ImageDataGenerator(object):
         Occlude image with the given parameters
         @params:
             image: 3-D Tensor of 3 channels image
-            offset_height: start of crop in the y-axis (y starts from top left)
-            offset_width: start of crop in the x-axis
-            target_height: crop height
-            target_width: crop width
-        @return:
-            occludedImage: image occluded
         '''
         # tf.assert_equal (image.shape,[227,227,3])
         occludedRegion = tf.zeros([target_height,target_width,3],tf.int32)
@@ -235,32 +227,6 @@ class ImageDataGenerator(object):
         occludedRegion  = tf.concat([occludedRegion,rightPad],1)
         occludedImage = tf.multiply(image, tf.cast(occludedRegion,tf.uint8))
         return occludedImage
-
-    def rnnRandomCrop(self, image,one_hot):
-        '''
-        Get 5 crops from an image: top-left, top-right, center, bottom-left, bottom-right
-        @params:
-            image: 3-D tensor of 3 channels image of size (227,227,3)
-            cropRatio: relative size of the crop wrt to the image
-        @return:
-            imageCrops: 4-D tensor of 5 crops of the 3 channels image
-        '''
-        image = tf.reshape(image,[1,227,227,3])
-        side = tf.sqrt(self.cropRatio)
-    #     side = sideRatio*227
-        gap = (1 - side)
-        y0,x0 = 0,0
-        yt,xt = 1,1
-        y1,x1 = gap,gap #Left top of small box
-        y2,x2 = gap, side
-        y3,x3 = side,gap
-        y4,x4 = side,side
-        yCenter1,xCenter1 = gap/2, gap/2
-        yCenter2,xCenter2 = 1 - gap/2 , 1 - gap/2
-        boxes = [[y0,x0,y4,x4],[y0,x1,y4,yt],[y1,x0,yt,x4],[y1,x1,yt,xt],[yCenter1,xCenter1,yCenter2,xCenter2]]
-        box_ind = tf.zeros([5],tf.int32)
-        crops = tf.image.crop_and_resize(image,boxes,box_ind,(227,227))
-        return crops,one_hot
 
     def recordError(self,filename):
         b = tf.constant(False)
