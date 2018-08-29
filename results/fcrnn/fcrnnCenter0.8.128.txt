@@ -1,0 +1,814 @@
+(128, 5, 55, 55, 96)
+(128, 5, 27, 27, 96)
+(128, 5, 27, 27, 256)
+(128, 5, 13, 13, 256)
+(128, 5, 13, 13, 384)
+(128, 5, 13, 13, 384)
+(128, 5, 13, 13, 256)
+(128, 5, 6, 6, 256)
+(128, 5, 227, 227, 3)
+(128, 5, 9216)
+(128, 5, 4096)
+(128, 128)
+2018-06-20 16:21:58.752794 Start training...
+2018-06-20 16:21:58.752865 Open Tensorboard at --logdir tmp/finetune_alexnet/tensorboard/fcrnn
+2018-06-20 16:21:58.752883 Epoch number: 1
+2018-06-20 18:36:26.361117 Start validation
+2018-06-20 18:45:28.297861 Top 1 Validation Accuracy = 0.0011
+2018-06-20 18:45:28.297993 Top 5 Validation Accuracy = 0.0050
+2018-06-20 18:45:28.298008 Saving checkpoint of model...
+2018-06-20 18:45:32.023885 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch1top1.ckpt
+2018-06-20 18:45:32.024007 Saving checkpoint of model...
+2018-06-20 18:45:35.591959 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch1top5.ckpt
+2018-06-20 18:45:35.596681 Epoch number: 2
+2018-06-20 20:35:57.547936 Start validation
+2018-06-20 20:42:00.035768 Top 1 Validation Accuracy = 0.0015
+2018-06-20 20:42:00.035904 Top 5 Validation Accuracy = 0.0064
+2018-06-20 20:42:00.035919 Saving checkpoint of model...
+2018-06-20 20:42:03.496349 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch2top1.ckpt
+2018-06-20 20:42:03.496634 Saving checkpoint of model...
+2018-06-20 20:42:07.190856 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch2top5.ckpt
+2018-06-20 20:42:07.191388 Epoch number: 3
+2018-06-20 22:27:01.579850 Start validation
+2018-06-20 22:33:00.167371 Top 1 Validation Accuracy = 0.0020
+2018-06-20 22:33:00.167490 Top 5 Validation Accuracy = 0.0096
+2018-06-20 22:33:00.167521 Saving checkpoint of model...
+2018-06-20 22:33:03.556499 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch3top1.ckpt
+2018-06-20 22:33:03.556815 Saving checkpoint of model...
+2018-06-20 22:33:06.856235 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch3top5.ckpt
+2018-06-20 22:33:06.856548 Epoch number: 4
+2018-06-21 00:18:36.105235 Start validation
+2018-06-21 00:24:38.027988 Top 1 Validation Accuracy = 0.0027
+2018-06-21 00:24:38.028112 Top 5 Validation Accuracy = 0.0148
+2018-06-21 00:24:38.028148 Saving checkpoint of model...
+2018-06-21 00:24:41.387560 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch4top1.ckpt
+2018-06-21 00:24:41.387986 Saving checkpoint of model...
+2018-06-21 00:24:44.873942 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch4top5.ckpt
+2018-06-21 00:24:44.874230 Epoch number: 5
+2018-06-21 02:11:42.693978 Start validation
+2018-06-21 02:18:02.021085 Top 1 Validation Accuracy = 0.0044
+2018-06-21 02:18:02.021251 Top 5 Validation Accuracy = 0.0208
+2018-06-21 02:18:02.021267 Saving checkpoint of model...
+2018-06-21 02:18:05.638949 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch5top1.ckpt
+2018-06-21 02:18:05.639847 Saving checkpoint of model...
+2018-06-21 02:18:09.451026 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch5top5.ckpt
+2018-06-21 02:18:09.451346 Epoch number: 6
+2018-06-21 04:07:52.142571 Start validation
+2018-06-21 04:14:08.210377 Top 1 Validation Accuracy = 0.0072
+2018-06-21 04:14:08.210475 Top 5 Validation Accuracy = 0.0292
+2018-06-21 04:14:08.210494 Saving checkpoint of model...
+2018-06-21 04:14:12.128283 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch6top1.ckpt
+2018-06-21 04:14:12.128643 Saving checkpoint of model...
+2018-06-21 04:14:15.985460 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch6top5.ckpt
+2018-06-21 04:14:15.985770 Epoch number: 7
+2018-06-21 06:03:03.764076 Start validation
+2018-06-21 06:09:16.217190 Top 1 Validation Accuracy = 0.0081
+2018-06-21 06:09:16.217325 Top 5 Validation Accuracy = 0.0363
+2018-06-21 06:09:16.217343 Saving checkpoint of model...
+2018-06-21 06:09:20.046421 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch7top1.ckpt
+2018-06-21 06:09:20.046892 Saving checkpoint of model...
+2018-06-21 06:09:23.750186 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch7top5.ckpt
+2018-06-21 06:09:23.750504 Epoch number: 8
+2018-06-21 07:57:58.146380 Start validation
+2018-06-21 08:03:59.709078 Top 1 Validation Accuracy = 0.0105
+2018-06-21 08:03:59.709213 Top 5 Validation Accuracy = 0.0461
+2018-06-21 08:03:59.709230 Saving checkpoint of model...
+2018-06-21 08:04:03.505614 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch8top1.ckpt
+2018-06-21 08:04:03.506029 Saving checkpoint of model...
+2018-06-21 08:04:07.423514 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch8top5.ckpt
+2018-06-21 08:04:07.423823 Epoch number: 9
+2018-06-21 09:50:10.780615 Start validation
+2018-06-21 09:56:10.203236 Top 1 Validation Accuracy = 0.0132
+2018-06-21 09:56:10.203337 Top 5 Validation Accuracy = 0.0573
+2018-06-21 09:56:10.203355 Saving checkpoint of model...
+2018-06-21 09:56:13.889174 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch9top1.ckpt
+2018-06-21 09:56:13.889776 Saving checkpoint of model...
+2018-06-21 09:56:17.429939 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch9top5.ckpt
+2018-06-21 09:56:17.430216 Epoch number: 10
+2018-06-21 11:42:08.958900 Start validation
+2018-06-21 11:48:18.668417 Top 1 Validation Accuracy = 0.0172
+2018-06-21 11:48:18.668559 Top 5 Validation Accuracy = 0.0700
+2018-06-21 11:48:18.668576 Saving checkpoint of model...
+2018-06-21 11:48:22.367534 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch10top1.ckpt
+2018-06-21 11:48:22.367863 Saving checkpoint of model...
+2018-06-21 11:48:26.175080 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch10top5.ckpt
+2018-06-21 11:48:26.176029 Epoch number: 11
+2018-06-21 13:35:27.951213 Start validation
+2018-06-21 13:42:28.230430 Top 1 Validation Accuracy = 0.0200
+2018-06-21 13:42:28.230560 Top 5 Validation Accuracy = 0.0825
+2018-06-21 13:42:28.230587 Saving checkpoint of model...
+2018-06-21 13:42:32.270953 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch11top1.ckpt
+2018-06-21 13:42:32.271852 Saving checkpoint of model...
+2018-06-21 13:42:35.931833 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch11top5.ckpt
+2018-06-21 13:42:35.932747 Epoch number: 12
+2018-06-21 15:40:47.536364 Start validation
+2018-06-21 15:47:50.671985 Top 1 Validation Accuracy = 0.0242
+2018-06-21 15:47:50.672087 Top 5 Validation Accuracy = 0.0928
+2018-06-21 15:47:50.672106 Saving checkpoint of model...
+2018-06-21 15:47:54.658637 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch12top1.ckpt
+2018-06-21 15:47:54.659385 Saving checkpoint of model...
+2018-06-21 15:47:58.499277 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch12top5.ckpt
+2018-06-21 15:47:58.499999 Epoch number: 13
+2018-06-21 17:48:28.150754 Start validation
+2018-06-21 17:55:47.033812 Top 1 Validation Accuracy = 0.0287
+2018-06-21 17:55:47.033944 Top 5 Validation Accuracy = 0.1078
+2018-06-21 17:55:47.033966 Saving checkpoint of model...
+2018-06-21 17:55:51.117197 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch13top1.ckpt
+2018-06-21 17:55:51.118392 Saving checkpoint of model...
+2018-06-21 17:55:54.974939 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch13top5.ckpt
+2018-06-21 17:55:54.975937 Epoch number: 14
+2018-06-21 19:58:57.128031 Start validation
+2018-06-21 20:06:25.191198 Top 1 Validation Accuracy = 0.0331
+2018-06-21 20:06:25.191303 Top 5 Validation Accuracy = 0.1204
+2018-06-21 20:06:25.191329 Saving checkpoint of model...
+2018-06-21 20:06:29.235689 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch14top1.ckpt
+2018-06-21 20:06:29.236641 Saving checkpoint of model...
+2018-06-21 20:06:33.124454 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch14top5.ckpt
+2018-06-21 20:06:33.125329 Epoch number: 15
+2018-06-21 22:10:06.272842 Start validation
+2018-06-21 22:17:37.560778 Top 1 Validation Accuracy = 0.0379
+2018-06-21 22:17:37.560899 Top 5 Validation Accuracy = 0.1316
+2018-06-21 22:17:37.560921 Saving checkpoint of model...
+2018-06-21 22:17:41.476893 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch15top1.ckpt
+2018-06-21 22:17:41.477956 Saving checkpoint of model...
+2018-06-21 22:17:45.278518 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch15top5.ckpt
+2018-06-21 22:17:45.279174 Epoch number: 16
+2018-06-22 00:19:14.401331 Start validation
+2018-06-22 00:26:27.478530 Top 1 Validation Accuracy = 0.0419
+2018-06-22 00:26:27.478662 Top 5 Validation Accuracy = 0.1440
+2018-06-22 00:26:27.478697 Saving checkpoint of model...
+2018-06-22 00:26:31.442046 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch16top1.ckpt
+2018-06-22 00:26:31.443257 Saving checkpoint of model...
+2018-06-22 00:26:35.266874 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch16top5.ckpt
+2018-06-22 00:26:35.267634 Epoch number: 17
+2018-06-22 02:20:57.732297 Start validation
+2018-06-22 02:27:25.376156 Top 1 Validation Accuracy = 0.0466
+2018-06-22 02:27:25.376255 Top 5 Validation Accuracy = 0.1554
+2018-06-22 02:27:25.376275 Saving checkpoint of model...
+2018-06-22 02:27:29.298448 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch17top1.ckpt
+2018-06-22 02:27:29.298874 Saving checkpoint of model...
+2018-06-22 02:27:33.055986 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch17top5.ckpt
+2018-06-22 02:27:33.056567 Epoch number: 18
+2018-06-22 04:18:49.179924 Start validation
+2018-06-22 04:25:16.576185 Top 1 Validation Accuracy = 0.0502
+2018-06-22 04:25:16.576287 Top 5 Validation Accuracy = 0.1660
+2018-06-22 04:25:16.576342 Saving checkpoint of model...
+2018-06-22 04:25:20.486308 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch18top1.ckpt
+2018-06-22 04:25:20.486808 Saving checkpoint of model...
+2018-06-22 04:25:24.196098 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch18top5.ckpt
+2018-06-22 04:25:24.196470 Epoch number: 19
+2018-06-22 06:16:24.363607 Start validation
+2018-06-22 06:22:51.494367 Top 1 Validation Accuracy = 0.0530
+2018-06-22 06:22:51.494468 Top 5 Validation Accuracy = 0.1750
+2018-06-22 06:22:51.494490 Saving checkpoint of model...
+2018-06-22 06:22:55.846371 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch19top1.ckpt
+2018-06-22 06:22:55.846851 Saving checkpoint of model...
+2018-06-22 06:22:59.240868 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch19top5.ckpt
+2018-06-22 06:22:59.241356 Epoch number: 20
+2018-06-22 08:14:48.735589 Start validation
+2018-06-22 08:21:15.582267 Top 1 Validation Accuracy = 0.0592
+2018-06-22 08:21:15.582381 Top 5 Validation Accuracy = 0.1871
+2018-06-22 08:21:15.582405 Saving checkpoint of model...
+2018-06-22 08:21:19.548790 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch20top1.ckpt
+2018-06-22 08:21:19.549335 Saving checkpoint of model...
+2018-06-22 08:21:23.022641 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch20top5.ckpt
+2018-06-22 08:21:23.023101 Epoch number: 21
+2018-06-22 10:12:40.606367 Start validation
+2018-06-22 10:19:13.668227 Top 1 Validation Accuracy = 0.0642
+2018-06-22 10:19:13.668323 Top 5 Validation Accuracy = 0.1974
+2018-06-22 10:19:13.668343 Saving checkpoint of model...
+2018-06-22 10:19:17.632169 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch21top1.ckpt
+2018-06-22 10:19:17.632811 Saving checkpoint of model...
+2018-06-22 10:19:21.182159 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch21top5.ckpt
+2018-06-22 10:19:21.182546 Epoch number: 22
+2018-06-22 12:10:20.481279 Start validation
+2018-06-22 12:16:50.239638 Top 1 Validation Accuracy = 0.0688
+2018-06-22 12:16:50.239736 Top 5 Validation Accuracy = 0.2104
+2018-06-22 12:16:50.239756 Saving checkpoint of model...
+2018-06-22 12:16:53.931646 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch22top1.ckpt
+2018-06-22 12:16:53.932108 Saving checkpoint of model...
+2018-06-22 12:16:57.444305 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch22top5.ckpt
+2018-06-22 12:16:57.444672 Epoch number: 23
+2018-06-22 14:08:49.718868 Start validation
+2018-06-22 14:15:19.566205 Top 1 Validation Accuracy = 0.0732
+2018-06-22 14:15:19.566330 Top 5 Validation Accuracy = 0.2217
+2018-06-22 14:15:19.566356 Saving checkpoint of model...
+2018-06-22 14:15:23.365938 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch23top1.ckpt
+2018-06-22 14:15:23.366660 Saving checkpoint of model...
+2018-06-22 14:15:27.198858 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch23top5.ckpt
+2018-06-22 14:15:27.199371 Epoch number: 24
+2018-06-22 16:09:53.466634 Start validation
+2018-06-22 16:17:13.850092 Top 1 Validation Accuracy = 0.0782
+2018-06-22 16:17:13.850271 Top 5 Validation Accuracy = 0.2315
+2018-06-22 16:17:13.850299 Saving checkpoint of model...
+2018-06-22 16:17:17.766294 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch24top1.ckpt
+2018-06-22 16:17:17.767359 Saving checkpoint of model...
+2018-06-22 16:17:21.729153 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch24top5.ckpt
+2018-06-22 16:17:21.730129 Epoch number: 25
+2018-06-22 18:19:04.944102 Start validation
+2018-06-22 18:26:21.173061 Top 1 Validation Accuracy = 0.0830
+2018-06-22 18:26:21.173190 Top 5 Validation Accuracy = 0.2439
+2018-06-22 18:26:21.173225 Saving checkpoint of model...
+2018-06-22 18:26:25.096965 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch25top1.ckpt
+2018-06-22 18:26:25.097918 Saving checkpoint of model...
+2018-06-22 18:26:28.985338 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch25top5.ckpt
+2018-06-22 18:26:28.986239 Epoch number: 26
+2018-06-22 20:28:34.251594 Start validation
+2018-06-22 20:35:51.776074 Top 1 Validation Accuracy = 0.0861
+2018-06-22 20:35:51.776177 Top 5 Validation Accuracy = 0.2538
+2018-06-22 20:35:51.776197 Saving checkpoint of model...
+2018-06-22 20:35:55.817235 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch26top1.ckpt
+2018-06-22 20:35:55.818280 Saving checkpoint of model...
+2018-06-22 20:35:59.872467 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch26top5.ckpt
+2018-06-22 20:35:59.873507 Epoch number: 27
+2018-06-22 22:38:38.884534 Start validation
+2018-06-22 22:46:08.833107 Top 1 Validation Accuracy = 0.0912
+2018-06-22 22:46:08.833230 Top 5 Validation Accuracy = 0.2618
+2018-06-22 22:46:08.833256 Saving checkpoint of model...
+2018-06-22 22:46:12.922824 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch27top1.ckpt
+2018-06-22 22:46:12.923436 Saving checkpoint of model...
+2018-06-22 22:46:16.684131 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch27top5.ckpt
+2018-06-22 22:46:16.684603 Epoch number: 28
+2018-06-23 00:48:47.691051 Start validation
+2018-06-23 00:56:13.422840 Top 1 Validation Accuracy = 0.0979
+2018-06-23 00:56:13.422946 Top 5 Validation Accuracy = 0.2752
+2018-06-23 00:56:13.422968 Saving checkpoint of model...
+2018-06-23 00:56:17.482353 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch28top1.ckpt
+2018-06-23 00:56:17.483199 Saving checkpoint of model...
+2018-06-23 00:56:21.324889 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch28top5.ckpt
+2018-06-23 00:56:21.325799 Epoch number: 29
+2018-06-23 02:56:46.519674 Start validation
+2018-06-23 03:03:41.159499 Top 1 Validation Accuracy = 0.1019
+2018-06-23 03:03:41.159629 Top 5 Validation Accuracy = 0.2866
+2018-06-23 03:03:41.159656 Saving checkpoint of model...
+2018-06-23 03:03:45.050952 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch29top1.ckpt
+2018-06-23 03:03:45.051978 Saving checkpoint of model...
+2018-06-23 03:03:48.569851 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch29top5.ckpt
+2018-06-23 03:03:48.570697 Epoch number: 30
+2018-06-23 04:54:50.631285 Start validation
+2018-06-23 05:01:17.039046 Top 1 Validation Accuracy = 0.1065
+2018-06-23 05:01:17.039148 Top 5 Validation Accuracy = 0.2949
+2018-06-23 05:01:17.039169 Saving checkpoint of model...
+2018-06-23 05:01:20.774077 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch30top1.ckpt
+2018-06-23 05:01:20.774706 Saving checkpoint of model...
+2018-06-23 05:01:24.284328 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch30top5.ckpt
+2018-06-23 05:01:24.284768 Epoch number: 31
+2018-06-23 06:52:05.072510 Start validation
+2018-06-23 06:58:34.777474 Top 1 Validation Accuracy = 0.1122
+2018-06-23 06:58:34.777571 Top 5 Validation Accuracy = 0.3066
+2018-06-23 06:58:34.777590 Saving checkpoint of model...
+2018-06-23 06:58:38.884433 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch31top1.ckpt
+2018-06-23 06:58:38.884986 Saving checkpoint of model...
+2018-06-23 06:58:42.425435 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch31top5.ckpt
+2018-06-23 06:58:42.425952 Epoch number: 32
+2018-06-23 08:50:28.132069 Start validation
+2018-06-23 08:56:51.312364 Top 1 Validation Accuracy = 0.1156
+2018-06-23 08:56:51.312461 Top 5 Validation Accuracy = 0.3159
+2018-06-23 08:56:51.312485 Saving checkpoint of model...
+2018-06-23 08:56:54.909582 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch32top1.ckpt
+2018-06-23 08:56:54.910087 Saving checkpoint of model...
+2018-06-23 08:56:58.401573 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch32top5.ckpt
+2018-06-23 08:56:58.401936 Epoch number: 33
+2018-06-23 10:47:12.609851 Start validation
+2018-06-23 10:53:33.277822 Top 1 Validation Accuracy = 0.1206
+2018-06-23 10:53:33.278016 Top 5 Validation Accuracy = 0.3249
+2018-06-23 10:53:33.278042 Saving checkpoint of model...
+2018-06-23 10:53:36.771832 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch33top1.ckpt
+2018-06-23 10:53:36.772273 Saving checkpoint of model...
+2018-06-23 10:53:40.290543 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch33top5.ckpt
+2018-06-23 10:53:40.290985 Epoch number: 34
+2018-06-23 12:50:47.636052 Start validation
+2018-06-23 12:58:03.652803 Top 1 Validation Accuracy = 0.1258
+2018-06-23 12:58:03.652949 Top 5 Validation Accuracy = 0.3348
+2018-06-23 12:58:03.652976 Saving checkpoint of model...
+2018-06-23 12:58:07.232169 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch34top1.ckpt
+2018-06-23 12:58:07.233164 Saving checkpoint of model...
+2018-06-23 12:58:10.870347 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch34top5.ckpt
+2018-06-23 12:58:10.871362 Epoch number: 35
+2018-06-23 14:59:25.082990 Start validation
+2018-06-23 15:06:42.611321 Top 1 Validation Accuracy = 0.1278
+2018-06-23 15:06:42.611409 Top 5 Validation Accuracy = 0.3396
+2018-06-23 15:06:42.611455 Saving checkpoint of model...
+2018-06-23 15:06:46.173577 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch35top1.ckpt
+2018-06-23 15:06:46.174437 Saving checkpoint of model...
+2018-06-23 15:06:49.762051 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch35top5.ckpt
+2018-06-23 15:06:49.763084 Epoch number: 36
+2018-06-23 17:08:29.676534 Start validation
+2018-06-23 17:15:58.057719 Top 1 Validation Accuracy = 0.1334
+2018-06-23 17:15:58.057867 Top 5 Validation Accuracy = 0.3497
+2018-06-23 17:15:58.057888 Saving checkpoint of model...
+2018-06-23 17:16:01.611814 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch36top1.ckpt
+2018-06-23 17:16:01.612876 Saving checkpoint of model...
+2018-06-23 17:16:05.062410 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch36top5.ckpt
+2018-06-23 17:16:05.063491 Epoch number: 37
+2018-06-23 19:17:11.189646 Start validation
+2018-06-23 19:24:21.278515 Top 1 Validation Accuracy = 0.1382
+2018-06-23 19:24:21.278642 Top 5 Validation Accuracy = 0.3576
+2018-06-23 19:24:21.278669 Saving checkpoint of model...
+2018-06-23 19:24:24.845922 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch37top1.ckpt
+2018-06-23 19:24:24.847024 Saving checkpoint of model...
+2018-06-23 19:24:28.552091 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch37top5.ckpt
+2018-06-23 19:24:28.553119 Epoch number: 38
+2018-06-23 21:20:57.003497 Start validation
+2018-06-23 21:27:24.283074 Top 1 Validation Accuracy = 0.1433
+2018-06-23 21:27:24.283182 Top 5 Validation Accuracy = 0.3673
+2018-06-23 21:27:24.283200 Saving checkpoint of model...
+2018-06-23 21:27:27.836478 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch38top1.ckpt
+2018-06-23 21:27:27.836903 Saving checkpoint of model...
+2018-06-23 21:27:31.326725 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch38top5.ckpt
+2018-06-23 21:27:31.327211 Epoch number: 39
+2018-06-23 23:19:24.047251 Start validation
+2018-06-23 23:26:04.095391 Top 1 Validation Accuracy = 0.1460
+2018-06-23 23:26:04.095477 Top 5 Validation Accuracy = 0.3738
+2018-06-23 23:26:04.095495 Saving checkpoint of model...
+2018-06-23 23:26:07.552861 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch39top1.ckpt
+2018-06-23 23:26:07.553203 Saving checkpoint of model...
+2018-06-23 23:26:11.046140 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch39top5.ckpt
+2018-06-23 23:26:11.046509 Epoch number: 40
+2018-06-24 01:16:31.132858 Start validation
+2018-06-24 01:22:41.486199 Top 1 Validation Accuracy = 0.1531
+2018-06-24 01:22:41.486306 Top 5 Validation Accuracy = 0.3848
+2018-06-24 01:22:41.486338 Saving checkpoint of model...
+2018-06-24 01:22:44.970416 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch40top1.ckpt
+2018-06-24 01:22:44.970748 Saving checkpoint of model...
+2018-06-24 01:22:48.384673 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch40top5.ckpt
+2018-06-24 01:22:48.385036 Epoch number: 41
+2018-06-24 03:10:56.321337 Start validation
+2018-06-24 03:17:59.857358 Top 1 Validation Accuracy = 0.1562
+2018-06-24 03:17:59.857530 Top 5 Validation Accuracy = 0.3892
+2018-06-24 03:17:59.857560 Saving checkpoint of model...
+2018-06-24 03:18:03.461712 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch41top1.ckpt
+2018-06-24 03:18:03.462688 Saving checkpoint of model...
+2018-06-24 03:18:07.122562 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch41top5.ckpt
+2018-06-24 03:18:07.123376 Epoch number: 42
+2018-06-24 05:16:31.156469 Start validation
+2018-06-24 05:23:49.301842 Top 1 Validation Accuracy = 0.1597
+2018-06-24 05:23:49.301959 Top 5 Validation Accuracy = 0.3971
+2018-06-24 05:23:49.301985 Saving checkpoint of model...
+2018-06-24 05:23:52.887894 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch42top1.ckpt
+2018-06-24 05:23:52.888747 Saving checkpoint of model...
+2018-06-24 05:23:56.757288 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch42top5.ckpt
+2018-06-24 05:23:56.758311 Epoch number: 43
+2018-06-24 07:25:10.294346 Start validation
+2018-06-24 07:32:30.296387 Top 1 Validation Accuracy = 0.1612
+2018-06-24 07:32:30.296688 Top 5 Validation Accuracy = 0.4014
+2018-06-24 07:32:30.296721 Saving checkpoint of model...
+2018-06-24 07:32:33.941427 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch43top1.ckpt
+2018-06-24 07:32:33.942307 Saving checkpoint of model...
+2018-06-24 07:32:37.573154 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch43top5.ckpt
+2018-06-24 07:32:37.574219 Epoch number: 44
+2018-06-24 09:31:19.150749 Start validation
+2018-06-24 09:37:42.580127 Top 1 Validation Accuracy = 0.1679
+2018-06-24 09:37:42.580243 Top 5 Validation Accuracy = 0.4081
+2018-06-24 09:37:42.580261 Saving checkpoint of model...
+2018-06-24 09:37:46.114257 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch44top1.ckpt
+2018-06-24 09:37:46.114625 Saving checkpoint of model...
+2018-06-24 09:37:49.950575 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch44top5.ckpt
+2018-06-24 09:37:49.950910 Epoch number: 45
+2018-06-24 11:33:07.469822 Start validation
+2018-06-24 11:40:17.564694 Top 1 Validation Accuracy = 0.1705
+2018-06-24 11:40:17.564832 Top 5 Validation Accuracy = 0.4172
+2018-06-24 11:40:17.564860 Saving checkpoint of model...
+2018-06-24 11:40:21.214740 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch45top1.ckpt
+2018-06-24 11:40:21.215387 Saving checkpoint of model...
+2018-06-24 11:40:24.774200 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch45top5.ckpt
+2018-06-24 11:40:24.774911 Epoch number: 46
+2018-06-24 13:40:28.831104 Start validation
+2018-06-24 13:47:34.765879 Top 1 Validation Accuracy = 0.1765
+2018-06-24 13:47:34.766078 Top 5 Validation Accuracy = 0.4244
+2018-06-24 13:47:34.766108 Saving checkpoint of model...
+2018-06-24 13:47:38.380270 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch46top1.ckpt
+2018-06-24 13:47:38.381096 Saving checkpoint of model...
+2018-06-24 13:47:41.927307 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch46top5.ckpt
+2018-06-24 13:47:41.928417 Epoch number: 47
+2018-06-24 15:48:15.666756 Start validation
+2018-06-24 15:54:57.704902 Top 1 Validation Accuracy = 0.1796
+2018-06-24 15:54:57.705025 Top 5 Validation Accuracy = 0.4293
+2018-06-24 15:54:57.705057 Saving checkpoint of model...
+2018-06-24 15:55:01.356318 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch47top1.ckpt
+2018-06-24 15:55:01.357405 Saving checkpoint of model...
+2018-06-24 15:55:04.886636 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch47top5.ckpt
+2018-06-24 15:55:04.887218 Epoch number: 48
+2018-06-24 17:48:47.055994 Start validation
+2018-06-24 17:55:15.955697 Top 1 Validation Accuracy = 0.1831
+2018-06-24 17:55:15.955802 Top 5 Validation Accuracy = 0.4344
+2018-06-24 17:55:15.955818 Saving checkpoint of model...
+2018-06-24 17:55:19.458374 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch48top1.ckpt
+2018-06-24 17:55:19.458745 Saving checkpoint of model...
+2018-06-24 17:55:22.910245 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch48top5.ckpt
+2018-06-24 17:55:22.910712 Epoch number: 49
+2018-06-24 19:46:33.415240 Start validation
+2018-06-24 19:52:58.903219 Top 1 Validation Accuracy = 0.1883
+2018-06-24 19:52:58.903310 Top 5 Validation Accuracy = 0.4416
+2018-06-24 19:52:58.903347 Saving checkpoint of model...
+2018-06-24 19:53:02.493688 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch49top1.ckpt
+2018-06-24 19:53:02.494053 Saving checkpoint of model...
+2018-06-24 19:53:05.906185 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch49top5.ckpt
+2018-06-24 19:53:05.906520 Epoch number: 50
+2018-06-24 21:44:38.576191 Start validation
+2018-06-24 21:51:07.212323 Top 1 Validation Accuracy = 0.1907
+2018-06-24 21:51:07.212415 Top 5 Validation Accuracy = 0.4480
+2018-06-24 21:51:07.212433 Saving checkpoint of model...
+2018-06-24 21:51:10.781073 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch50top1.ckpt
+2018-06-24 21:51:10.781480 Saving checkpoint of model...
+2018-06-24 21:51:14.211738 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch50top5.ckpt
+2018-06-24 21:51:14.212095 Epoch number: 51
+2018-06-24 23:44:38.070679 Start validation
+2018-06-24 23:51:41.453341 Top 1 Validation Accuracy = 0.1967
+2018-06-24 23:51:41.453495 Top 5 Validation Accuracy = 0.4561
+2018-06-24 23:51:41.453522 Saving checkpoint of model...
+2018-06-24 23:51:45.679358 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch51top1.ckpt
+2018-06-24 23:51:45.680098 Saving checkpoint of model...
+2018-06-24 23:51:49.460598 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch51top5.ckpt
+2018-06-24 23:51:49.461474 Epoch number: 52
+2018-06-25 01:51:58.188487 Start validation
+2018-06-25 01:59:20.185628 Top 1 Validation Accuracy = 0.1968
+2018-06-25 01:59:20.185882 Top 5 Validation Accuracy = 0.4593
+2018-06-25 01:59:20.185903 Saving checkpoint of model...
+2018-06-25 01:59:23.765671 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch52top1.ckpt
+2018-06-25 01:59:23.766954 Saving checkpoint of model...
+2018-06-25 01:59:27.275713 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch52top5.ckpt
+2018-06-25 01:59:27.276697 Epoch number: 53
+2018-06-25 03:59:44.113199 Start validation
+2018-06-25 04:07:01.198472 Top 1 Validation Accuracy = 0.2005
+2018-06-25 04:07:01.198576 Top 5 Validation Accuracy = 0.4629
+2018-06-25 04:07:01.198607 Saving checkpoint of model...
+2018-06-25 04:07:05.886095 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch53top1.ckpt
+2018-06-25 04:07:05.887018 Saving checkpoint of model...
+2018-06-25 04:07:09.850444 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch53top5.ckpt
+2018-06-25 04:07:09.851299 Epoch number: 54
+2018-06-25 06:09:33.054849 Start validation
+2018-06-25 06:16:45.904634 Top 1 Validation Accuracy = 0.2049
+2018-06-25 06:16:45.904945 Top 5 Validation Accuracy = 0.4684
+2018-06-25 06:16:45.904976 Saving checkpoint of model...
+2018-06-25 06:16:49.976172 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch54top1.ckpt
+2018-06-25 06:16:49.977228 Saving checkpoint of model...
+2018-06-25 06:16:53.643615 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch54top5.ckpt
+2018-06-25 06:16:53.644840 Epoch number: 55
+2018-06-25 08:11:12.676465 Start validation
+2018-06-25 08:17:47.646218 Top 1 Validation Accuracy = 0.2082
+2018-06-25 08:17:47.646426 Top 5 Validation Accuracy = 0.4748
+2018-06-25 08:17:47.646454 Saving checkpoint of model...
+2018-06-25 08:17:51.232408 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch55top1.ckpt
+2018-06-25 08:17:51.233394 Saving checkpoint of model...
+2018-06-25 08:17:54.744286 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch55top5.ckpt
+2018-06-25 08:17:54.745219 Epoch number: 56
+2018-06-25 10:10:42.868794 Start validation
+2018-06-25 10:17:47.276801 Top 1 Validation Accuracy = 0.2123
+2018-06-25 10:17:47.276923 Top 5 Validation Accuracy = 0.4783
+2018-06-25 10:17:47.276942 Saving checkpoint of model...
+2018-06-25 10:17:51.314298 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch56top1.ckpt
+2018-06-25 10:17:51.314733 Saving checkpoint of model...
+2018-06-25 10:17:55.003604 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch56top5.ckpt
+2018-06-25 10:17:55.004117 Epoch number: 57
+2018-06-25 12:10:18.664811 Start validation
+2018-06-25 12:16:50.545036 Top 1 Validation Accuracy = 0.2137
+2018-06-25 12:16:50.545134 Top 5 Validation Accuracy = 0.4806
+2018-06-25 12:16:50.545152 Saving checkpoint of model...
+2018-06-25 12:16:54.055805 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch57top1.ckpt
+2018-06-25 12:16:54.056847 Saving checkpoint of model...
+2018-06-25 12:16:57.550693 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch57top5.ckpt
+2018-06-25 12:16:57.551011 Epoch number: 58
+2018-06-25 14:08:56.732643 Start validation
+2018-06-25 14:15:26.021492 Top 1 Validation Accuracy = 0.2190
+2018-06-25 14:15:26.021607 Top 5 Validation Accuracy = 0.4888
+2018-06-25 14:15:26.021625 Saving checkpoint of model...
+2018-06-25 14:15:29.662786 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch58top1.ckpt
+2018-06-25 14:15:29.663130 Saving checkpoint of model...
+2018-06-25 14:15:33.142222 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch58top5.ckpt
+2018-06-25 14:15:33.142576 Epoch number: 59
+2018-06-25 16:07:38.944886 Start validation
+2018-06-25 16:14:37.165836 Top 1 Validation Accuracy = 0.2215
+2018-06-25 16:14:37.165961 Top 5 Validation Accuracy = 0.4922
+2018-06-25 16:14:37.165997 Saving checkpoint of model...
+2018-06-25 16:14:40.770327 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch59top1.ckpt
+2018-06-25 16:14:40.770678 Saving checkpoint of model...
+2018-06-25 16:14:44.282248 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch59top5.ckpt
+2018-06-25 16:14:44.282571 Epoch number: 60
+2018-06-25 18:08:36.504152 Start validation
+2018-06-25 18:15:18.673020 Top 1 Validation Accuracy = 0.2251
+2018-06-25 18:15:18.673215 Top 5 Validation Accuracy = 0.4968
+2018-06-25 18:15:18.673232 Saving checkpoint of model...
+2018-06-25 18:15:22.782914 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch60top1.ckpt
+2018-06-25 18:15:22.783263 Saving checkpoint of model...
+2018-06-25 18:15:26.973770 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch60top5.ckpt
+2018-06-25 18:15:26.974669 Epoch number: 61
+2018-06-25 20:10:26.033566 Start validation
+2018-06-25 20:17:31.159067 Top 1 Validation Accuracy = 0.2283
+2018-06-25 20:17:31.159218 Top 5 Validation Accuracy = 0.5020
+2018-06-25 20:17:31.159236 Saving checkpoint of model...
+2018-06-25 20:17:34.661745 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch61top1.ckpt
+2018-06-25 20:17:34.662322 Saving checkpoint of model...
+2018-06-25 20:17:38.217080 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch61top5.ckpt
+2018-06-25 20:17:38.217687 Epoch number: 62
+2018-06-25 22:12:58.501065 Start validation
+2018-06-25 22:20:02.138100 Top 1 Validation Accuracy = 0.2328
+2018-06-25 22:20:02.138288 Top 5 Validation Accuracy = 0.5059
+2018-06-25 22:20:02.138307 Saving checkpoint of model...
+2018-06-25 22:20:05.719770 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch62top1.ckpt
+2018-06-25 22:20:05.720123 Saving checkpoint of model...
+2018-06-25 22:20:09.338563 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch62top5.ckpt
+2018-06-25 22:20:09.339177 Epoch number: 63
+2018-06-26 00:14:40.396733 Start validation
+2018-06-26 00:21:41.233708 Top 1 Validation Accuracy = 0.2356
+2018-06-26 00:21:41.233813 Top 5 Validation Accuracy = 0.5102
+2018-06-26 00:21:41.233830 Saving checkpoint of model...
+2018-06-26 00:21:45.208677 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch63top1.ckpt
+2018-06-26 00:21:45.209587 Saving checkpoint of model...
+2018-06-26 00:21:48.641690 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch63top5.ckpt
+2018-06-26 00:21:48.642001 Epoch number: 64
+2018-06-26 02:13:46.685833 Start validation
+2018-06-26 02:20:26.597042 Top 1 Validation Accuracy = 0.2394
+2018-06-26 02:20:26.597235 Top 5 Validation Accuracy = 0.5145
+2018-06-26 02:20:26.597253 Saving checkpoint of model...
+2018-06-26 02:20:30.306350 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch64top1.ckpt
+2018-06-26 02:20:30.306750 Saving checkpoint of model...
+2018-06-26 02:20:33.866751 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch64top5.ckpt
+2018-06-26 02:20:33.867168 Epoch number: 65
+2018-06-26 04:14:20.980158 Start validation
+2018-06-26 04:20:57.967961 Top 1 Validation Accuracy = 0.2401
+2018-06-26 04:20:57.968173 Top 5 Validation Accuracy = 0.5178
+2018-06-26 04:20:57.968191 Saving checkpoint of model...
+2018-06-26 04:21:01.684462 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch65top1.ckpt
+2018-06-26 04:21:01.685118 Saving checkpoint of model...
+2018-06-26 04:21:05.293177 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch65top5.ckpt
+2018-06-26 04:21:05.293636 Epoch number: 66
+2018-06-26 06:15:32.033850 Start validation
+2018-06-26 06:22:06.291903 Top 1 Validation Accuracy = 0.2442
+2018-06-26 06:22:06.292089 Top 5 Validation Accuracy = 0.5208
+2018-06-26 06:22:06.292108 Saving checkpoint of model...
+2018-06-26 06:22:09.830262 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch66top1.ckpt
+2018-06-26 06:22:09.831182 Saving checkpoint of model...
+2018-06-26 06:22:13.295553 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch66top5.ckpt
+2018-06-26 06:22:13.295932 Epoch number: 67
+2018-06-26 08:13:57.385122 Start validation
+2018-06-26 08:20:26.749204 Top 1 Validation Accuracy = 0.2482
+2018-06-26 08:20:26.749344 Top 5 Validation Accuracy = 0.5240
+2018-06-26 08:20:26.749363 Saving checkpoint of model...
+2018-06-26 08:20:30.465422 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch67top1.ckpt
+2018-06-26 08:20:30.465771 Saving checkpoint of model...
+2018-06-26 08:20:33.999740 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch67top5.ckpt
+2018-06-26 08:20:34.000251 Epoch number: 68
+2018-06-26 10:12:40.246682 Start validation
+2018-06-26 10:19:10.957065 Top 1 Validation Accuracy = 0.2505
+2018-06-26 10:19:10.957277 Top 5 Validation Accuracy = 0.5272
+2018-06-26 10:19:10.957310 Saving checkpoint of model...
+2018-06-26 10:19:14.479133 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch68top1.ckpt
+2018-06-26 10:19:14.479673 Saving checkpoint of model...
+2018-06-26 10:19:18.113481 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch68top5.ckpt
+2018-06-26 10:19:18.114365 Epoch number: 69
+2018-06-26 12:11:17.758311 Start validation
+2018-06-26 12:17:46.122163 Top 1 Validation Accuracy = 0.2507
+2018-06-26 12:17:46.122302 Top 5 Validation Accuracy = 0.5305
+2018-06-26 12:17:46.122320 Saving checkpoint of model...
+2018-06-26 12:17:49.649888 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch69top1.ckpt
+2018-06-26 12:17:49.650430 Saving checkpoint of model...
+2018-06-26 12:17:53.266817 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch69top5.ckpt
+2018-06-26 12:17:53.267158 Epoch number: 70
+2018-06-26 14:10:27.950739 Start validation
+2018-06-26 14:17:28.795048 Top 1 Validation Accuracy = 0.2551
+2018-06-26 14:17:28.795313 Top 5 Validation Accuracy = 0.5358
+2018-06-26 14:17:28.795330 Saving checkpoint of model...
+2018-06-26 14:17:32.478864 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch70top1.ckpt
+2018-06-26 14:17:32.479404 Saving checkpoint of model...
+2018-06-26 14:17:35.905094 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch70top5.ckpt
+2018-06-26 14:17:35.906101 Epoch number: 71
+2018-06-26 16:10:15.484303 Start validation
+2018-06-26 16:16:43.355476 Top 1 Validation Accuracy = 0.2563
+2018-06-26 16:16:43.355640 Top 5 Validation Accuracy = 0.5347
+2018-06-26 16:16:43.355660 Saving checkpoint of model...
+2018-06-26 16:16:47.862004 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch71top1.ckpt
+2018-06-26 16:16:47.863209 Saving checkpoint of model...
+2018-06-26 16:16:51.738842 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch71top5.ckpt
+2018-06-26 16:16:51.739176 Epoch number: 72
+2018-06-26 18:08:29.197882 Start validation
+2018-06-26 18:14:56.218916 Top 1 Validation Accuracy = 0.2601
+2018-06-26 18:14:56.219146 Top 5 Validation Accuracy = 0.5388
+2018-06-26 18:14:56.219164 Saving checkpoint of model...
+2018-06-26 18:14:59.823275 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch72top1.ckpt
+2018-06-26 18:14:59.823642 Saving checkpoint of model...
+2018-06-26 18:15:03.445981 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch72top5.ckpt
+2018-06-26 18:15:03.446346 Epoch number: 73
+2018-06-26 20:06:56.680421 Start validation
+2018-06-26 20:13:20.092929 Top 1 Validation Accuracy = 0.2654
+2018-06-26 20:13:20.093109 Top 5 Validation Accuracy = 0.5442
+2018-06-26 20:13:20.093141 Saving checkpoint of model...
+2018-06-26 20:13:23.624420 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch73top1.ckpt
+2018-06-26 20:13:23.624883 Saving checkpoint of model...
+2018-06-26 20:13:27.121984 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch73top5.ckpt
+2018-06-26 20:13:27.122420 Epoch number: 74
+2018-06-26 22:05:30.277608 Start validation
+2018-06-26 22:12:00.526616 Top 1 Validation Accuracy = 0.2675
+2018-06-26 22:12:00.526733 Top 5 Validation Accuracy = 0.5468
+2018-06-26 22:12:00.526751 Saving checkpoint of model...
+2018-06-26 22:12:04.006549 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch74top1.ckpt
+2018-06-26 22:12:04.007695 Saving checkpoint of model...
+2018-06-26 22:12:07.599210 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch74top5.ckpt
+2018-06-26 22:12:07.599550 Epoch number: 75
+2018-06-27 00:04:23.753936 Start validation
+2018-06-27 00:10:55.431685 Top 1 Validation Accuracy = 0.2683
+2018-06-27 00:10:55.431824 Top 5 Validation Accuracy = 0.5501
+2018-06-27 00:10:55.431848 Saving checkpoint of model...
+2018-06-27 00:10:58.980673 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch75top1.ckpt
+2018-06-27 00:10:58.981037 Saving checkpoint of model...
+2018-06-27 00:11:02.626466 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch75top5.ckpt
+2018-06-27 00:11:02.627412 Epoch number: 76
+2018-06-27 02:03:28.703258 Start validation
+2018-06-27 02:10:00.440848 Top 1 Validation Accuracy = 0.2712
+2018-06-27 02:10:00.441039 Top 5 Validation Accuracy = 0.5532
+2018-06-27 02:10:00.441074 Saving checkpoint of model...
+2018-06-27 02:10:04.280858 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch76top1.ckpt
+2018-06-27 02:10:04.281226 Saving checkpoint of model...
+2018-06-27 02:10:07.803135 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch76top5.ckpt
+2018-06-27 02:10:07.803496 Epoch number: 77
+2018-06-27 04:02:53.885096 Start validation
+2018-06-27 04:09:28.929825 Top 1 Validation Accuracy = 0.2729
+2018-06-27 04:09:28.930054 Top 5 Validation Accuracy = 0.5549
+2018-06-27 04:09:28.930071 Saving checkpoint of model...
+2018-06-27 04:09:32.949140 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch77top1.ckpt
+2018-06-27 04:09:32.949518 Saving checkpoint of model...
+2018-06-27 04:09:37.002283 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch77top5.ckpt
+2018-06-27 04:09:37.003532 Epoch number: 78
+2018-06-27 06:02:29.389827 Start validation
+2018-06-27 06:09:02.043439 Top 1 Validation Accuracy = 0.2763
+2018-06-27 06:09:02.043629 Top 5 Validation Accuracy = 0.5578
+2018-06-27 06:09:02.043647 Saving checkpoint of model...
+2018-06-27 06:09:06.010029 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch78top1.ckpt
+2018-06-27 06:09:06.010417 Saving checkpoint of model...
+2018-06-27 06:09:09.684890 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch78top5.ckpt
+2018-06-27 06:09:09.685531 Epoch number: 79
+2018-06-27 08:01:21.329418 Start validation
+2018-06-27 08:08:03.633023 Top 1 Validation Accuracy = 0.2792
+2018-06-27 08:08:03.633172 Top 5 Validation Accuracy = 0.5613
+2018-06-27 08:08:03.633188 Saving checkpoint of model...
+2018-06-27 08:08:07.667616 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch79top1.ckpt
+2018-06-27 08:08:07.667947 Saving checkpoint of model...
+2018-06-27 08:08:11.546512 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch79top5.ckpt
+2018-06-27 08:08:11.546890 Epoch number: 80
+2018-06-27 10:00:31.352600 Start validation
+2018-06-27 10:07:12.179513 Top 1 Validation Accuracy = 0.2808
+2018-06-27 10:07:12.179636 Top 5 Validation Accuracy = 0.5627
+2018-06-27 10:07:12.179654 Saving checkpoint of model...
+2018-06-27 10:07:16.378870 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch80top1.ckpt
+2018-06-27 10:07:16.379194 Saving checkpoint of model...
+2018-06-27 10:07:20.146321 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch80top5.ckpt
+2018-06-27 10:07:20.146659 Epoch number: 81
+2018-06-27 12:00:06.150823 Start validation
+2018-06-27 12:06:57.360857 Top 1 Validation Accuracy = 0.2840
+2018-06-27 12:06:57.360975 Top 5 Validation Accuracy = 0.5647
+2018-06-27 12:06:57.360994 Saving checkpoint of model...
+2018-06-27 12:07:01.895059 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch81top1.ckpt
+2018-06-27 12:07:01.895468 Saving checkpoint of model...
+2018-06-27 12:07:05.747629 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch81top5.ckpt
+2018-06-27 12:07:05.748755 Epoch number: 82
+2018-06-27 13:59:33.257849 Start validation
+2018-06-27 14:06:04.690006 Top 1 Validation Accuracy = 0.2859
+2018-06-27 14:06:04.690199 Top 5 Validation Accuracy = 0.5664
+2018-06-27 14:06:04.690216 Saving checkpoint of model...
+2018-06-27 14:06:08.864624 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch82top1.ckpt
+2018-06-27 14:06:08.865192 Saving checkpoint of model...
+2018-06-27 14:06:12.324994 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch82top5.ckpt
+2018-06-27 14:06:12.325414 Epoch number: 83
+2018-06-27 15:58:00.247483 Start validation
+2018-06-27 16:04:31.852409 Top 1 Validation Accuracy = 0.2886
+2018-06-27 16:04:31.852641 Top 5 Validation Accuracy = 0.5711
+2018-06-27 16:04:31.852658 Saving checkpoint of model...
+2018-06-27 16:04:36.070933 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch83top1.ckpt
+2018-06-27 16:04:36.071439 Saving checkpoint of model...
+2018-06-27 16:04:39.668305 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch83top5.ckpt
+2018-06-27 16:04:39.668610 Epoch number: 84
+2018-06-27 17:56:24.965955 Start validation
+2018-06-27 18:02:52.102175 Top 1 Validation Accuracy = 0.2910
+2018-06-27 18:02:52.102369 Top 5 Validation Accuracy = 0.5715
+2018-06-27 18:02:52.102387 Saving checkpoint of model...
+2018-06-27 18:02:56.270772 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch84top1.ckpt
+2018-06-27 18:02:56.271240 Saving checkpoint of model...
+2018-06-27 18:02:59.851270 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch84top5.ckpt
+2018-06-27 18:02:59.851995 Epoch number: 85
+2018-06-27 19:54:42.302101 Start validation
+2018-06-27 20:01:10.448297 Top 1 Validation Accuracy = 0.2927
+2018-06-27 20:01:10.448488 Top 5 Validation Accuracy = 0.5742
+2018-06-27 20:01:10.448507 Saving checkpoint of model...
+2018-06-27 20:01:14.709319 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch85top1.ckpt
+2018-06-27 20:01:14.710437 Saving checkpoint of model...
+2018-06-27 20:01:18.380958 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch85top5.ckpt
+2018-06-27 20:01:18.381564 Epoch number: 86
+2018-06-27 21:53:15.021449 Start validation
+2018-06-27 21:59:49.082344 Top 1 Validation Accuracy = 0.2965
+2018-06-27 21:59:49.082534 Top 5 Validation Accuracy = 0.5777
+2018-06-27 21:59:49.082552 Saving checkpoint of model...
+2018-06-27 21:59:53.255554 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch86top1.ckpt
+2018-06-27 21:59:53.255901 Saving checkpoint of model...
+2018-06-27 21:59:56.822963 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch86top5.ckpt
+2018-06-27 21:59:56.823338 Epoch number: 87
+2018-06-27 23:52:17.566356 Start validation
+2018-06-27 23:59:08.763165 Top 1 Validation Accuracy = 0.2969
+2018-06-27 23:59:08.763332 Top 5 Validation Accuracy = 0.5769
+2018-06-27 23:59:08.763352 Saving checkpoint of model...
+2018-06-27 23:59:12.907816 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch87top1.ckpt
+2018-06-27 23:59:12.908357 Saving checkpoint of model...
+2018-06-27 23:59:16.583568 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch87top5.ckpt
+2018-06-27 23:59:16.584511 Epoch number: 88
+2018-06-28 01:51:52.095058 Start validation
+2018-06-28 01:58:21.710834 Top 1 Validation Accuracy = 0.3002
+2018-06-28 01:58:21.711002 Top 5 Validation Accuracy = 0.5816
+2018-06-28 01:58:21.711024 Saving checkpoint of model...
+2018-06-28 01:58:25.719372 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch88top1.ckpt
+2018-06-28 01:58:25.719724 Saving checkpoint of model...
+2018-06-28 01:58:29.368836 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch88top5.ckpt
+2018-06-28 01:58:29.369179 Epoch number: 89
+2018-06-28 03:51:43.457753 Start validation
+2018-06-28 03:58:22.235680 Top 1 Validation Accuracy = 0.3020
+2018-06-28 03:58:22.235910 Top 5 Validation Accuracy = 0.5832
+2018-06-28 03:58:22.235926 Saving checkpoint of model...
+2018-06-28 03:58:26.461784 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch89top1.ckpt
+2018-06-28 03:58:26.462147 Saving checkpoint of model...
+2018-06-28 03:58:30.035210 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch89top5.ckpt
+2018-06-28 03:58:30.035678 Epoch number: 90
+2018-06-28 05:51:57.325332 Start validation
+2018-06-28 05:58:34.512063 Top 1 Validation Accuracy = 0.3040
+2018-06-28 05:58:34.512220 Top 5 Validation Accuracy = 0.5846
+2018-06-28 05:58:34.512237 Saving checkpoint of model...
+2018-06-28 05:58:38.546662 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch90top1.ckpt
+2018-06-28 05:58:38.547717 Saving checkpoint of model...
+2018-06-28 05:58:42.260931 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch90top5.ckpt
+2018-06-28 05:58:42.261506 Epoch number: 91
+2018-06-28 07:52:05.928611 Start validation
+2018-06-28 07:58:48.314964 Top 1 Validation Accuracy = 0.3045
+2018-06-28 07:58:48.315074 Top 5 Validation Accuracy = 0.5872
+2018-06-28 07:58:48.315101 Saving checkpoint of model...
+2018-06-28 07:58:52.395919 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch91top1.ckpt
+2018-06-28 07:58:52.396384 Saving checkpoint of model...
+2018-06-28 07:58:55.929837 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch91top5.ckpt
+2018-06-28 07:58:55.930204 Epoch number: 92
+2018-06-28 09:53:15.592410 Start validation
+2018-06-28 10:00:01.017417 Top 1 Validation Accuracy = 0.3086
+2018-06-28 10:00:01.017671 Top 5 Validation Accuracy = 0.5882
+2018-06-28 10:00:01.017693 Saving checkpoint of model...
+2018-06-28 10:00:05.265292 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch92top1.ckpt
+2018-06-28 10:00:05.265690 Saving checkpoint of model...
+2018-06-28 10:00:08.892780 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch92top5.ckpt
+2018-06-28 10:00:08.893155 Epoch number: 93
+2018-06-28 11:54:26.892881 Start validation
+2018-06-28 12:01:02.616604 Top 1 Validation Accuracy = 0.3099
+2018-06-28 12:01:02.616850 Top 5 Validation Accuracy = 0.5913
+2018-06-28 12:01:02.616870 Saving checkpoint of model...
+2018-06-28 12:01:07.146892 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch93top1.ckpt
+2018-06-28 12:01:07.147371 Saving checkpoint of model...
+2018-06-28 12:01:10.899853 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch93top5.ckpt
+2018-06-28 12:01:10.900465 Epoch number: 94
+2018-06-28 13:54:55.742420 Start validation
+2018-06-28 14:01:30.657385 Top 1 Validation Accuracy = 0.3110
+2018-06-28 14:01:30.657478 Top 5 Validation Accuracy = 0.5915
+2018-06-28 14:01:30.657497 Saving checkpoint of model...
+2018-06-28 14:01:35.138414 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch94top1.ckpt
+2018-06-28 14:01:35.138787 Saving checkpoint of model...
+2018-06-28 14:01:38.741622 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch94top5.ckpt
+2018-06-28 14:01:38.741982 Epoch number: 95
+2018-06-28 15:55:04.157914 Start validation
+2018-06-28 16:01:34.876994 Top 1 Validation Accuracy = 0.3135
+2018-06-28 16:01:34.877102 Top 5 Validation Accuracy = 0.5939
+2018-06-28 16:01:34.877121 Saving checkpoint of model...
+2018-06-28 16:01:39.004666 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch95top1.ckpt
+2018-06-28 16:01:39.005115 Saving checkpoint of model...
+2018-06-28 16:01:42.540124 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch95top5.ckpt
+2018-06-28 16:01:42.540519 Epoch number: 96
+2018-06-28 17:55:13.373744 Start validation
+2018-06-28 18:01:47.239503 Top 1 Validation Accuracy = 0.3142
+2018-06-28 18:01:47.239592 Top 5 Validation Accuracy = 0.5943
+2018-06-28 18:01:47.239612 Saving checkpoint of model...
+2018-06-28 18:01:51.409516 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch96top1.ckpt
+2018-06-28 18:01:51.409920 Saving checkpoint of model...
+2018-06-28 18:01:55.069356 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch96top5.ckpt
+2018-06-28 18:01:55.069883 Epoch number: 97
+2018-06-28 19:55:36.483197 Start validation
+2018-06-28 20:02:09.218532 Top 1 Validation Accuracy = 0.3177
+2018-06-28 20:02:09.218619 Top 5 Validation Accuracy = 0.5990
+2018-06-28 20:02:09.218638 Saving checkpoint of model...
+2018-06-28 20:02:13.612367 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch97top1.ckpt
+2018-06-28 20:02:13.613375 Saving checkpoint of model...
+2018-06-28 20:02:17.229908 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch97top5.ckpt
+2018-06-28 20:02:17.230518 Epoch number: 98
+2018-06-28 21:56:01.939630 Start validation
+2018-06-28 22:02:39.322910 Top 1 Validation Accuracy = 0.3197
+2018-06-28 22:02:39.323018 Top 5 Validation Accuracy = 0.6003
+2018-06-28 22:02:39.323037 Saving checkpoint of model...
+2018-06-28 22:02:43.394980 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch98top1.ckpt
+2018-06-28 22:02:43.395369 Saving checkpoint of model...
+2018-06-28 22:02:47.104815 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch98top5.ckpt
+2018-06-28 22:02:47.105174 Epoch number: 99
+2018-06-28 23:56:29.288884 Start validation
+2018-06-29 00:03:03.653431 Top 1 Validation Accuracy = 0.3202
+2018-06-29 00:03:03.653542 Top 5 Validation Accuracy = 0.6008
+2018-06-29 00:03:03.653560 Saving checkpoint of model...
+2018-06-29 00:03:07.854784 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch99top1.ckpt
+2018-06-29 00:03:07.855386 Saving checkpoint of model...
+2018-06-29 00:03:11.458986 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch99top5.ckpt
+2018-06-29 00:03:11.459340 Epoch number: 100
+2018-06-29 01:57:02.679999 Start validation
+2018-06-29 02:03:31.665399 Top 1 Validation Accuracy = 0.3223
+2018-06-29 02:03:31.665509 Top 5 Validation Accuracy = 0.6029
+2018-06-29 02:03:31.665528 Saving checkpoint of model...
+2018-06-29 02:03:35.787701 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch100top1.ckpt
+2018-06-29 02:03:35.788260 Saving checkpoint of model...
+2018-06-29 02:03:39.447192 Model checkpoint saved at tmp/finetune_alexnet/checkpoints/fcrnn/0.0_fcrnn_occludeCenter_model0.8.128_epoch100top5.ckpt
