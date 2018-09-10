@@ -34,7 +34,7 @@ train_file = 'devkit/train/shuffled_training_ground_truth_bboxOnly.txt'
 val_file = 'devkit/validation/validation_ground_truth.txt'
 
 # Learning params
-learning_rate = 0.001
+learning_rate = 0.01
 num_epochs = 100
 batch_size = 128
 occlusion_ratio = float(sys.argv[1])
