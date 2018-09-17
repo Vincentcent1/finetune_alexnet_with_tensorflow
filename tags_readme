@@ -13,6 +13,15 @@
 3.1.1
 	Fixed wrong import and input and output dimension in alexnetRNN_single_lockedWeights.py
 
+3.2.0
+    Use all data for training, input image is a single image, locked weights, lstm after FCN
+    filename:
+        finetune_tfrecords_FCRNN_single_locked_all.py
+3.3.0
+    Use all data for training, 5 crops, locked weights, lstm after FCN
+    filename:
+        finetune_tfrecords_FCRNN_locked_all.py
+    
 
 build_imagenet_data.py - for all images and no check for bbox
 build_imagenet_data_all1.py - for all images and there is a check for bbox, if there is no bbox, bbox coordinates becomes all 0.0
