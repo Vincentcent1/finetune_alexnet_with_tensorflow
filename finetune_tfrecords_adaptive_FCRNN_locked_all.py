@@ -34,7 +34,8 @@ train_file = 'devkit/train/shuffled_training_ground_truth_bboxOnly.txt'
 val_file = 'devkit/validation/validation_ground_truth.txt'
 
 # Learning params
-learning_rate = 0.01
+learning_rate_input = 0.01
+learning_rate = tf.placeholder(tf.float32, shape=[])
 num_epochs = 100
 batch_size = 128
 occlusion_ratio = float(sys.argv[1])
@@ -172,10 +173,9 @@ with tf.Session(config=config) as sess:
     for epoch in range(num_epochs):
 
         print("{} Epoch number: {}".format(datetime.now(), epoch+1))
-	sys.stdout.flush()
+    	sys.stdout.flush()
 
         # Initialize iterator with the training dataset
-
         for step in range(train_batches_per_epoch):
 
             # get next batch of data
@@ -185,7 +185,8 @@ with tf.Session(config=config) as sess:
             # And run the training op
             sess.run(train_op, feed_dict={x: img_batch,
                                           y: label_batch,
-                                          keep_prob: dropout_rate})
+                                          keep_prob: dropout_rate,
+                                          learning_rate: learning_rate_input})
             #end_time2 = time.time()
             #print("Batching: {}".format(end_time1-start_time))
             #print("Training Op: {}".format(end_time2-end_time1))
@@ -217,50 +218,48 @@ with tf.Session(config=config) as sess:
         print("{} Top 5 Validation Accuracy = {:.4f}".format(datetime.now(),top5val_acc))
 
         if (len(bestCheckpoints[0]) < 3):
-          bestCheckpoints[0].append(top1val_acc)
-          bestCheckpoints[1].append(top5val_acc)
-          bestCheckpoints[0].sort()
-          bestCheckpoints[1].sort()
-	  print("{} Saving checkpoint of model...".format(datetime.now()))
-          # save checkpoint of the model
-          checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_fcrnn_locked_occludeCenter_model0.8.128_epoch'+str(epoch+1)+'top1.ckpt')
-          save_path = saver_top1.save(sess, checkpoint_name)
+            bestCheckpoints[0].append(top1val_acc)
+            bestCheckpoints[1].append(top5val_acc)
+            bestCheckpoints[0].sort()
+            bestCheckpoints[1].sort()
+            print("{} Saving checkpoint of model...".format(datetime.now()))
 
-          print("{} Model checkpoint saved at {}".format(datetime.now(),
-                                                         checkpoint_name))
-	  print("{} Saving checkpoint of model...".format(datetime.now()))
-          # save checkpoint of the model
-          checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_fcrnn_locked_occludeCenter_model0.8.128_epoch'+str(epoch+1)+'top5.ckpt')
-          save_path = saver_top5.save(sess, checkpoint_name)
+            # save checkpoint of the model
+            checkpoint_name = os.path.join(checkpoint_path, str(occlusion_ratio) + '_fcrnn_locked_occludeCenter_model0.8.128_epoch'+str(epoch+1)+'top1.ckpt')
+            save_path = saver_top1.save(sess, checkpoint_name)
+            print("{} Model checkpoint saved at {}".format(datetime.now(), checkpoint_name))
+            print("{} Saving checkpoint of model...".format(datetime.now()))
 
-          print("{} Model checkpoint saved at {}".format(datetime.now(),
-                                                         checkpoint_name))
-          sys.stdout.flush()
-          continue
-	if (bestCheckpoints[0][0] < top1val_acc):
-          bestCheckpoints[0][0] = top1val_acc
-          bestCheckpoints[0].sort()
-          print("{} Saving checkpoint of model...".format(datetime.now()))
-          # save checkpoint of the model
-          checkpoint_name = os.path.join(checkpoint_path,
-                                         str(occlusion_ratio) + '_fcrnn_locked_occludeCenter_model0.8.128_epoch'+str(epoch+1)+'top1.ckpt')
-          save_path = saver_top1.save(sess, checkpoint_name)
+            # save checkpoint of the model
+            checkpoint_name = os.path.join(checkpoint_path, str(occlusion_ratio) + '_fcrnn_locked_occludeCenter_model0.8.128_epoch'+str(epoch+1)+'top5.ckpt')
+            save_path = saver_top5.save(sess, checkpoint_name)
+            print("{} Model checkpoint saved at {}".format(datetime.now(),checkpoint_name))
+            sys.stdout.flush()
+            continue
+        improved = False
+        if (bestCheckpoints[0][0] < top1val_acc):
+            bestCheckpoints[0][0] = top1val_acc
+            bestCheckpoints[0].sort()
+            print("{} Saving checkpoint of model...".format(datetime.now()))
+            # save checkpoint of the model
+            checkpoint_name = os.path.join(checkpoint_path, str(occlusion_ratio) + '_fcrnn_locked_occludeCenter_model0.8.128_epoch'+str(epoch+1)+'top1.ckpt')
+            save_path = saver_top1.save(sess, checkpoint_name)
 
-          print("{} Model checkpoint saved at {}".format(datetime.now(),
+            print("{} Model checkpoint saved at {}".format(datetime.now(),
                                                          checkpoint_name))
-          sys.stdout.flush()
+            sys.stdout.flush()
+            improved = True
         if bestCheckpoints[1][0] < top5val_acc:
-          bestCheckpoints[1][0] = top5val_acc
-          bestCheckpoints[1].sort()
-          print("{} Saving checkpoint of model...".format(datetime.now()))
-          # save checkpoint of the model
-          checkpoint_name = os.path.join(checkpoint_path,
+            bestCheckpoints[1][0] = top5val_acc
+            bestCheckpoints[1].sort()
+            print("{} Saving checkpoint of model...".format(datetime.now()))
+            # save checkpoint of the model
+            checkpoint_name = os.path.join(checkpoint_path,
                                          str(occlusion_ratio) + '_fcrnn_locked_occludeCenter_model0.8.128_epoch'+str(epoch+1)+'top5.ckpt')
-          save_path = saver_top5.save(sess, checkpoint_name)
+            save_path = saver_top5.save(sess, checkpoint_name)
 
-          print("{} Model checkpoint saved at {}".format(datetime.now(),
-                                                         checkpoint_name))
-          sys.stdout.flush()
-
+            print("{} Model checkpoint saved at {}".format(datetime.now(), checkpoint_name))
+            sys.stdout.flush()
+            improved = True
+        if not improved:
+            learning_rate_input = 0.5 * learning_rate_input
