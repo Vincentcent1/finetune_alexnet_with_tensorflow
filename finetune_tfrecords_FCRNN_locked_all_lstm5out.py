@@ -19,7 +19,7 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.python import debug as tf_debug
 
-from alexnetFCRNN_lockedWeights import AlexNet
+from alexnetFCRNN_lockedWeights_lstm5out import AlexNet
 from datagenerator_tfrecords_RNN_all import ImageDataGenerator
 from datetime import datetime
 Iterator = tf.data.Iterator
@@ -88,22 +88,22 @@ keep_prob = tf.placeholder(tf.float32)
 model = AlexNet(x, keep_prob, num_classes, train_layers, batch_size)
 
 # Link variable to model output
-score = model.fc8
+scores = model.fc8
 
 # List of trainable variables of the layers we want to train
 # var_list = [v for v in tf.trainable_variables() if v.name.split('/')[0] in train_layers]
 
 # Op for calculating the loss
 with tf.name_scope("cross_ent"):
-    loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=score,
-                                                                  labels=y))
-
+    losses = []
+    for step in range(5):
+        loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=scores[:,step], labels=y))
+        losses.append(loss)
 # Train op
 with tf.name_scope("train"):
     # Get gradients of all trainable variables
-    gradients = tf.gradients(loss, tf.trainable_variables())
+    gradients = tf.gradients(losses, tf.trainable_variables())
     gradients = list(zip(gradients, tf.trainable_variables()))
-
     # Create optimizer and apply gradient descent to the trainable variables
     optimizer = tf.train.GradientDescentOptimizer(learning_rate)
     train_op = optimizer.apply_gradients(grads_and_vars=gradients)
@@ -124,10 +124,10 @@ tf.summary.scalar('cross_entropy', loss)
 with tf.name_scope("accuracy"):
     label = tf.argmax(y,-1)
     label2 = tf.cast(tf.expand_dims(label,1),tf.int32)
-    _top5prob,top5index = tf.nn.top_k(score,5,name = "top5index")
+    _top5prob,top5index = tf.nn.top_k(scores[:,4],5,name = "top5index")
     top5acc = tf.reduce_sum(tf.cast(tf.equal(label2,top5index),tf.int32),-1)
     top5accMean = tf.reduce_mean(tf.cast(top5acc,tf.float32))
-    top1acc = tf.equal(tf.argmax(score, -1), label)
+    top1acc = tf.equal(tf.argmax(scores[:,4], -1), label)
     top1accMean = tf.reduce_mean(tf.cast(top1acc, tf.float32))
 
 # Add the accuracy to the summary
@@ -141,8 +141,8 @@ merged_summary = tf.summary.merge_all()
 writer = tf.summary.FileWriter(filewriter_path)
 
 # Initialize an saver for store model checkpoints
-saver_top1 = tf.train.Saver(max_to_keep=3)
-saver_top5 = tf.train.Saver(max_to_keep=3)
+saver_top1 = tf.train.Saver(max_to_keep=1)
+saver_top5 = tf.train.Saver(max_to_keep=1)
 
 # Get the number of training/validation steps per epoch
 train_batches_per_epoch = int(np.floor(544545/batch_size))
@@ -217,7 +217,7 @@ with tf.Session(config=config) as sess:
                                                        top1val_acc))
         print("{} Top 5 Validation Accuracy = {:.4f}".format(datetime.now(),top5val_acc))
 
-        if (len(bestCheckpoints[0]) < 3):
+        if len(bestCheckpoints[0]) < 3:
             bestCheckpoints[0].append(top1val_acc)
             bestCheckpoints[1].append(top5val_acc)
             bestCheckpoints[0].sort()
@@ -236,7 +236,7 @@ with tf.Session(config=config) as sess:
             print("{} Model checkpoint saved at {}".format(datetime.now(),checkpoint_name))
             sys.stdout.flush()
             continue
-        if (bestCheckpoints[0][0] < top1val_acc):
+        if bestCheckpoints[0][0] < top1val_acc:
             bestCheckpoints[0][0] = top1val_acc
             bestCheckpoints[0].sort()
             print("{} Saving checkpoint of model...".format(datetime.now()))
@@ -244,7 +244,8 @@ with tf.Session(config=config) as sess:
             checkpoint_name = os.path.join(checkpoint_path, str(occlusion_ratio) + '_fcrnn_locked_occludeCenter_model0.8.128_epoch'+str(epoch+1)+'top1.ckpt')
             save_path = saver_top1.save(sess, checkpoint_name)
 
-            print("{} Model checkpoint saved at {}".format(datetime.now(),checkpoint_name))
+            print("{} Model checkpoint saved at {}".format(datetime.now(),
+                                                         checkpoint_name))
             sys.stdout.flush()
         if bestCheckpoints[1][0] < top5val_acc:
             bestCheckpoints[1][0] = top5val_acc
@@ -261,6 +262,4 @@ with tf.Session(config=config) as sess:
             continue
         else:
             learning_rate_input = 0.5 * learning_rate_input
-            print('No improvement in validation accuracy, halving learning rate')
-            sys.stdout.flush()
-            
+            print('No improvement in top1 validation accuracy, halving learning rate')
