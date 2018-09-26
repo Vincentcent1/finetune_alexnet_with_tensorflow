@@ -33,6 +33,12 @@
     filename:
         finetune_tfrecords_FCRNN_locked_all_lstm5out.py
         alexnetFCRNN_lockedWeights_lstm5out.py
+3.6.0
+    Added code for lstm with 5 outputs and losses, where lstm is after convolutional layer
+    filename:
+        finetune_tfrecords_RNN_locked_all_lstm5out.py
+        alexnetRNN_lockedWeights_lstm5out.py
+
 
 build_imagenet_data.py - for all images and no check for bbox
 build_imagenet_data_all1.py - for all images and there is a check for bbox, if there is no bbox, bbox coordinates becomes all 0.0
