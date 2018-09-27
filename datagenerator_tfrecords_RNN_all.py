@@ -64,6 +64,7 @@ class ImageDataGenerator(object):
         dataset = dataset.repeat()  # Repeat the input indefinitely.
         dataset = dataset.shuffle(buffer_size=buffer_size)
         dataset = dataset.batch(batch_size)
+        dataset = dataset.prefetch(batch_size)
 
         self.iterator = dataset.make_one_shot_iterator()
 
